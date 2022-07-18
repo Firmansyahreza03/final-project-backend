@@ -21,4 +21,8 @@ public class PollingHdr extends BaseEntity {
 	public void setPollingName(String pollingName) {
 		this.pollingName = pollingName;
 	}
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

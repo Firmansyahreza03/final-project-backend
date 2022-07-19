@@ -2,10 +2,12 @@ package com.lawencon.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.lawencon.base.BaseEntity;
 
 @Entity
+@Table(name = "comm_file")
 public class File extends BaseEntity {
 
 	private static final long serialVersionUID = -1864343559952755777L;

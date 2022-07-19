@@ -10,11 +10,8 @@ import javax.persistence.UniqueConstraint;
 import com.lawencon.base.BaseEntity;
 
 @Entity
-@Table(uniqueConstraints = {
-		@UniqueConstraint(
-				name = "forum_code_bk",
-				columnNames = {"forum_code"})		
-})
+@Table(name = "comm_forum_hdr", uniqueConstraints = {
+		@UniqueConstraint(name = "forum_code_bk", columnNames = { "forum_code" }) })
 public class ForumHdr extends BaseEntity {
 
 	private static final long serialVersionUID = 2890252614003219109L;

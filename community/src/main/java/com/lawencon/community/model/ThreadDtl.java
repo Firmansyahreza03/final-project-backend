@@ -21,9 +21,6 @@ public class ThreadDtl extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@Column(name = "is_liked")
-	private Boolean isLiked;
-
 	@OneToOne
 	@JoinColumn(name = "hdr_id")
 	private ThreadHdr hdr;
@@ -42,14 +39,6 @@ public class ThreadDtl extends BaseEntity {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Boolean getIsLiked() {
-		return isLiked;
-	}
-
-	public void setIsLiked(Boolean isLiked) {
-		this.isLiked = isLiked;
 	}
 
 	public ThreadHdr getHdr() {

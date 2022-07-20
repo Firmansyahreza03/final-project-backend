@@ -7,7 +7,7 @@ public class PojoUpdateMemberCommunityReq {
 	@NotNull(message = "Id cannot be empty")
 	private String id;
 	@NotNull(message = "Version cannot be empty")
-	private Long version;
+	private Integer version;
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 
@@ -17,10 +17,10 @@ public class PojoUpdateMemberCommunityReq {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Long getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
-	public void setVersion(Long version) {
+	public void setVersion(Integer version) {
 		this.version = version;
 	}
 	public Boolean getIsActive() {

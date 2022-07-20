@@ -7,7 +7,7 @@ public class PojoUpdateArticleReq {
 	@NotNull(message = "Id cannot be empty")
 	private String id;
 	@NotNull(message = "Version cannot be empty")
-	private Long version;
+	private Integer version;
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 

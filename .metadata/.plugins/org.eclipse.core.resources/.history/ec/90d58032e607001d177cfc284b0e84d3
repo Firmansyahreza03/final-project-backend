@@ -1,0 +1,16 @@
+package com.lawencon.community.pojo.bookmark;
+
+import java.util.List;
+
+public class PojoFindAllBookmarkRes {
+	private List<PojoDataRole> data;
+
+	public List<PojoDataRole> getData() {
+		return data;
+	}
+
+	public void setData(List<PojoDataRole> data) {
+		this.data = data;
+	}
+	
+}

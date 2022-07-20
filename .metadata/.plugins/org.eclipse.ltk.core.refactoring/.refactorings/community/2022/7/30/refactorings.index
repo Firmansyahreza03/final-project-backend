@@ -10,3 +10,51 @@
 1658289961485	Rename type 'PojoUpdateDataRoleReq'
 1658289969479	Rename type 'PojoInsertDataRoleReq'
 1658289974637	Rename type 'PojoUpdateDataRoleReq'
+1658291148037	Copy package
+1658291167409	Rename type 'PojoDataArticle'
+1658291172873	Delete element
+1658291270593	Copy package
+1658291294104	Rename type 'PojoDataArticle'
+1658291309801	Rename type 'PojoFindAllArticleRes'
+1658291330031	Rename compilation unit 'PojoFindByIdArticleRes.java'
+1658291575564	Rename type 'PojoInsertArticleReq'
+1658291580857	Rename type 'PojoUpdateArticleReq'
+1658291678535	Copy package
+1658291708215	Rename type 'PojoDataRole'
+1658291715682	Rename type 'PojoFindAllRoleRes'
+1658291721600	Rename type 'PojoFindByIdRoleRes'
+1658291725358	Rename type 'PojoInsertRoleReq'
+1658291728643	Rename type 'PojoUpdateRoleReq'
+1658292283132	Copy package
+1658292713545	Rename type 'PojoDataBookmark'
+1658292720562	Rename type 'PojoFindAllBookmarkRes'
+1658292725312	Rename type 'PojoFindByIdBookmarkRes'
+1658292728711	Rename type 'PojoInsertBookmarkReq'
+1658292731823	Rename type 'PojoUpdateBookmarkReq'
+1658298376998	Copy package
+1658298433792	Rename type 'PojoDataArticle'
+1658298444184	Rename type 'PojoFindAllArticleRes'
+1658298456452	Rename type 'PojoFindByIdArticleRes'
+1658298464191	Rename type 'PojoInsertArticleReq'
+1658298467672	Rename type 'PojoInsertFileeReq'
+1658298474223	Rename type 'PojoUpdateArticleReq'
+1658298599436	Rename field 'Title'
+1658298609759	Rename field 'Content'
+1658299148592	Copy package
+1658299163625	Rename type 'PojoDataFile'
+1658299180124	Rename type 'PojoFindAllFileRes'
+1658299188324	Rename type 'PojoFindByIdFileRes'
+1658299191803	Rename type 'PojoInsertFileReq'
+1658299194867	Rename type 'PojoUpdateFileReq'
+1658299750428	Copy package
+1658299818896	Rename type 'PojoDataCommunity'
+1658300558611	Rename type 'PojoFindAllCommunityRes'
+1658300563553	Rename type 'PojoFindByIdCommunityRes'
+1658300568773	Rename type 'PojoInsertCommunityReq'
+1658300572548	Rename type 'PojoUpdateCommunityReq'
+1658301182858	Copy package
+1658301219680	Rename type 'PojoDataRole'
+1658301226662	Rename type 'PojoFindAllRoleRes'
+1658301233018	Rename type 'PojoFindByIdRoleRes'
+1658301239224	Rename type 'PojoInsertRoleReq'
+1658301242859	Rename type 'PojoUpdateRoleReq'

@@ -8,40 +8,70 @@ public class PojoUpdateArticleReq {
 	private String id;
 	@NotNull(message = "Version cannot be empty")
 	private Long version;
-	@NotNull(message = "isActive cannot be empty")
+	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 
 	@NotBlank(message = "title cannot be empty")
-	private String articleTitle;
+	private String title;
 	@NotBlank(message = "content cannot be empty")
-	private String articleContent;
+	private String content;
 	@NotBlank(message = "id user cannot be empty")
-	private String user_id;
+	private String idUser;
 	@NotBlank(message = "id industry cannot be empty")
-	private String industry_id;
+	private String idIndustry;
 	
-	public String getArticleTitle() {
-		return articleTitle;
+	public Boolean getIsActive() {
+		return isActive;
 	}
-	public void setArticleTitle(String articleTitle) {
-		this.articleTitle = articleTitle;
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
 	}
-	public String getArticleContent() {
-		return articleContent;
+	public String getTitle() {
+		return title;
 	}
-	public void setArticleContent(String articleContent) {
-		this.articleContent = articleContent;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getUser_id() {
-		return user_id;
+	public String getContent() {
+		return content;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getIndustry_id() {
-		return industry_id;
+	public String getIdUser() {
+		return idUser;
 	}
-	public void setIndustry_id(String industry_id) {
-		this.industry_id = industry_id;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
+	public String getIdIndustry() {
+		return idIndustry;
+	}
+	public void setIdIndustry(String idIndustry) {
+		this.idIndustry = idIndustry;
+	}
+
+
+	private String idFile;
+	private String nameFile;
+	private String extFile;
+	
+	public String getIdFile() {
+		return idFile;
+	}
+	public void setIdFile(String idFile) {
+		this.idFile = idFile;
+	}
+	public String getNameFile() {
+		return nameFile;
+	}
+	public void setNameFile(String nameFile) {
+		this.nameFile = nameFile;
+	}
+	public String getExtFile() {
+		return extFile;
+	}
+	public void setExtFile(String extFile) {
+		this.extFile = extFile;
 	}
 }

@@ -1,14 +1,14 @@
 package com.lawencon.community.pojo.article;
 
 public class PojoDataArticle {
-	private Long id;
+	private String id;
 	private Boolean isActive;
 	private Integer version;
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String  id) {
 		this.id = id;
 	}
 	public Boolean getIsActive() {
@@ -24,48 +24,70 @@ public class PojoDataArticle {
 		this.version = version;
 	}
 	
-	private String articleTitle;
-	private String articleContent;
-	private String user_id;
-	private String industry_id;
-	private String user_name;
-	private String industry_name;
+	private String title;
+	private String content;
+	private String idUser;
+	private String idIndustry;
+	private String nameUser;
+	private String nameIndustry;
 
-	public String getArticleTitle() {
-		return articleTitle;
+	public String getTitle() {
+		return title;
 	}
-	public void setArticleTitle(String articleTitle) {
-		this.articleTitle = articleTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getArticleContent() {
-		return articleContent;
+	public String getContent() {
+		return content;
 	}
-	public void setArticleContent(String articleContent) {
-		this.articleContent = articleContent;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getUser_id() {
-		return user_id;
+	public String getIdUser() {
+		return idUser;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
-	public String getIndustry_id() {
-		return industry_id;
+	public String getIdIndustry() {
+		return idIndustry;
 	}
-	public void setIndustry_id(String industry_id) {
-		this.industry_id = industry_id;
+	public void setIdIndustry(String idIndustry) {
+		this.idIndustry = idIndustry;
 	}
-	public String getUser_name() {
-		return user_name;
+	public String getNameUser() {
+		return nameUser;
 	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
 	}
-	public String getIndustry_name() {
-		return industry_name;
+	public String getNameIndustry() {
+		return nameIndustry;
 	}
-	public void setIndustry_name(String industry_name) {
-		this.industry_name = industry_name;
+	public void setNameIndustry(String nameIndustry) {
+		this.nameIndustry = nameIndustry;
 	}
+
+	private String idFile;
+	private String nameFile;
+	private String extFile;
 	
+	public String getIdFile() {
+		return idFile;
+	}
+	public void setIdFile(String idFile) {
+		this.idFile = idFile;
+	}
+	public String getNameFile() {
+		return nameFile;
+	}
+	public void setNameFile(String nameFile) {
+		this.nameFile = nameFile;
+	}
+	public String getExtFile() {
+		return extFile;
+	}
+	public void setExtFile(String extFile) {
+		this.extFile = extFile;
+	}
 }

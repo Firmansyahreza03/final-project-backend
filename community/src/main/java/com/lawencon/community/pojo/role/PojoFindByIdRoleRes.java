@@ -10,5 +10,5 @@ public class PojoFindByIdRoleRes {
 	public void setData(PojoDataRole data) {
 		this.data = data;
 	}
-	
+
 }

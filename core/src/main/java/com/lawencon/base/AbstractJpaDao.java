@@ -45,7 +45,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 				.getResultList();
 	}
 
-	public SearchQuery<T> getAll(String query, int startPage, int maxPage, String... fields) {
+	private SearchQuery<T> getAll(String query, int startPage, int maxPage, String... fields) {
 		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager()).search(clazz)
 				.where(f -> f.match().fields(fields).matching(query));
 
@@ -58,10 +58,33 @@ public class AbstractJpaDao<T extends BaseEntity> {
 
 		return data;
 	}
+	
+	public SearchQuery<T> findAll(String query, Integer startPage, Integer maxPage, String... fields) throws Exception {
+		SearchQuery<T> sq = new SearchQuery<>();
+		List<T> data = null;
+
+		if (startPage == null || maxPage == null) {
+			data = getAll();
+			sq.setData(data);
+		} else {
+			if (query == null) {
+				data = getAll(startPage, maxPage);
+				int count = countAll().intValue();
+
+				sq.setData(data);
+				sq.setCount(count);
+			} else {
+				return getAll(query, startPage, maxPage, fields);
+			}
+		}
+
+		return sq;
+	}
 
 	public T save(T entity) throws Exception {
 		if (entity.getId() != null) {
 			entity = em().merge(entity);
+			em().flush();
 		} else {
 			em().persist(entity);
 		}
@@ -69,7 +92,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 		return entity;
 	}
 
-	protected void delete(final T entity) throws Exception {
+	public void delete(final T entity) throws Exception {
 		em().remove(entity);
 	}
 

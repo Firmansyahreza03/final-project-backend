@@ -24,6 +24,18 @@ public class Article extends BaseEntity {
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@OneToOne
+	@JoinColumn(name = "industry_id")
+	private Industry industry;
+
+	public Industry getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(Industry industry) {
+		this.industry = industry;
+	}
+
 	public String getArticleTitle() {
 		return articleTitle;
 	}

@@ -1,0 +1,14 @@
+package com.lawencon.community.pojo.community;
+
+public class PojoFindByIdCommunityRes {
+	private PojoDataBookmark data;
+
+	public PojoDataBookmark getData() {
+		return data;
+	}
+
+	public void setData(PojoDataBookmark data) {
+		this.data = data;
+	}
+
+}

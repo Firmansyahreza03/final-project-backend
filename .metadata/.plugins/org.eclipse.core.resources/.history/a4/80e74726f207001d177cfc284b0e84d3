@@ -1,0 +1,41 @@
+package com.lawencon.community.pojo.community;
+
+import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class PojoInsertCommunityReq {
+	@NotNull(message = "must be true or false")
+	private Boolean isActive;
+	
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	@NotBlank(message = "id industry cannot be empty")
+	private String title;
+	@NotBlank(message = "id industry cannot be empty")
+	private String provider;
+	@NotBlank(message = "id industry cannot be empty")
+	private String location;
+	@NotBlank(message = "id industry cannot be empty")
+	private LocalDateTime startAt;
+	@NotBlank(message = "id industry cannot be empty")
+	private LocalDateTime endAt;
+	@NotBlank(message = "id industry cannot be empty")
+	private String desc;
+	@NotBlank(message = "id industry cannot be empty")
+	private String code;
+	@NotBlank(message = "id industry cannot be empty")
+	private Long price;
+	@NotBlank(message = "id category cannot be empty")
+	private String idCategory;
+	@NotBlank(message = "id industry cannot be empty")
+	private String idIndustry;
+	
+	private String idFile;
+}

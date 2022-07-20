@@ -1,14 +1,14 @@
 package com.lawencon.community.pojo.role;
 
 public class PojoDataRole {
-	private Long id;
+	private String id;
 	private Boolean isActive;
 	private Integer version;
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Boolean getIsActive() {
@@ -24,21 +24,19 @@ public class PojoDataRole {
 		this.version = version;
 	}
 	
-	private String roleName;
-	private String roleCode;
-	
-	public String getRoleName() {
-		return roleName;
+	private String name;
+	private String code;
+
+	public String getName() {
+		return name;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getRoleCode() {
-		return roleCode;
+	public String getCode() {
+		return code;
 	}
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	
-	
 }

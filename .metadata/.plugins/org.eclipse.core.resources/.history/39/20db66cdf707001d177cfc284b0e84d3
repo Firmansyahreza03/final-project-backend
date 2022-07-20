@@ -1,0 +1,16 @@
+package com.lawencon.community.pojo.industry;
+
+import java.util.List;
+
+public class PojoFindAllIndustryRes {
+	private List<PojoDataFile> data;
+
+	public List<PojoDataFile> getData() {
+		return data;
+	}
+
+	public void setData(List<PojoDataFile> data) {
+		this.data = data;
+	}
+	
+}

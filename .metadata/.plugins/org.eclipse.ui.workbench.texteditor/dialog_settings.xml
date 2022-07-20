@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="PojoDataPaymentTransaction"/>
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<list key="findhistory">
+			<item value="PojoDataRole"/>
+			<item value="idFile"/>
+			<item value="File"/>
+			<item value="Article"/>
+			<item value="articleContent"/>
+			<item value="articleTitle"/>
+			<item value="file"/>
+			<item value="Bookmark"/>
+			<item value="Role"/>
+			<item value="can not"/>
+			<item value="can not empty"/>
+			<item value="Gak boleh null"/>
+			<item value="PojoDataRole "/>
+		</list>
+		<list key="replacehistory">
+			<item value="PojoDataPaymentTransaction"/>
+			<item value="Industry"/>
+			<item value="File"/>
+			<item value="Content"/>
+			<item value="Title"/>
+			<item value="Community"/>
+			<item value="Bookmark"/>
+			<item value="Balance"/>
+			<item value="cannot"/>
+			<item value="can not be empty"/>
+			<item value="List&lt;PojoDataRole&gt;"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1511"/>
+		<item key="DIALOG_Y_ORIGIN" value="467"/>
+		<item key="DIALOG_WIDTH" value="414"/>
+		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+</section>

@@ -36,6 +36,18 @@ public class ThreadHdr extends BaseEntity {
 	@JoinColumn(name = "category_id")
 	private ThreadCategory category;
 
+	@OneToOne
+	@JoinColumn(name = "industry_id")
+	private Industry industry;
+
+	public Industry getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(Industry industry) {
+		this.industry = industry;
+	}
+
 	public String getThreadName() {
 		return threadName;
 	}

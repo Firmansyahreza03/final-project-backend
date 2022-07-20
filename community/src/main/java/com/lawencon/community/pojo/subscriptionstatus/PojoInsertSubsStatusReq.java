@@ -1,0 +1,54 @@
+package com.lawencon.community.pojo.subscriptionstatus;
+
+import java.time.LocalDateTime;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class PojoInsertSubsStatusReq {
+
+	@NotNull(message = "is subscriber can not be empty")
+	private Boolean isSubscriber;
+
+	@NotBlank(message = "payment can not be empty")
+	private String paymentId;
+
+	@NotNull(message = "expired at can not be empty")
+	private LocalDateTime expiredAt;
+
+	@NotNull(message = "must be true or false")
+	private Boolean isActive;
+
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public Boolean getIsSubscriber() {
+		return isSubscriber;
+	}
+
+	public void setIsSubscriber(Boolean isSubscriber) {
+		this.isSubscriber = isSubscriber;
+	}
+
+	public String getPaymentId() {
+		return paymentId;
+	}
+
+	public void setPaymentId(String paymentId) {
+		this.paymentId = paymentId;
+	}
+
+	public LocalDateTime getExpiredAt() {
+		return expiredAt;
+	}
+
+	public void setExpiredAt(LocalDateTime expiredAt) {
+		this.expiredAt = expiredAt;
+	}
+
+}

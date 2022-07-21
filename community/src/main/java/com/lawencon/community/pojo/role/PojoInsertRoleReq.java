@@ -7,21 +7,21 @@ public class PojoInsertRoleReq {
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 	@NotBlank(message = "name cannot be empty")
-	private String roleName;
+	private String name;
 	@NotBlank(message = "code cannot be empty")
-	private String roleCode;
+	private String code;
 	
-	public String getRoleName() {
-		return roleName;
+	public String getName() {
+		return name;
 	}
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getRoleCode() {
-		return roleCode;
+	public String getCode() {
+		return code;
 	}
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public Boolean getIsActive() {
 		return isActive;

@@ -1,21 +1,21 @@
-package com.lawencon.community.pojo.pollinghdr;
+package com.lawencon.community.pojo.threadliked;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class PojoInsertPollingHdrReq {
+public class PojoInsertThreadLikedReq {
 
-	@NotBlank(message = "name can not be empty")
-	private String pollingName;
+	@NotBlank(message = "thread can not be empty")
+	private String hdrId;
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 
-	public String getPollingName() {
-		return pollingName;
+	public String getHdrId() {
+		return hdrId;
 	}
 
-	public void setPollingName(String pollingName) {
-		this.pollingName = pollingName;
+	public void setHdrId(String hdrId) {
+		this.hdrId = hdrId;
 	}
 
 	public Boolean getIsActive() {
@@ -25,5 +25,4 @@ public class PojoInsertPollingHdrReq {
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
-
 }

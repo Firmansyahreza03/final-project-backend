@@ -34,6 +34,10 @@ public class RoleService extends BaseCoreService<Role>{
 	private PojoDataRole modelToRes(Role data) {
 		PojoDataRole result = new PojoDataRole();
 		
+		result.setId(data.getId());
+		result.setIsActive(data.getIsActive());
+		result.setVersion(data.getVersion());
+		
 		result.setName(data.getRoleName());
 		result.setCode(data.getRoleCode());
 		

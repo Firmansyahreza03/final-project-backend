@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ArticleDao;
 import com.lawencon.community.dao.IndustryDao;
+import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Article;
 import com.lawencon.community.model.Industry;
+import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
@@ -26,16 +28,18 @@ import com.lawencon.community.pojo.article.PojoInsertArticleReq;
 import com.lawencon.community.pojo.article.PojoUpdateArticleReq;
 import com.lawencon.model.SearchQuery;
 @Service
-public class ArticleService extends BaseCoreService{
+public class ArticleService extends BaseCoreService<Article>{
 	@Autowired
 	private ArticleDao articleDao;
 	@Autowired
 	private UserDao userDao;
 	@Autowired
+	private ProfileDao profileDao;
+	@Autowired
 	private IndustryDao industryDao;
 
 	public Article inputArticleData(Article result, Boolean isActive, String title, String content,
-			String idUser, String idIndustry) {
+			String idUser, String idIndustry) throws Exception {
 		User fkUser = userDao.getById(idUser);
 		Industry fkIndustry = industryDao.getById(idIndustry);
 	
@@ -50,13 +54,22 @@ public class ArticleService extends BaseCoreService{
 		return result;
 	}
 
-	private PojoDataArticle modelToRes(Article data) {
+	private PojoDataArticle modelToRes(Article data) throws Exception {
 		PojoDataArticle result = new PojoDataArticle();
+		User fkUser = userDao.getById(data.getUser().getId());
+		Profile fkProfile = profileDao.getByIdUser(data.getUser().getId());
+		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
 
 		result.setId(data.getId());
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
-		
+
+		result.setTitle(data.getArticleTitle());
+		result.setContent(data.getArticleContent());
+		result.setIdUser(fkUser.getId());
+		result.setIdIndustry(fkIndustry.getId());
+		result.setNameUser(fkProfile.getFullName());
+		result.setNameIndustry(fkIndustry.getIndustryName());
 		
 		return result;
 	}
@@ -76,11 +89,15 @@ public class ArticleService extends BaseCoreService{
 		List<PojoDataArticle> resultList = new ArrayList<>();
 		
 		getAllArticle.getData().forEach(d -> {
-			PojoDataArticle data = modelToRes(d);
-			
-			resultList.add(data);
-			
+			PojoDataArticle data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		});
+		
 		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
 		result.setData(resultList);
 		result.setCount(getAllArticle.getCount());
@@ -92,11 +109,11 @@ public class ArticleService extends BaseCoreService{
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
 			
-			Article reqData = inputArticleData(new Article(), data.getName(), data.getCode(), true);
-			reqData.setCreatedBy("1");
+			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(), 
+					data.getIdUser(), data.getIdIndustry());
 			
 			begin();
-			Article result = articleDao.save(reqData);
+			Article result = super.save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
@@ -117,9 +134,10 @@ public class ArticleService extends BaseCoreService{
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Article reqData = articleDao.getById(data.getId());
-			
-			reqData = inputArticleData(reqData, data.getName(), reqData.getArticleCode(), data.getIsActive());
 
+			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(), 
+					data.getIdUser(), data.getIdIndustry());
+			
 			begin();
 			Article result = articleDao.save(reqData);
 			commit();

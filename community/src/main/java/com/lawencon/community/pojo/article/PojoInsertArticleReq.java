@@ -46,28 +46,4 @@ public class PojoInsertArticleReq {
 	public void setIdIndustry(String idIndustry) {
 		this.idIndustry = idIndustry;
 	}
-
-
-	private String idFile;
-	private String nameFile;
-	private String extFile;
-	
-	public String getIdFile() {
-		return idFile;
-	}
-	public void setIdFile(String idFile) {
-		this.idFile = idFile;
-	}
-	public String getNameFile() {
-		return nameFile;
-	}
-	public void setNameFile(String nameFile) {
-		this.nameFile = nameFile;
-	}
-	public String getExtFile() {
-		return extFile;
-	}
-	public void setExtFile(String extFile) {
-		this.extFile = extFile;
-	}
 }

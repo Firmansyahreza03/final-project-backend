@@ -3,7 +3,10 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.RoleDao;
@@ -18,7 +21,7 @@ import com.lawencon.community.pojo.role.PojoFindByIdRoleRes;
 import com.lawencon.community.pojo.role.PojoInsertRoleReq;
 import com.lawencon.community.pojo.role.PojoUpdateRoleReq;
 import com.lawencon.model.SearchQuery;
-
+@Service
 public class RoleService extends BaseCoreService<Role>{
 	@Autowired
 	private RoleDao roleDao;
@@ -33,6 +36,10 @@ public class RoleService extends BaseCoreService<Role>{
 
 	private PojoDataRole modelToRes(Role data) {
 		PojoDataRole result = new PojoDataRole();
+		
+		result.setId(data.getId());
+		result.setIsActive(data.getIsActive());
+		result.setVersion(data.getVersion());
 		
 		result.setName(data.getRoleName());
 		result.setCode(data.getRoleCode());
@@ -66,6 +73,7 @@ public class RoleService extends BaseCoreService<Role>{
 		return result;
 	}
 
+	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertRoleReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -89,6 +97,7 @@ public class RoleService extends BaseCoreService<Role>{
 		}
 	}
 
+	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateRoleReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
@@ -113,8 +122,8 @@ public class RoleService extends BaseCoreService<Role>{
 		}
 
 	}
-	
 
+	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();

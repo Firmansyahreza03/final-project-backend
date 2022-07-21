@@ -11,6 +11,25 @@ public class PojoUpdateArticleReq {
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	
 	@NotBlank(message = "title cannot be empty")
 	private String title;
 	@NotBlank(message = "content cannot be empty")
@@ -20,12 +39,6 @@ public class PojoUpdateArticleReq {
 	@NotBlank(message = "id industry cannot be empty")
 	private String idIndustry;
 	
-	public Boolean getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -49,29 +62,5 @@ public class PojoUpdateArticleReq {
 	}
 	public void setIdIndustry(String idIndustry) {
 		this.idIndustry = idIndustry;
-	}
-
-
-	private String idFile;
-	private String nameFile;
-	private String extFile;
-	
-	public String getIdFile() {
-		return idFile;
-	}
-	public void setIdFile(String idFile) {
-		this.idFile = idFile;
-	}
-	public String getNameFile() {
-		return nameFile;
-	}
-	public void setNameFile(String nameFile) {
-		this.nameFile = nameFile;
-	}
-	public String getExtFile() {
-		return extFile;
-	}
-	public void setExtFile(String extFile) {
-		this.extFile = extFile;
 	}
 }

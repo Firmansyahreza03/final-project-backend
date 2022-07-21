@@ -12,7 +12,7 @@ public class PojoInsertThreadHdrReq {
 	@NotNull(message = "must be true or false")
 	private Boolean isPremium;
 	private Long threadPrice;
-	private String pollingHdrsId;
+	private String pollingHdrId;
 	@NotBlank(message = "category can not be empty")
 	private String categoryid;
 	@NotBlank(message = "industry can not be empty")
@@ -52,12 +52,12 @@ public class PojoInsertThreadHdrReq {
 		this.threadPrice = threadPrice;
 	}
 
-	public String getPollingHdrsId() {
-		return pollingHdrsId;
+	public String getPollingHdrId() {
+		return pollingHdrId;
 	}
 
-	public void setPollingHdrsId(String pollingHdrsId) {
-		this.pollingHdrsId = pollingHdrsId;
+	public void setPollingHdrId(String pollingHdrId) {
+		this.pollingHdrId = pollingHdrId;
 	}
 
 	public String getCategoryid() {

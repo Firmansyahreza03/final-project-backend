@@ -1,14 +1,21 @@
 package com.lawencon.community.pojo.paymentTransaction;
 
 public class PojoDataPaymentTransaction {
-	private Long id;
+	private String id;
 	private Boolean isActive;
 	private Integer version;
 	
-	public Long getId() {
+	private Boolean isAcc;
+
+	private String fileId;
+	private String fileName;
+	private String fileExt;
+
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Boolean getIsActive() {
@@ -23,12 +30,6 @@ public class PojoDataPaymentTransaction {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	private Boolean isAcc;
-
-	private String fileId;
-	private String fileName;
-	private String fileExt;
-
 	public Boolean getIsAcc() {
 		return isAcc;
 	}

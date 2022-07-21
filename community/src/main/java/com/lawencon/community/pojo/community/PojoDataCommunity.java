@@ -7,6 +7,23 @@ public class PojoDataCommunity {
 	private Boolean isActive;
 	private Integer version;
 	
+	private String title;
+	private String provider;
+	private String location;
+	private LocalDateTime startAt;
+	private LocalDateTime endAt;
+	private String desc;
+	private String code;
+	private Long price;
+	private String idCategory;
+	private String nameCategory;
+	private String idIndustry;
+	private String nameIndustry;
+
+	private String idFile;
+	private String nameFile;
+	private String extFile;
+	
 	public String  getId() {
 		return id;
 	}
@@ -25,19 +42,6 @@ public class PojoDataCommunity {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	
-	private String title;
-	private String provider;
-	private String location;
-	private LocalDateTime startAt;
-	private LocalDateTime endAt;
-	private String desc;
-	private String code;
-	private Long price;
-	private String idCategory;
-	private String nameCategory;
-	private String idIndustry;
-	private String nameIndustry;
 
 	public String getTitle() {
 		return title;
@@ -112,9 +116,6 @@ public class PojoDataCommunity {
 		this.nameIndustry = nameIndustry;
 	}
 
-	private String idFile;
-	private String nameFile;
-	private String extFile;
 	
 	public String getIdFile() {
 		return idFile;

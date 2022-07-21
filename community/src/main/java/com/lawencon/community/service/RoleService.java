@@ -19,13 +19,14 @@ import com.lawencon.community.pojo.role.PojoInsertRoleReq;
 import com.lawencon.community.pojo.role.PojoUpdateRoleReq;
 import com.lawencon.model.SearchQuery;
 
-public class RoleService extends BaseCoreService{
+public class RoleService extends BaseCoreService<Role>{
 	@Autowired
 	private RoleDao roleDao;
 
-	public Role inputRoleData(Role result, String nama, String kode) {
-		result.setRoleName(nama);
-		result.setRoleCode(kode);
+	public Role inputRoleData(Role result, String name, String code, Boolean isActive) {
+		result.setRoleName(name);
+		result.setRoleCode(code);
+		result.setIsActive(isActive);
 
 		return result;
 	}
@@ -66,48 +67,44 @@ public class RoleService extends BaseCoreService{
 	}
 
 	public PojoInsertRes insert(PojoInsertRoleReq data) throws Exception {
-		PojoInsertRes insertRes = new PojoInsertRes();
-		
-		Role reqData = inputRoleData(new Role(), data.getRoleName(), data.getRoleCode());
-		reqData.setCreatedBy("1");
-		reqData.setIsActive(true);
 		try {
+			PojoInsertRes insertRes = new PojoInsertRes();
+			
+			Role reqData = inputRoleData(new Role(), data.getName(), data.getCode(), true);
+			
 			begin();
-			Role result = roleDao.save(reqData);
+			Role result = super.save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
 			
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Role");
+
+			return insertRes;
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
 			throw new Exception(e);
 		}
-
-		return insertRes;
 	}
 
 	public PojoUpdateRes update(PojoUpdateRoleReq data) throws Exception {
-		PojoUpdateRes updateRes = new PojoUpdateRes();
-		
 		try {
-
+			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Role reqData = roleDao.getById(data.getId());
-			reqData = inputRoleData(reqData, data.getRoleName(), reqData.getRoleCode());
-			reqData.setVersion(data.getVersion());
-			reqData.setUpdatedBy("1");
-			reqData.setIsActive(data.getIsActive());
+			
+			reqData = inputRoleData(reqData, data.getName(), reqData.getRoleCode(), data.getIsActive());
 
 			begin();
-			Role result = roleDao.save(reqData);
+			Role result = super.save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
 			
 			updateRes.setData(resData);
-			updateRes.setMessage("Successfully Adding Role");
+			updateRes.setMessage("Successfully Editing Role");
+			return updateRes;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,7 +112,6 @@ public class RoleService extends BaseCoreService{
 			throw new Exception(e);
 		}
 
-		return updateRes;
 	}
 	
 
@@ -126,17 +122,14 @@ public class RoleService extends BaseCoreService{
 			commit();
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
 			if(result)
-				deleteRes.setMessage("Delete Berhasil");
+				deleteRes.setMessage("Successfully Delete Role");
 			else 
-				deleteRes.setMessage("Delete Gagal");
+				deleteRes.setMessage("Failed Delete Role");
 			return deleteRes;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
 			throw new Exception(e);
 		}
 	}
-
-	
 }

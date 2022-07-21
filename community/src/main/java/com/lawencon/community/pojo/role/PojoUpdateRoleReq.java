@@ -7,14 +7,12 @@ public class PojoUpdateRoleReq {
 	@NotNull(message = "Id cannot be empty")
 	private String id;
 	@NotNull(message = "Version cannot be empty")
-	private Long version;
-	@NotNull(message = "isActive cannot be empty")
+	private Integer version;
+	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 	
 	@NotBlank(message = "name cannot be empty")
 	private String roleName;
-	@NotBlank(message = "code cannot be empty")
-	private String roleCode;
 	
 	public String getRoleName() {
 		return roleName;
@@ -22,10 +20,23 @@ public class PojoUpdateRoleReq {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
-	public String getRoleCode() {
-		return roleCode;
+	public String getId() {
+		return id;
 	}
-	public void setRoleCode(String roleCode) {
-		this.roleCode = roleCode;
-	}	
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	
 }

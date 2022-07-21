@@ -1,0 +1,14 @@
+package com.lawencon.community.pojo.industry;
+
+public class PojoFindByIdFileRes {
+	private PojoDataFile data;
+
+	public PojoDataFile getData() {
+		return data;
+	}
+
+	public void setData(PojoDataFile data) {
+		this.data = data;
+	}
+	
+}

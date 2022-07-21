@@ -1,0 +1,14 @@
+package com.lawencon.community.pojo.file;
+
+public class PojoFindByIdArticleRes {
+	private PojoDataArticle data;
+
+	public PojoDataArticle getData() {
+		return data;
+	}
+
+	public void setData(PojoDataArticle data) {
+		this.data = data;
+	}
+	
+}

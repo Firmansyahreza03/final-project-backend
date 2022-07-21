@@ -1,10 +1,13 @@
 package com.lawencon.base;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.lawencon.model.SearchQuery;
 
 /**
  * @author lawencon05
@@ -57,4 +60,16 @@ public class BaseCoreService<T extends BaseEntity> {
 			entity.setCreatedBy(id);
 		}
 	}
+
+	protected SearchQuery<T> findAll(Supplier<List<T>> getAllFunc) throws Exception {
+		SearchQuery<T> sq = new SearchQuery<>();
+		List<T> data = getAllFunc.get();
+		int count = abstractJpaDao.countAll().intValue();
+
+		sq.setData(data);
+		sq.setCount(count);
+
+		return sq;
+	}
+
 }

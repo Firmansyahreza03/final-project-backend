@@ -38,7 +38,7 @@ public class ArticleService extends BaseCoreService<Article>{
 	@Autowired
 	private IndustryDao industryDao;
 
-	public Article inputArticleData(Article result, Boolean isActive, String title, String content,
+	private Article inputArticleData(Article result, Boolean isActive, String title, String content,
 			String idUser, String idIndustry) throws Exception {
 		User fkUser = userDao.getById(idUser);
 		Industry fkIndustry = industryDao.getById(idIndustry);
@@ -174,5 +174,28 @@ public class ArticleService extends BaseCoreService<Article>{
 			rollback();
 			throw new Exception(e);
 		}
+	}
+
+	public SearchQuery<PojoDataArticle> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+		List<Article> tmp = articleDao.getByIdIndustry(idx, startPage, maxPage);
+		
+		SearchQuery<Article> articleList = findAll(()->tmp);
+		
+		List<PojoDataArticle> resultList = new ArrayList<>();
+		
+		articleList.getData().forEach(d -> {
+			PojoDataArticle data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
+		result.setData(resultList);
+		result.setCount(articleList.getCount());
+		return result;
 	}
 }

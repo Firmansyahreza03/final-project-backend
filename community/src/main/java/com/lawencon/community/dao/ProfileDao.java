@@ -50,7 +50,10 @@ public class ProfileDao extends AbstractJpaDao<Profile> {
 		
 		Profile res = null;
 		try {			
-			Object rs = createNativeQuery(sql.toString()).getSingleResult();
+			Object rs = createNativeQuery(sql.toString())
+					.setParameter("id", id)
+					.getSingleResult();
+			
 			if(rs != null) {
 				res = inputData(rs);
 			}

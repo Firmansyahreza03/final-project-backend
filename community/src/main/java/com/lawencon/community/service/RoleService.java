@@ -26,7 +26,7 @@ public class RoleService extends BaseCoreService<Role>{
 	@Autowired
 	private RoleDao roleDao;
 
-	public Role inputRoleData(Role result, String name, String code, Boolean isActive) {
+	private Role inputRoleData(Role result, String name, String code, Boolean isActive) {
 		result.setRoleName(name);
 		result.setRoleCode(code);
 		result.setIsActive(isActive);

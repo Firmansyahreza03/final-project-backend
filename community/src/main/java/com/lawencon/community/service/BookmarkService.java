@@ -39,7 +39,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	@Autowired
 	private ThreadHdrDao threadHdrDao;
 
-	public Bookmark inputBookmarkData(Bookmark result, Boolean isActive, 
+	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, 
 			String idUser, String idThreadHdr) throws Exception {
 		result.setIsActive(isActive);
 		User fkUser = userDao.getById(idUser);

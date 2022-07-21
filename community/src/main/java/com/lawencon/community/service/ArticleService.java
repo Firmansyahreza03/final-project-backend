@@ -38,7 +38,7 @@ public class ArticleService extends BaseCoreService<Article>{
 	@Autowired
 	private IndustryDao industryDao;
 
-	public Article inputArticleData(Article result, Boolean isActive, String title, String content,
+	private Article inputArticleData(Article result, Boolean isActive, String title, String content,
 			String idUser, String idIndustry) throws Exception {
 		User fkUser = userDao.getById(idUser);
 		Industry fkIndustry = industryDao.getById(idIndustry);

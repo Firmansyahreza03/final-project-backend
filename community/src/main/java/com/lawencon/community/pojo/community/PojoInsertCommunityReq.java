@@ -10,13 +10,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class PojoInsertCommunityReq {
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
-	
-	public Boolean getIsActive() {
-		return isActive;
-	}
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
 
 	@NotBlank(message = "title cannot be empty")
 	private String title;
@@ -46,6 +39,74 @@ public class PojoInsertCommunityReq {
 	private String nameFile;
 	private String extFile;
 	
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getProvider() {
+		return provider;
+	}
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public LocalDateTime getStartAt() {
+		return startAt;
+	}
+	public void setStartAt(LocalDateTime startAt) {
+		this.startAt = startAt;
+	}
+	public LocalDateTime getEndAt() {
+		return endAt;
+	}
+	public void setEndAt(LocalDateTime endAt) {
+		this.endAt = endAt;
+	}
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public Long getPrice() {
+		return price;
+	}
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+	public String getIdCategory() {
+		return idCategory;
+	}
+	public void setIdCategory(String idCategory) {
+		this.idCategory = idCategory;
+	}
+	public String getIdIndustry() {
+		return idIndustry;
+	}
+	public void setIdIndustry(String idIndustry) {
+		this.idIndustry = idIndustry;
+	}
 	public String getIdFile() {
 		return idFile;
 	}

@@ -27,7 +27,7 @@ public class BalanceService extends BaseCoreService<Balance> {
 	@Autowired
 	private BalanceDao balanceDao;
 
-	public Balance inputBalanceData(Balance result, Boolean isActive, Long balance) throws Exception {
+	private Balance inputBalanceData(Balance result, Boolean isActive, Long balance) throws Exception {
 		result.setIsActive(isActive);
 
 		result.setBalance(balance);

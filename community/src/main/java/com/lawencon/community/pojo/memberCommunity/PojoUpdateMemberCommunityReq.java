@@ -55,6 +55,7 @@ public class PojoUpdateMemberCommunityReq {
 	public void setIdPayment(String idPayment) {
 		this.idPayment = idPayment;
 	}
+	
 	private String idFile;
 	private String nameFile;
 	private String extFile;

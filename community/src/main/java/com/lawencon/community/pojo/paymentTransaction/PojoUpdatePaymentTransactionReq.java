@@ -9,14 +9,30 @@ public class PojoUpdatePaymentTransactionReq {
 	private Integer version;
 	@NotNull(message = "is active must be true or false")
 	private Boolean isActive;
-
 	@NotNull(message = "Acc must be true or false")
 	private Boolean isAcc;
-
 	private String fileId;
 	private String fileName;
 	private String fileExt;
 
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
 	public Boolean getIsAcc() {
 		return isAcc;
 	}

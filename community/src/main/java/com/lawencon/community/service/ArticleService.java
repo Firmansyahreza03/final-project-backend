@@ -175,4 +175,27 @@ public class ArticleService extends BaseCoreService<Article>{
 			throw new Exception(e);
 		}
 	}
+
+	public SearchQuery<PojoDataArticle> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+		List<Article> tmp = articleDao.getByIdIndustry(idx, startPage, maxPage);
+		
+		SearchQuery<Article> articleList = findAll(()->tmp);
+		
+		List<PojoDataArticle> resultList = new ArrayList<>();
+		
+		articleList.getData().forEach(d -> {
+			PojoDataArticle data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
+		result.setData(resultList);
+		result.setCount(articleList.getCount());
+		return result;
+	}
 }

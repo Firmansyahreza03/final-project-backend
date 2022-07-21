@@ -145,4 +145,15 @@ public class BalanceService extends BaseCoreService<Balance> {
 			throw new Exception(e);
 		}
 	}
+	
+
+	public PojoFindByIdBalanceRes findByIdUser(String id) throws Exception {
+		Balance data = balanceDao.findbyUserId(id);
+
+		PojoDataBalance result = modelToRes(data);
+		PojoFindByIdBalanceRes resultData = new PojoFindByIdBalanceRes();
+		resultData.setData(result);
+
+		return resultData;
+	}
 }

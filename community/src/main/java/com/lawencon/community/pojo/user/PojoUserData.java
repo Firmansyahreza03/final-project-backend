@@ -6,7 +6,6 @@ public class PojoUserData {
 
 	private String id;
 	private String userEmail;
-	private String userPassword;
 	private String subscriptionStatusId;
 	private Boolean isSubscriber;
 	private LocalDateTime expiredAt;
@@ -33,14 +32,6 @@ public class PojoUserData {
 
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
 	}
 
 	public String getSubscriptionStatusId() {

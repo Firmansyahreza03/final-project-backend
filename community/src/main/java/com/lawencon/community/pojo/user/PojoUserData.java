@@ -17,6 +17,7 @@ public class PojoUserData {
 	private Long balance;
 	private Boolean isActive;
 	private Integer version;
+	
 
 	public String getId() {
 		return id;

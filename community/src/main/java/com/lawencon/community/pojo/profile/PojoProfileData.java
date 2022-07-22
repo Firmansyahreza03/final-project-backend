@@ -11,7 +11,7 @@ public class PojoProfileData {
 	private String userId;
 	private String userEmail;
 	private String fileId;
-	private String isSubscriber;
+	private Boolean isSubscriber;
 	private Boolean isActive;
 	private Integer version;
 
@@ -103,11 +103,11 @@ public class PojoProfileData {
 		this.fileId = fileId;
 	}
 
-	public String getIsSubscriber() {
+	public Boolean getIsSubscriber() {
 		return isSubscriber;
 	}
 
-	public void setIsSubscriber(String isSubscriber) {
+	public void setIsSubscriber(Boolean isSubscriber) {
 		this.isSubscriber = isSubscriber;
 	}
 

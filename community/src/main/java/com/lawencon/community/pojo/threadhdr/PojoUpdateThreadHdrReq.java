@@ -13,7 +13,6 @@ public class PojoUpdateThreadHdrReq {
 	private String threadCode;
 	@NotNull(message = "must be true or false")
 	private Boolean isPremium;
-	private Long threadPrice;
 	private String pollingHdrsId;
 	@NotBlank(message = "category can not be empty")
 	private String categoryid;
@@ -62,14 +61,6 @@ public class PojoUpdateThreadHdrReq {
 
 	public void setIsPremium(Boolean isPremium) {
 		this.isPremium = isPremium;
-	}
-
-	public Long getThreadPrice() {
-		return threadPrice;
-	}
-
-	public void setThreadPrice(Long threadPrice) {
-		this.threadPrice = threadPrice;
 	}
 
 	public String getPollingHdrsId() {

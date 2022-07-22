@@ -16,17 +16,9 @@ public class PollingOption extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name = "polling_hdr")
 	private PollingHdr pollingHdr;
-	
+
 	@Column(name = "option_name", columnDefinition = "TEXT")
 	private String optionName;
-
-	public String getoptionName() {
-		return optionName;
-	}
-
-	public void setoptionName(String optionName) {
-		this.optionName = optionName;
-	}
 
 	public PollingHdr getPollingHdr() {
 		return pollingHdr;

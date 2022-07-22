@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ import com.lawencon.util.JwtUtil;
 import com.lawencon.util.JwtUtil.ClaimKey;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping("")
 public class LoginController {
 	@Autowired
 	private AuthenticationManager authManager;
@@ -38,6 +39,7 @@ public class LoginController {
 	private UserService userService;
 
 	@PostMapping
+	@GetMapping("login")
 	public ResponseEntity<LoginRes> login(@RequestBody @Valid LoginReq loginReq) throws Exception {
 		LoginRes response = new LoginRes();
 		LoginDataRes data = new LoginDataRes();

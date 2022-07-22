@@ -2,10 +2,10 @@ package com.lawencon.community.pojo.threadhdr;
 
 public class PojoThreadHdrData {
 
+	private String id;
 	private String threadName;
 	private String threadCode;
 	private Boolean isPremium;
-	private Long threadPrice;
 	private String pollingHdrsId;
 	private String pollingName;
 	private String categoryid;
@@ -14,6 +14,14 @@ public class PojoThreadHdrData {
 	private String industryName;
 	private Boolean isActive;
 	private Integer version;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Boolean getIsActive() {
 		return isActive;
@@ -53,14 +61,6 @@ public class PojoThreadHdrData {
 
 	public void setIsPremium(Boolean isPremium) {
 		this.isPremium = isPremium;
-	}
-
-	public Long getThreadPrice() {
-		return threadPrice;
-	}
-
-	public void setThreadPrice(Long threadPrice) {
-		this.threadPrice = threadPrice;
 	}
 
 	public String getPollingHdrsId() {

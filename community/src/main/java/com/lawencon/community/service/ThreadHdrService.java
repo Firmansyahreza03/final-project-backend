@@ -36,10 +36,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	@Autowired
 	private PollingHdrDao pollingHdrDao;
 
-	private ThreadHdr inputThreadData(ThreadHdr result, String name, Long price, String categoryId, String industryId,
+	private ThreadHdr inputThreadData(ThreadHdr result, String name, String categoryId, String industryId,
 			Boolean isActive, Boolean isPremium, String pollingId) {
 		result.setThreadName(name);
-		result.setThreadPrice(price);
 		ThreadCategory category = categoryDao.getById(categoryId);
 		result.setCategory(category);
 		Industry industry = industryDao.getById(industryId);
@@ -53,13 +52,13 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		return result;
 	}
 
-	public PojoThreadHdrData modelToRes(ThreadHdr data) {
+	private PojoThreadHdrData modelToRes(ThreadHdr data) {
 		PojoThreadHdrData result = new PojoThreadHdrData();
 
+		result.setId(data.getId());
 		result.setThreadName(data.getThreadName());
 		result.setThreadCode(data.getThreadCode());
 		result.setIsPremium(data.getIsPremium());
-		result.setThreadPrice(data.getThreadPrice());
 		result.setPollingHdrsId(data.getPolling().getId());
 		result.setPollingName(data.getPolling().getPollingName());
 		result.setCategoryid(data.getCategory().getId());
@@ -83,17 +82,17 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	}
 
 	public SearchQuery<PojoThreadHdrData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<ThreadHdr> getAllThread = hdrDao.findAll(query, startPage, maxPage);
+		SearchQuery<ThreadHdr> threadList = hdrDao.findAll(query, startPage, maxPage);
 		List<PojoThreadHdrData> results = new ArrayList<>();
 
-		getAllThread.getData().forEach(d -> {
+		threadList.getData().forEach(d -> {
 			PojoThreadHdrData data = modelToRes(d);
 
 			results.add(data);
 		});
 		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
 		result.setData(results);
-		result.setCount(getAllThread.getCount());
+		result.setCount(threadList.getCount());
 		return result;
 	}
 
@@ -102,9 +101,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
 
-			ThreadHdr reqData = inputThreadData(new ThreadHdr(), data.getThreadName(), data.getThreadPrice(),
-					data.getCategoryid(), data.getIndustryId(), data.getIsActive(), data.getIsPremium(),
-					data.getPollingHdrId());
+			ThreadHdr reqData = inputThreadData(new ThreadHdr(), data.getThreadName(), data.getCategoryid(),
+					data.getIndustryId(), data.getIsActive(), data.getIsPremium(), data.getPollingHdrId());
 
 			reqData.setThreadCode(data.getThreadCode());
 
@@ -130,8 +128,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			begin();
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			ThreadHdr reqData = inputThreadData(hdrDao.getById(data.getId()), data.getThreadName(),
-					data.getThreadPrice(), data.getCategoryid(), data.getIndustryId(), data.getIsActive(),
-					data.getIsPremium(), data.getPollingHdrsId());
+					data.getCategoryid(), data.getIndustryId(), data.getIsActive(), data.getIsPremium(),
+					data.getPollingHdrsId());
 
 			reqData.setVersion(data.getVersion());
 			ThreadHdr result = save(reqData);
@@ -155,7 +153,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			boolean result = hdrDao.deleteById(id);
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
 			if (result)
-				deleteRes.setMessage("Succesfully Delete Thread");
+				deleteRes.setMessage("Successfully Delete Thread");
 			else
 				deleteRes.setMessage("Failed Delete Thread");
 			commit();
@@ -165,5 +163,29 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			rollback();
 			throw new Exception(e);
 		}
+	}
+
+	public SearchQuery<PojoThreadHdrData> findByCreatorId(String id, Integer startPage, Integer maxPage)
+			throws Exception {
+		List<ThreadHdr> threadList = hdrDao.findByCreatorId(id, startPage, maxPage);
+
+		SearchQuery<ThreadHdr> threads = findAll(() -> threadList);
+
+		List<PojoThreadHdrData> resultList = new ArrayList<>();
+
+		threads.getData().forEach(d -> {
+			PojoThreadHdrData data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+
+		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
+		result.setData(resultList);
+		result.setCount(threads.getCount());
+		return result;
 	}
 }

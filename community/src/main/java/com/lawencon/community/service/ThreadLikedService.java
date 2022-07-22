@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ThreadHdrDao;
@@ -18,6 +19,7 @@ import com.lawencon.community.pojo.threadliked.PojoInsertThreadLikedReq;
 import com.lawencon.community.pojo.threadliked.PojoThreadLikedData;
 import com.lawencon.model.SearchQuery;
 
+@Service
 public class ThreadLikedService extends BaseCoreService<ThreadLiked> {
 
 	@Autowired

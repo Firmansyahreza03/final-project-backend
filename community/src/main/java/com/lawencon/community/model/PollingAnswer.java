@@ -1,6 +1,5 @@
 package com.lawencon.community.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -15,33 +14,14 @@ public class PollingAnswer extends BaseEntity {
 
 	@OneToOne
 	@JoinColumn(name = "option_id")
-	private PollingOption pollingOption;
-	
-	@Column(name = "option_name", columnDefinition = "TEXT")
-	private String optionName;
+	private PollingOption option;
 
-	public String getoptionName() {
-		return optionName;
+	public PollingOption getOption() {
+		return option;
 	}
 
-	public void setoptionName(String optionName) {
-		this.optionName = optionName;
+	public void setOption(PollingOption option) {
+		this.option = option;
 	}
 
-	public PollingOption getPollingOption() {
-		return pollingOption;
-	}
-
-	public void setPollingOption(PollingOption pollingOption) {
-		this.pollingOption = pollingOption;
-	}
-
-	public String getOptionName() {
-		return optionName;
-	}
-
-	public void setOptionName(String optionName) {
-		this.optionName = optionName;
-	}
-	
 }

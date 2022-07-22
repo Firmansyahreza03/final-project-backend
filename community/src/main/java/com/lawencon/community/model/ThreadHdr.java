@@ -25,9 +25,6 @@ public class ThreadHdr extends BaseEntity {
 	@Column(name = "is_premium")
 	private Boolean isPremium;
 
-	@Column(name = "thread_price")
-	private Long threadPrice;
-
 	@OneToOne
 	@JoinColumn(name = "polling_id")
 	private PollingHdr polling;
@@ -70,14 +67,6 @@ public class ThreadHdr extends BaseEntity {
 
 	public void setIsPremium(Boolean isPremium) {
 		this.isPremium = isPremium;
-	}
-
-	public Long getThreadPrice() {
-		return threadPrice;
-	}
-
-	public void setThreadPrice(Long threadPrice) {
-		this.threadPrice = threadPrice;
 	}
 
 	public PollingHdr getPolling() {

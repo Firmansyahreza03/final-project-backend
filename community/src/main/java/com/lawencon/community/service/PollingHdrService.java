@@ -73,8 +73,10 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 			PojoInsertRes insertRes = new PojoInsertRes();
 
 			PollingHdr reqData = inputPollingData(new PollingHdr(), data.getPollingName(), data.getIsActive());
-
+			
 			PollingHdr result = save(reqData);
+			
+			// belum selesai
 
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());

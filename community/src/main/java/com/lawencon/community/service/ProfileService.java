@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
-import com.lawencon.community.constant.Role;
+import com.lawencon.community.constant.RoleType;
 import com.lawencon.community.dao.BalanceDao;
 import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.IndustryDao;
@@ -45,14 +46,13 @@ public class ProfileService extends BaseCoreService<Profile> {
 	private IndustryDao industryDao;
 	@Autowired
 	private FileDao fileDao;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	private PojoProfileData modelToRes(Profile data) {
 		PojoProfileData result = new PojoProfileData();
 
 		result.setCompanyName(data.getCompanyName());
-		if (data.getUser().getFile() != null) {
-			result.setFileId(data.getUser().getFile().getId());
-		}
 		result.setFullName(data.getFullName());
 		result.setId(data.getId());
 		result.setIndustryId(data.getIndustry().getId());
@@ -63,6 +63,10 @@ public class ProfileService extends BaseCoreService<Profile> {
 		result.setUserEmail(data.getUser().getUserEmail());
 		result.setUserId(data.getUser().getId());
 		result.setVersion(data.getVersion());
+
+		if (data.getUser().getFile() != null) {
+			result.setFileId(data.getUser().getFile().getId());
+		}
 
 		return result;
 	}
@@ -107,7 +111,7 @@ public class ProfileService extends BaseCoreService<Profile> {
 			reqData.setIsActive(data.getIsActive());
 			reqData.setPositionName(data.getPositionName());
 
-			User creator = userDao.findByRoleCode(Role.SYSTEM.name());
+			User creator = userDao.findByRoleCode(RoleType.SYSTEM.name());
 
 			User userData = new User();
 			Balance balanceData = new Balance();
@@ -115,15 +119,16 @@ public class ProfileService extends BaseCoreService<Profile> {
 			balanceData.setIsActive(true);
 			balanceData.setCreatedBy(creator.getId());
 			Balance balance = balanceDao.save(balanceData);
-
-			File fileData = new File();
-			fileData.setFileName(data.getFileName());
-			fileData.setFileExtension(data.getFileExt());
-			fileData.setCreatedBy(creator.getId());
-			fileData.setIsActive(true);
-			File file = fileDao.save(fileData);
-
-			com.lawencon.community.model.Role role = roleDao.findByRoleCode(Role.NONADMIN.name());
+			if (data.getFileName() != null) {
+				File fileData = new File();
+				fileData.setFileName(data.getFileName());
+				fileData.setFileExtension(data.getFileExt());
+				fileData.setCreatedBy(creator.getId());
+				fileData.setIsActive(true);
+				File file = fileDao.save(fileData);
+				userData.setFile(file);
+			}
+			com.lawencon.community.model.Role role = roleDao.findByRoleCode(RoleType.NONADMIN.name());
 
 			SubscriptionStatus statusData = new SubscriptionStatus();
 			statusData.setIsSubscriber(false);
@@ -132,27 +137,29 @@ public class ProfileService extends BaseCoreService<Profile> {
 			SubscriptionStatus status = statusDao.save(statusData);
 
 			userData.setBalance(balance);
-			userData.setFile(file);
 			userData.setRole(role);
 			userData.setSubscriptionStatus(status);
 
 			userData.setIsActive(true);
 			userData.setUserEmail(data.getUserEmail());
-			userData.setUserPassword(data.getUserPassword());
+
+			String passCode = passwordEncoder.encode(data.getUserPassword());
+
+			userData.setUserPassword(passCode);
 
 			userData.setVerificationCode(data.getVerificationCode());
 			userData.setCreatedBy(creator.getId());
 			User user = userDao.save(userData);
 
 			reqData.setUser(user);
-			Profile profile = saveNonLogin(reqData, () -> userDao.findByRoleCode(Role.SYSTEM.name()).getId());
+			Profile profile = saveNonLogin(reqData, () -> creator.getId());
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(profile.getId());
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Registration");
 			return insertRes;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();

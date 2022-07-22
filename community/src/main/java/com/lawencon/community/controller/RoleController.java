@@ -43,8 +43,7 @@ public class RoleController {
 	}
 
 	@GetMapping
-	public ResponseEntity<SearchQuery<PojoDataRole>> findAll(@RequestParam("query") String query, @RequestParam("startPage") Integer startPage,
-			@RequestParam("maxPage") Integer maxPage) throws Exception {
+	public ResponseEntity<SearchQuery<PojoDataRole>> findAll(String query, Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<PojoDataRole> result = roleService.getAll(query, startPage, maxPage);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}

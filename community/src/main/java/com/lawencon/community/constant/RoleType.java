@@ -1,6 +1,6 @@
 package com.lawencon.community.constant;
 
-public enum Role {
+public enum RoleType {
 
 	ADMIN, NONADMIN, SYSTEM
 }

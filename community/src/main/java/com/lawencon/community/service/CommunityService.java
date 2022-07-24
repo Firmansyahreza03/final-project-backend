@@ -223,7 +223,7 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	public SearchQuery<PojoDataCommunity> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
 		List<Community> tmp = communityDao.getByIdIndustry(idx, startPage, maxPage);
 		
 		SearchQuery<Community> communityList = findAll(()->tmp);
@@ -246,7 +246,7 @@ public class CommunityService extends BaseCoreService<Community>{
 		return result;
 	}
 
-	public SearchQuery<PojoDataCommunity> getAllByIdCategory(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByIdCategory(String idx, Integer startPage, Integer maxPage) throws Exception {
 		List<Community> tmp = communityDao.getByIdCategory(idx, startPage, maxPage);
 		
 		SearchQuery<Community> communityList = findAll(()->tmp);

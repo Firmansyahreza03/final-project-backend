@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ThreadCategoryDao;
@@ -19,6 +20,7 @@ import com.lawencon.community.pojo.threadcategory.PojoThreadCategoryData;
 import com.lawencon.community.pojo.threadcategory.PojoUpdateThreadCategoryReq;
 import com.lawencon.model.SearchQuery;
 
+@Service
 public class ThreadCategoryService extends BaseCoreService<ThreadCategory> {
 
 	@Autowired

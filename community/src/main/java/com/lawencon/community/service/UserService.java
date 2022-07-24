@@ -102,6 +102,7 @@ public class UserService extends BaseCoreService<User> implements UserDetailsSer
 		User resultUser = userDao.findByEmail(mail);
 		return resultUser;
 	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 		User userDb = null;

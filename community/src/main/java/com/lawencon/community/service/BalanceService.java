@@ -3,8 +3,6 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +75,6 @@ public class BalanceService extends BaseCoreService<Balance> {
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertBalanceReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -101,7 +98,6 @@ public class BalanceService extends BaseCoreService<Balance> {
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateBalanceReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
@@ -127,7 +123,6 @@ public class BalanceService extends BaseCoreService<Balance> {
 
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();
@@ -145,7 +140,6 @@ public class BalanceService extends BaseCoreService<Balance> {
 			throw new Exception(e);
 		}
 	}
-	
 
 	public PojoFindByIdBalanceRes findByIdUser(String id) throws Exception {
 		Balance data = balanceDao.findbyUserId(id);

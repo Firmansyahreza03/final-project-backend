@@ -13,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.community.exception.InvalidLoginException;
@@ -30,10 +29,10 @@ import com.lawencon.util.JwtUtil.ClaimKey;
 public class LoginController {
 	@Autowired
 	private AuthenticationManager authManager;
-	
+
 	@Autowired
 	private JwtUtil jwtComponent;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -42,30 +41,29 @@ public class LoginController {
 		LoginRes response = new LoginRes();
 		LoginDataRes data = new LoginDataRes();
 		try {
-			authManager.authenticate(
-					new UsernamePasswordAuthenticationToken(
-							loginReq.getEmail(), loginReq.getPassword()
-							)
-					).isAuthenticated();
-			
+			authManager
+					.authenticate(new UsernamePasswordAuthenticationToken(loginReq.getEmail(), loginReq.getPassword()))
+					.isAuthenticated();
+
 		} catch (Exception e) {
 			throw new InvalidLoginException("email or password is wrong");
 		}
-		
+
 		User user = userService.findUserToLogin(loginReq.getEmail());
-		
+
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(ClaimKey.ID.name(), user.getId());
 		claims.put(ClaimKey.ROLE.name(), user.getRole().getRoleCode());
-		
+
 		String token = jwtComponent.generateToken(claims, Duration.ofHours(6));
-		
+
 		data.setEmail(user.getUserEmail());
 		data.setRoleCode(user.getRole().getRoleCode());
 		data.setToken(token);
-		
+
 		response.setData(data);
-		
+
 		return new ResponseEntity<LoginRes>(response, HttpStatus.OK);
 	}
+
 }

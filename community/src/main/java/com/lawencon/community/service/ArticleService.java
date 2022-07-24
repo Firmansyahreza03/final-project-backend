@@ -3,8 +3,6 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,6 +84,8 @@ public class ArticleService extends BaseCoreService<Article>{
 	
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<Article> getAllArticle= articleDao.findAll(query, startPage, maxPage);
+		//field diisi nama model
+//		SearchQuery<Article> art = articleDao.findAll(query, startPage, maxPage, "articleName")
 		List<PojoDataArticle> resultList = new ArrayList<>();
 		
 		getAllArticle.getData().forEach(d -> {
@@ -104,7 +104,6 @@ public class ArticleService extends BaseCoreService<Article>{
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertArticleReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -129,7 +128,6 @@ public class ArticleService extends BaseCoreService<Article>{
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateArticleReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
@@ -157,7 +155,6 @@ public class ArticleService extends BaseCoreService<Article>{
 	}
 	
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();

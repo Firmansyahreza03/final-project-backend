@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.community.pojo.PojoDeleteRes;
@@ -39,7 +38,7 @@ public class RoleController {
 	@GetMapping("{id}")
 	public ResponseEntity<PojoFindByIdRoleRes> findById(@PathVariable("id") String id) throws Exception {
 		PojoFindByIdRoleRes findRes = roleService.findById(id);
-		return new ResponseEntity<PojoFindByIdRoleRes>(findRes, HttpStatus.OK);
+		return new ResponseEntity<>(findRes, HttpStatus.OK);
 	}
 
 	@GetMapping
@@ -51,18 +50,18 @@ public class RoleController {
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody @Valid PojoInsertRoleReq role) throws Exception{
 		PojoInsertRes insertRes = roleService.insert(role);
-		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
+		return new ResponseEntity<>(insertRes, HttpStatus.CREATED);
 	}
 	
 	@PutMapping
 	public ResponseEntity<PojoUpdateRes> update(@RequestBody @Valid PojoUpdateRoleReq role) throws Exception{
 		PojoUpdateRes updateRes = roleService.update(role);
-		return new ResponseEntity<PojoUpdateRes>(updateRes, HttpStatus.OK);
+		return new ResponseEntity<>(updateRes, HttpStatus.OK);
 	}
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception {
 		PojoDeleteRes delRes = roleService.deleteById(id);
-		return new ResponseEntity<PojoDeleteRes>(delRes, HttpStatus.OK);
+		return new ResponseEntity<>(delRes, HttpStatus.OK);
 	}
 }

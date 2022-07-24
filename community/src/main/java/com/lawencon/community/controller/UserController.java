@@ -40,10 +40,10 @@ public class UserController {
 	}
 
 	@GetMapping
-	public ResponseEntity<SearchQuery<PojoProfileData>> findAll(@RequestParam("query") String query, @RequestParam("startPage") Integer startPage,
-			@RequestParam("maxPage") Integer maxPage) throws Exception {
+	public ResponseEntity<SearchQuery<PojoProfileData>> findAll(String query, Integer startPage, Integer maxPage)
+			throws Exception {
 		SearchQuery<PojoProfileData> result = profileService.getAll(query, startPage, maxPage);
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		return new ResponseEntity<SearchQuery<PojoProfileData>>(result, HttpStatus.OK);
 	}
 
 	@GetMapping("/generate-valid-code/{mail}")
@@ -51,9 +51,9 @@ public class UserController {
 		PojoCodeData findRes = codeService.generateRandomCode(mail);
 		return new ResponseEntity<PojoCodeData>(findRes, HttpStatus.OK);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<PojoInsertRes> insert(@RequestBody PojoInsertProfileReq data) throws Exception{
+	public ResponseEntity<PojoInsertRes> insert(@RequestBody PojoInsertProfileReq data) throws Exception {
 		PojoInsertRes insertRes = profileService.regist(data);
 		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
 	}

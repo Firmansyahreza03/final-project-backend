@@ -40,7 +40,9 @@ public class BalanceDao extends AbstractJpaDao<Balance> {
 
 		Balance res = null;
 		try {			
-			Object result = createNativeQuery(sql.toString()).getSingleResult();
+			Object result = createNativeQuery(sql.toString())
+					.setParameter("id", id)
+					.getSingleResult();
 			if(result != null) {
 				res = inputData(result);
 			}

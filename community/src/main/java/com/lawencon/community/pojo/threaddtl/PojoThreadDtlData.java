@@ -3,8 +3,8 @@ package com.lawencon.community.pojo.threaddtl;
 public class PojoThreadDtlData {
 
 	private String id;
-	private String UserId;
-	private String UserUsername;
+	private String userId;
+	private String userFullName;
 	private String hdrId;
 	private String threadComment;
 	private Boolean isActive;
@@ -19,19 +19,19 @@ public class PojoThreadDtlData {
 	}
 
 	public String getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	public void setUserId(String userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 
-	public String getUserUsername() {
-		return UserUsername;
+	public String getUserFullName() {
+		return userFullName;
 	}
 
-	public void setUserUsername(String userUsername) {
-		UserUsername = userUsername;
+	public void setUserFullName(String userFullName) {
+		this.userFullName = userFullName;
 	}
 
 	public String getHdrId() {

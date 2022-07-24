@@ -37,8 +37,8 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	@Autowired
 	private ThreadHdrDao threadHdrDao;
 
-	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, 
-			String idUser, String idThreadHdr) throws Exception {
+	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, String idUser, String idThreadHdr)
+			throws Exception {
 		result.setIsActive(isActive);
 		User fkUser = userDao.getById(idUser);
 		ThreadHdr fkThreadHdr = threadHdrDao.getById(idThreadHdr);
@@ -78,10 +78,10 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	}
 
 	public SearchQuery<PojoDataBookmark> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Bookmark> getAllBookmark = bookmarkDao.findAll(query, startPage, maxPage);
+		SearchQuery<Bookmark> bookmarkList = bookmarkDao.findAll(query, startPage, maxPage);
 		List<PojoDataBookmark> resultList = new ArrayList<>();
 
-		getAllBookmark.getData().forEach(d -> {
+		bookmarkList.getData().forEach(d -> {
 			PojoDataBookmark data;
 			try {
 				data = modelToRes(d);
@@ -93,7 +93,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 
 		SearchQuery<PojoDataBookmark> result = new SearchQuery<PojoDataBookmark>();
 		result.setData(resultList);
-		result.setCount(getAllBookmark.getCount());
+		result.setCount(bookmarkList.getCount());
 		return result;
 	}
 
@@ -163,14 +163,15 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 		}
 	}
 
-	public SearchQuery<PojoDataBookmark> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataBookmark> getByIdIndustry(String idx, Integer startPage, Integer maxPage)
+			throws Exception {
 		List<Bookmark> tmp = bookmarkDao.getByIdUser(idx, startPage, maxPage);
-		
-		SearchQuery<Bookmark> articleList = findAll(()->tmp);
-		
+
+		SearchQuery<Bookmark> bookmarkList = findAll(() -> tmp);
+
 		List<PojoDataBookmark> resultList = new ArrayList<>();
-		
-		articleList.getData().forEach(d -> {
+
+		bookmarkList.getData().forEach(d -> {
 			PojoDataBookmark data;
 			try {
 				data = modelToRes(d);
@@ -179,10 +180,10 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 				e.printStackTrace();
 			}
 		});
-		
+
 		SearchQuery<PojoDataBookmark> result = new SearchQuery<PojoDataBookmark>();
 		result.setData(resultList);
-		result.setCount(articleList.getCount());
+		result.setCount(bookmarkList.getCount());
 		return result;
 	}
 }

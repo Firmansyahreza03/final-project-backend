@@ -11,12 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.constant.RoleType;
-import com.lawencon.community.dao.BalanceDao;
-import com.lawencon.community.dao.FileDao;
-import com.lawencon.community.dao.IndustryDao;
-import com.lawencon.community.dao.ProfileDao;
-import com.lawencon.community.dao.RoleDao;
-import com.lawencon.community.dao.SubscriptionStatusDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoInsertRes;

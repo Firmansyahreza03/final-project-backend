@@ -26,7 +26,7 @@ import com.lawencon.util.JwtUtil;
 import com.lawencon.util.JwtUtil.ClaimKey;
 
 @RestController
-@RequestMapping("login")
+@RequestMapping
 public class LoginController {
 	@Autowired
 	private AuthenticationManager authManager;
@@ -37,7 +37,7 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
-	@PostMapping
+	@PostMapping("login")
 	public ResponseEntity<LoginRes> login(@RequestBody @Valid LoginReq loginReq) throws Exception {
 		LoginRes response = new LoginRes();
 		LoginDataRes data = new LoginDataRes();

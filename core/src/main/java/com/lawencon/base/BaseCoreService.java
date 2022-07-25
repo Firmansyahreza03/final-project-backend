@@ -42,6 +42,10 @@ public class BaseCoreService<T extends BaseEntity> {
 
 		return (A) auth.getPrincipal().toString();
 	}
+	
+	protected T getById(String id) throws Exception {
+		return abstractJpaDao.getById(id);
+	}
 
 	protected T save(T entity) throws Exception {
 		saveData(entity, getAuthPrincipal());
@@ -60,7 +64,7 @@ public class BaseCoreService<T extends BaseEntity> {
 			entity.setCreatedBy(id);
 		}
 	}
-
+	
 	protected SearchQuery<T> findAll(Supplier<List<T>> getAllFunc) throws Exception {
 		SearchQuery<T> sq = new SearchQuery<>();
 		List<T> data = getAllFunc.get();
@@ -71,5 +75,4 @@ public class BaseCoreService<T extends BaseEntity> {
 
 		return sq;
 	}
-
 }

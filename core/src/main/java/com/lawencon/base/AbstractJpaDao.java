@@ -29,25 +29,37 @@ public class AbstractJpaDao<T extends BaseEntity> {
 	}
 
 	public T getById(final String id) {
-		return em().find(clazz, id);
+		T data = em().find(clazz, id);
+		em().detach(data);
+		return data;
+	}
+
+	public T getByIdWithoutDetach(final String id) {
+		T data = em().find(clazz, id);
+		return data;
 	}
 
 	public List<T> getAll() {
-		return em().createQuery("FROM " + clazz.getName(), clazz).getResultList();
+		return em().createQuery("FROM " + clazz.getName(), clazz)
+				.getResultList();
 	}
 
 	public Long countAll() {
-		return (Long) em().createQuery("SELECT COUNT(id) FROM " + clazz.getName()).getSingleResult();
+		return (Long) em().createQuery("SELECT COUNT(id) FROM " + clazz.getName())
+				.getSingleResult();
 	}
 
 	public List<T> getAll(int startPage, int maxPage) {
-		return em().createQuery("FROM " + clazz.getName(), clazz).setFirstResult(startPage).setMaxResults(maxPage)
+		return em().createQuery("FROM " + clazz.getName(), clazz)
+				.setFirstResult(startPage)
+				.setMaxResults(maxPage)
 				.getResultList();
 	}
 
 	private SearchQuery<T> getAll(String query, int startPage, int maxPage, String... fields) {
-		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager()).search(clazz)
-				.where(f -> f.match().fields(fields).matching(query));
+		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager())
+				.search(clazz)
+				.where(f -> f.wildcard().fields(fields).matching("*" + query + "*"));
 
 		List<T> result = searchObj.fetch(startPage, maxPage).hits();
 		List<T> resultAll = searchObj.fetchAllHits();
@@ -58,7 +70,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 
 		return data;
 	}
-	
+
 	public SearchQuery<T> findAll(String query, Integer startPage, Integer maxPage, String... fields) throws Exception {
 		SearchQuery<T> sq = new SearchQuery<>();
 		List<T> data = null;
@@ -99,7 +111,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 	public boolean deleteById(final Object entityId) throws Exception {
 		T entity = null;
 		if (entityId != null && entityId instanceof String) {
-			entity = getById((String) entityId);
+			entity = em().find(clazz, (String) entityId);
 		}
 
 		if (entity != null) {

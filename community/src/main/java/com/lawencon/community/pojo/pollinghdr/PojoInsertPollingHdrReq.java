@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.pollinghdr;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +11,16 @@ public class PojoInsertPollingHdrReq {
 	private String pollingName;
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
+	@NotNull(message = "option can not be empty")
+	private List<String> options;
+
+	public List<String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<String> options) {
+		this.options = options;
+	}
 
 	public String getPollingName() {
 		return pollingName;

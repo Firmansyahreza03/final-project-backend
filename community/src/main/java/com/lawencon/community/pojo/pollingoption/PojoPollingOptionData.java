@@ -4,7 +4,6 @@ public class PojoPollingOptionData {
 
 	private String id;
 	private String pollingId;
-	private String pollingName;
 	private String optionName;
 	private Boolean isActive;
 	private Integer version;
@@ -23,14 +22,6 @@ public class PojoPollingOptionData {
 
 	public void setPollingId(String pollingId) {
 		this.pollingId = pollingId;
-	}
-
-	public String getPollingName() {
-		return pollingName;
-	}
-
-	public void setPollingName(String pollingName) {
-		this.pollingName = pollingName;
 	}
 
 	public String getOptionName() {

@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class PojoInsertPollingOptionReq {
 
-	@NotBlank(message = "name can not be empty")
+	@NotBlank(message = "polling can not be empty")
 	private String pollingHdrId;
 
 	@NotBlank(message = "option can not be empty")

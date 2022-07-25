@@ -3,8 +3,6 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,10 +56,10 @@ public class RoleService extends BaseCoreService<Role>{
 	}
 	
 	public SearchQuery<PojoDataRole> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Role> getAllRole= roleDao.findAll(query, startPage, maxPage);
+		SearchQuery<Role> roleList= roleDao.findAll(query, startPage, maxPage);
 		List<PojoDataRole> resultList = new ArrayList<>();
 		
-		getAllRole.getData().forEach(d -> {
+		roleList.getData().forEach(d -> {
 			PojoDataRole data = modelToRes(d);
 			
 			resultList.add(data);
@@ -69,11 +67,10 @@ public class RoleService extends BaseCoreService<Role>{
 		});
 		SearchQuery<PojoDataRole> result = new SearchQuery<PojoDataRole>();
 		result.setData(resultList);
-		result.setCount(getAllRole.getCount());
+		result.setCount(roleList.getCount());
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertRoleReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -81,7 +78,7 @@ public class RoleService extends BaseCoreService<Role>{
 			Role reqData = inputRoleData(new Role(), data.getName(), data.getCode(), true);
 			
 			begin();
-			Role result = super.save(reqData);
+			Role result = save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
@@ -97,16 +94,15 @@ public class RoleService extends BaseCoreService<Role>{
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateRoleReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Role reqData = roleDao.getById(data.getId());
 			
 			reqData = inputRoleData(reqData, data.getName(), reqData.getRoleCode(), data.getIsActive());
-
+			reqData.setVersion(data.getVersion());
 			begin();
-			Role result = super.save(reqData);
+			Role result = save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
@@ -123,7 +119,6 @@ public class RoleService extends BaseCoreService<Role>{
 
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();

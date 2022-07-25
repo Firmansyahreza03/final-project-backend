@@ -9,11 +9,9 @@ import org.springframework.stereotype.Service;
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ArticleDao;
 import com.lawencon.community.dao.IndustryDao;
-import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Article;
 import com.lawencon.community.model.Industry;
-import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
@@ -31,8 +29,6 @@ public class ArticleService extends BaseCoreService<Article>{
 	private ArticleDao articleDao;
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private ProfileDao profileDao;
 	@Autowired
 	private IndustryDao industryDao;
 
@@ -55,7 +51,6 @@ public class ArticleService extends BaseCoreService<Article>{
 	private PojoDataArticle modelToRes(Article data) throws Exception {
 		PojoDataArticle result = new PojoDataArticle();
 		User fkUser = userDao.getById(data.getUser().getId());
-		Profile fkProfile = profileDao.getByIdUser(data.getUser().getId());
 		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
 
 		result.setId(data.getId());
@@ -66,7 +61,6 @@ public class ArticleService extends BaseCoreService<Article>{
 		result.setContent(data.getArticleContent());
 		result.setIdUser(fkUser.getId());
 		result.setIdIndustry(fkIndustry.getId());
-		result.setNameUser(fkProfile.getFullName());
 		result.setNameIndustry(fkIndustry.getIndustryName());
 		
 		return result;
@@ -84,8 +78,7 @@ public class ArticleService extends BaseCoreService<Article>{
 	
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<Article> getAllArticle= articleDao.findAll(query, startPage, maxPage);
-		//field diisi nama model
-//		SearchQuery<Article> art = articleDao.findAll(query, startPage, maxPage, "articleName")
+		
 		List<PojoDataArticle> resultList = new ArrayList<>();
 		
 		getAllArticle.getData().forEach(d -> {
@@ -112,7 +105,7 @@ public class ArticleService extends BaseCoreService<Article>{
 					data.getIdUser(), data.getIdIndustry());
 			
 			begin();
-			Article result = super.save(reqData);
+			Article result = save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
@@ -137,7 +130,7 @@ public class ArticleService extends BaseCoreService<Article>{
 					data.getIdUser(), data.getIdIndustry());
 			
 			begin();
-			Article result = articleDao.save(reqData);
+			Article result = save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());

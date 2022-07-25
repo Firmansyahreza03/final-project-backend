@@ -3,6 +3,8 @@ package com.lawencon.community.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.base.AbstractJpaDao;
@@ -22,8 +24,15 @@ public class PollingOptionDao extends AbstractJpaDao<PollingOption> {
 
 		List<PollingOption> options = new ArrayList<>();
 		try {
-			List<?> result = createNativeQuery(sql.toString()).setParameter("id", id).setFirstResult(startPage)
-					.setMaxResults(maxPage).getResultList();
+
+			Query q = createNativeQuery(sql.toString()).setParameter("id", id);
+
+			if (startPage != null && maxPage != null) {
+				q.setFirstResult(startPage)
+				.setMaxResults(maxPage);
+			}
+
+			List<?> result = q.getResultList();
 
 			result.forEach(obj -> {
 				Object[] objArr = (Object[]) obj;

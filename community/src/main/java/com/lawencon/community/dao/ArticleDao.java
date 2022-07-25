@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.base.AbstractJpaDao;
@@ -51,12 +53,14 @@ public class ArticleDao extends AbstractJpaDao<Article> {
 		.append(" WHERE a.industry_id = :id ");
 		
 		List<Article> res = new ArrayList<>();
+		Query q = createNativeQuery(sql.toString())
+				.setParameter("id", id);
 		
-		List<?> rs = createNativeQuery(sql.toString())
-				.setParameter("id", id)
-				.setFirstResult(startPage)
-				.setMaxResults(maxPage)
-				.getResultList();
+		if(startPage != null && maxPage != null) {
+			q.setFirstResult(startPage).setMaxResults(maxPage);
+		}
+		
+		List<?> rs = q.getResultList();
 
 		rs.forEach(obj ->{
 			try {

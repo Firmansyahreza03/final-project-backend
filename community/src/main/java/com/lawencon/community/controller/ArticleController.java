@@ -61,7 +61,7 @@ public class ArticleController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@GetMapping("industry/{id}")
+	@GetMapping("industries/{id}")
 	public ResponseEntity<SearchQuery<PojoDataArticle>> findByIndustryId(@PathVariable("id") String id,
 			Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<PojoDataArticle> res = articleService.getAllByIdIndustry(id, startPage, maxPage);

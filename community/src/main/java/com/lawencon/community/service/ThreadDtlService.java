@@ -142,4 +142,27 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 			throw new Exception(e);
 		}
 	}
+	
+	public SearchQuery<PojoThreadDtlData> findByHdrId(String id, Integer startPage, Integer maxPage) throws Exception{
+		List<ThreadDtl> detailList = dtlDao.findByHdrId(id, startPage, maxPage);
+		
+		SearchQuery<ThreadDtl> details = findAll(() -> detailList);
+		
+		List<PojoThreadDtlData> resultList = new ArrayList<>();
+		
+		details.getData().forEach(d -> {
+			PojoThreadDtlData data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		SearchQuery<PojoThreadDtlData> result = new SearchQuery<>();
+		result.setData(resultList);
+		result.setCount(details.getCount());
+		return result;
+	}
 }

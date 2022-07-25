@@ -1,7 +1,5 @@
 package com.lawencon.community.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -41,12 +39,6 @@ public class User extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name = "balance_id")
 	private Balance balance;
-
-	@Column(name = "refresh_token", columnDefinition = "TEXT")
-	private String refreshToken;
-
-	@Column(name = "expired_at")
-	private LocalDateTime expiredAt;
 
 	public String getUserEmail() {
 		return userEmail;
@@ -103,21 +95,4 @@ public class User extends BaseEntity {
 	public void setBalance(Balance balance) {
 		this.balance = balance;
 	}
-
-	public String getRefreshToken() {
-		return refreshToken;
-	}
-
-	public void setRefreshToken(String refreshToken) {
-		this.refreshToken = refreshToken;
-	}
-
-	public LocalDateTime getExpiredAt() {
-		return expiredAt;
-	}
-
-	public void setExpiredAt(LocalDateTime expiredAt) {
-		this.expiredAt = expiredAt;
-	}
-
 }

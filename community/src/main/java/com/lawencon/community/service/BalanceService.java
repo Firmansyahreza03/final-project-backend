@@ -104,7 +104,7 @@ public class BalanceService extends BaseCoreService<Balance> {
 			Balance reqData = balanceDao.getById(data.getId());
 
 			reqData = inputBalanceData(reqData, data.getIsActive(), data.getBalance());
-
+			reqData.setVersion(data.getVersion());
 			begin();
 			Balance result = balanceDao.save(reqData);
 			commit();

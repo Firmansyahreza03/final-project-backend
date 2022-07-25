@@ -54,4 +54,11 @@ public class ThreadDtlController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
+	@GetMapping("threads/{id}")
+	public ResponseEntity<SearchQuery<PojoThreadDtlData>> findByHdrId(String id, Integer startPage, Integer maxPage)
+			throws Exception {
+		SearchQuery<PojoThreadDtlData> res = service.findByHdrId(id, startPage, maxPage);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
 }

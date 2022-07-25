@@ -31,7 +31,6 @@ public class PollingOptionService extends BaseCoreService<PollingOption> {
 
 		PollingHdr hdr = pollingHdrDao.getById(data.getPollingHdr().getId());
 		result.setPollingId(hdr.getId());
-		result.setPollingName(hdr.getPollingName());
 		result.setVersion(data.getVersion());
 
 		return result;
@@ -59,5 +58,15 @@ public class PollingOptionService extends BaseCoreService<PollingOption> {
 		result.setData(resultList);
 		result.setCount(options.getCount());
 		return result;
+	}
+	
+	public PollingOption insert(PollingOption req) throws Exception{
+		try {			
+			PollingOption res = save(req);
+			return res;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
 	}
 }

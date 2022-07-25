@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.PollingHdrDao;
 import com.lawencon.community.model.PollingHdr;
+import com.lawencon.community.model.PollingOption;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
@@ -22,6 +23,8 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 
 	@Autowired
 	private PollingHdrDao hdrDao;
+	@Autowired
+	private PollingOptionService optionService;
 
 	private PollingHdr inputPollingData(PollingHdr result, String pollingName, Boolean isActive) {
 		result.setIsActive(isActive);
@@ -76,7 +79,17 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 			
 			PollingHdr result = save(reqData);
 			
-			// belum selesai
+			data.getOptions().forEach(d -> {
+				try {
+					PollingOption option = new PollingOption();
+					option.setOptionName(d);
+					option.setPollingHdr(result);
+					option.setIsActive(true);
+					optionService.insert(option);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			});
 
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());

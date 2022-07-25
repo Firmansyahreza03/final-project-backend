@@ -111,4 +111,27 @@ public class ThreadLikedService extends BaseCoreService<ThreadLiked> {
 			throw new Exception(e);
 		}
 	}
+	
+	public SearchQuery<PojoThreadLikedData> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception{
+		List<ThreadLiked> threadList = threadLikedDao.findByCreatedBy(id, startPage, maxPage);
+		
+		SearchQuery<ThreadLiked> threads = findAll(() -> threadList);
+		
+		List<PojoThreadLikedData> resultList = new ArrayList<>();
+		
+		threads.getData().forEach(d -> {
+			PojoThreadLikedData data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		SearchQuery<PojoThreadLikedData> result = new SearchQuery<>();
+		result.setData(resultList);
+		result.setCount(threads.getData().size());
+		return result;
+	}
 }

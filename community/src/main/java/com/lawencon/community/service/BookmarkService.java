@@ -183,7 +183,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 
 		SearchQuery<PojoDataBookmark> result = new SearchQuery<PojoDataBookmark>();
 		result.setData(resultList);
-		result.setCount(bookmarkList.getCount());
+		result.setCount(bookmarkList.getData().size());
 		return result;
 	}
 }

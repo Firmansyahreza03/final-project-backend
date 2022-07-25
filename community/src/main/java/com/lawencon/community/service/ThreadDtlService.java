@@ -162,7 +162,7 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 		
 		SearchQuery<PojoThreadDtlData> result = new SearchQuery<>();
 		result.setData(resultList);
-		result.setCount(details.getCount());
+		result.setCount(details.getData().size());
 		return result;
 	}
 }

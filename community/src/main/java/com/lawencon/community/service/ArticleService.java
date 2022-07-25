@@ -185,7 +185,7 @@ public class ArticleService extends BaseCoreService<Article>{
 		
 		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
 		result.setData(resultList);
-		result.setCount(articleList.getCount());
+		result.setCount(articleList.getData().size());
 		return result;
 	}
 }

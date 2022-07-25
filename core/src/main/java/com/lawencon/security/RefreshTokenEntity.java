@@ -14,7 +14,7 @@ public class RefreshTokenEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 4663269825742405548L;
 
-	@Column(columnDefinition = "TEXT", nullable = false, unique = true)
+	@Column(columnDefinition = "TEXT", nullable = false, unique = true, name = "access_token")
 	private String token;
 
 	@Column(nullable = false)

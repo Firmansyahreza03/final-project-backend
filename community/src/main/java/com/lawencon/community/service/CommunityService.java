@@ -242,7 +242,7 @@ public class CommunityService extends BaseCoreService<Community>{
 		
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
-		result.setCount(communityList.getCount());
+		result.setCount(communityList.getData().size());
 		return result;
 	}
 
@@ -265,7 +265,7 @@ public class CommunityService extends BaseCoreService<Community>{
 		
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
-		result.setCount(communityList.getCount());
+		result.setCount(communityList.getData().size());
 		return result;
 	}
 }

@@ -57,11 +57,11 @@ public class LoginController {
 		claims.put(ClaimKey.ROLE.name(), user.getRole().getRoleCode());
 
 		String token = jwtComponent.generateToken(claims, Duration.ofHours(6));
-
+		
 		data.setEmail(user.getUserEmail());
 		data.setRoleCode(user.getRole().getRoleCode());
 		data.setToken(token);
-
+		data.setRefreshToken(userService.updateToken(user.getId()));
 		response.setData(data);
 
 		return new ResponseEntity<LoginRes>(response, HttpStatus.OK);

@@ -15,8 +15,7 @@ public class RefreshTokenService extends BaseCoreService<RefreshTokenEntity> {
 		RefreshTokenEntity result = null;
 		try {
 			result = ConnHandler.getManager().createQuery(sql, RefreshTokenEntity.class)
-					.setParameter("refreshToken", refreshToken)
-					.getSingleResult();
+					.setParameter("refreshToken", refreshToken).getSingleResult();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -24,6 +23,21 @@ public class RefreshTokenService extends BaseCoreService<RefreshTokenEntity> {
 				throw new InvalidTokenException("Invalid Refresh Token");
 			}
 		}
+	}
+
+	public RefreshTokenEntity saveToken(RefreshTokenEntity data) throws Exception {
+		try {
+			data = save(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+
+		return data;
+	}
+
+	public RefreshTokenEntity getByIdRefreshToken(String id) throws Exception {
+		return getById(id);
 	}
 }
 

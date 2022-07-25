@@ -187,7 +187,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
 		result.setData(resultList);
-		result.setCount(threads.getCount());
+		result.setCount(threads.getData().size());
 		return result;
 	}
 }

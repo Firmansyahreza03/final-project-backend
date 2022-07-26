@@ -12,40 +12,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.code.PojoCodeData;
+import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
-import com.lawencon.community.pojo.user.PojoFindByIdUserRes;
 import com.lawencon.community.service.CodeService;
-import com.lawencon.community.service.ProfileService;
-import com.lawencon.community.service.UserService;
+import com.lawencon.community.service.ProfileUserService;
 import com.lawencon.model.SearchQuery;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
-
-	@Autowired
-	private UserService userService;
-
 	@Autowired
 	private CodeService codeService;
 
 	@Autowired
-	private ProfileService profileService;
+	private ProfileUserService profileUserService;
+
+	@Autowired
+	private ProfileUserService service;
 
 	@GetMapping("{id}")
-	public ResponseEntity<PojoFindByIdUserRes> findById(@PathVariable("id") String id) throws Exception {
-		PojoFindByIdUserRes findRes = userService.findById(id);
-		return new ResponseEntity<PojoFindByIdUserRes>(findRes, HttpStatus.OK);
+	public ResponseEntity<PojoFindByIdProfileRes> findById(@PathVariable("id") String id) throws Exception {
+		PojoFindByIdProfileRes res = service.findById(id);
+		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/email={mail}")
+	public ResponseEntity<PojoFindByIdProfileRes> findByMail(@PathVariable("mail") String mail) throws Exception {
+		PojoFindByIdProfileRes res = service.findByMai(mail);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
 	@GetMapping
 	public ResponseEntity<SearchQuery<PojoProfileData>> findAll(String query, Integer startPage, Integer maxPage)
 			throws Exception {
-		SearchQuery<PojoProfileData> result = profileService.getAll(query, startPage, maxPage);
-		return new ResponseEntity<SearchQuery<PojoProfileData>>(result, HttpStatus.OK);
-	}
+		SearchQuery<PojoProfileData> res = service.getAll(query, startPage, maxPage);
+		return new ResponseEntity<>(res, HttpStatus.OK);
 
+	}
+	
 	@GetMapping("/generate-valid-code/{mail}")
 	public ResponseEntity<PojoCodeData> generateValidationCode(@PathVariable("mail") String mail) throws Exception {
 		PojoCodeData findRes = codeService.generateRandomCode(mail);
@@ -54,7 +59,9 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody PojoInsertProfileReq data) throws Exception {
-		PojoInsertRes insertRes = profileService.regist(data);
+
+		PojoInsertRes insertRes = profileUserService.regist(data);
+
 		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
 	}
 }

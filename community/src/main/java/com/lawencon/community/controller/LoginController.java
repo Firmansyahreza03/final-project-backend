@@ -21,7 +21,7 @@ import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.LoginDataRes;
 import com.lawencon.community.pojo.LoginReq;
 import com.lawencon.community.pojo.LoginRes;
-import com.lawencon.community.service.UserService;
+import com.lawencon.community.service.LoginService;
 import com.lawencon.util.JwtUtil;
 import com.lawencon.util.JwtUtil.ClaimKey;
 
@@ -35,7 +35,7 @@ public class LoginController {
 	private JwtUtil jwtComponent;
 
 	@Autowired
-	private UserService userService;
+	private LoginService loginService;
 
 	@PostMapping("login")
 	public ResponseEntity<LoginRes> login(@RequestBody @Valid LoginReq loginReq) throws Exception {
@@ -50,7 +50,7 @@ public class LoginController {
 			throw new InvalidLoginException("email or password is wrong");
 		}
 
-		User user = userService.findUserToLogin(loginReq.getEmail());
+		User user = loginService.findUserByMail(loginReq.getEmail());
 
 		Map<String, Object> claims = new HashMap<String, Object>();
 		claims.put(ClaimKey.ID.name(), user.getId());
@@ -61,7 +61,7 @@ public class LoginController {
 		data.setEmail(user.getUserEmail());
 		data.setRoleCode(user.getRole().getRoleCode());
 		data.setToken(token);
-		data.setRefreshToken(userService.updateToken(user.getId()));
+		data.setRefreshToken(loginService.updateToken(user.getId()));
 		response.setData(data);
 
 		return new ResponseEntity<LoginRes>(response, HttpStatus.OK);

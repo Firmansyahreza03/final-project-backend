@@ -42,16 +42,16 @@ public class ProfileDao extends AbstractJpaDao<Profile> {
 		return results;
 	}
 
-	public Profile getByIdUser(String id) throws Exception {
+	public Profile getByUserMail(String mail) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT p.* FROM comm_user u ")
 		.append(" INNER JOIN comm_profile p ON u.id = p.user_id ")
-		.append(" WHERE u.id = :id ");
+		.append(" WHERE u.user_email = :mail ");
 		
 		Profile res = null;
 		try {			
 			Object rs = createNativeQuery(sql.toString())
-					.setParameter("id", id)
+					.setParameter("mail", mail)
 					.getSingleResult();
 			
 			if(rs != null) {
@@ -62,4 +62,5 @@ public class ProfileDao extends AbstractJpaDao<Profile> {
 		}
 		return res;
 	}
+	
 }

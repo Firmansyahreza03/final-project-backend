@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.lawencon.base.BaseEntity;
+import com.lawencon.security.RefreshTokenEntity;
 
 @Entity
 @Table(name = "comm_user", uniqueConstraints = { @UniqueConstraint(name = "email_bk", columnNames = { "user_email" }) })
@@ -39,6 +40,18 @@ public class User extends BaseEntity {
 	@OneToOne
 	@JoinColumn(name = "balance_id")
 	private Balance balance;
+
+	@OneToOne
+	@JoinColumn(name = "refresh_token_id")
+	private RefreshTokenEntity token;
+
+	public RefreshTokenEntity getToken() {
+		return token;
+	}
+
+	public void setToken(RefreshTokenEntity token) {
+		this.token = token;
+	}
 
 	public String getUserEmail() {
 		return userEmail;
@@ -95,5 +108,4 @@ public class User extends BaseEntity {
 	public void setBalance(Balance balance) {
 		this.balance = balance;
 	}
-
 }

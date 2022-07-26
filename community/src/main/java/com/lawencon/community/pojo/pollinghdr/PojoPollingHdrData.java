@@ -1,11 +1,24 @@
 package com.lawencon.community.pojo.pollinghdr;
 
+import java.util.List;
+
+import com.lawencon.community.pojo.pollingoption.PojoPollingOptionData;
+
 public class PojoPollingHdrData {
 
 	private String id;
 	private String pollingName;
 	private Boolean isActive;
 	private Integer version;
+	private List<PojoPollingOptionData> option;
+
+	public List<PojoPollingOptionData> getOption() {
+		return option;
+	}
+
+	public void setOption(List<PojoPollingOptionData> option) {
+		this.option = option;
+	}
 
 	public Integer getVersion() {
 		return version;

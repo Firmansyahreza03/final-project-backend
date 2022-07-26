@@ -3,7 +3,6 @@ package com.lawencon.config;
 import org.hibernate.search.mapper.orm.Search;
 import org.hibernate.search.mapper.orm.session.SearchSession;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import com.lawencon.base.ConnHandler;
 

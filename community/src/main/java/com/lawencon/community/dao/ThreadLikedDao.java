@@ -3,6 +3,8 @@ package com.lawencon.community.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.base.AbstractJpaDao;
@@ -20,11 +22,16 @@ public class ThreadLikedDao extends AbstractJpaDao<ThreadLiked>{
 		
 		List<ThreadLiked> results = new ArrayList<>();
 		try {
-			List<?> res = createNativeQuery(sql.toString())
-					.setParameter("id", id)
-					.setFirstResult(startPage)
-					.setMaxResults(maxPage)
-					.getResultList();
+			
+			Query q = createNativeQuery(sql.toString())
+					.setParameter("id", id);
+			
+			if(startPage != null && maxPage != null) {
+				q.setFirstResult(startPage)
+				.setMaxResults(maxPage);
+			}
+			
+			List<?> res = q.getResultList();
 			
 			if(res != null) {
 				res.forEach(obj -> {					

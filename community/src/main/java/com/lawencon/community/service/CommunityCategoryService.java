@@ -3,8 +3,6 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +69,7 @@ public class CommunityCategoryService extends BaseCoreService<CommunityCategory>
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		
@@ -80,7 +79,6 @@ public class CommunityCategoryService extends BaseCoreService<CommunityCategory>
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertCommunityCategoryReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -105,7 +103,6 @@ public class CommunityCategoryService extends BaseCoreService<CommunityCategory>
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateCommunityCategoryReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
@@ -130,7 +127,6 @@ public class CommunityCategoryService extends BaseCoreService<CommunityCategory>
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();

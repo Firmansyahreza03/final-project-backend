@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.IndustryDao;
@@ -25,6 +26,7 @@ import com.lawencon.community.pojo.threadhdr.PojoThreadHdrData;
 import com.lawencon.community.pojo.threadhdr.PojoUpdateThreadHdrReq;
 import com.lawencon.model.SearchQuery;
 
+@Service
 public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 	@Autowired
@@ -86,9 +88,14 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		List<PojoThreadHdrData> results = new ArrayList<>();
 
 		threadList.getData().forEach(d -> {
-			PojoThreadHdrData data = modelToRes(d);
-
-			results.add(data);
+			PojoThreadHdrData data;
+			try {
+				data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
 		result.setData(results);
@@ -180,12 +187,13 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 
 		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
 		result.setData(resultList);
-		result.setCount(threads.getCount());
+		result.setCount(threads.getData().size());
 		return result;
 	}
 }

@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -116,6 +114,7 @@ public class CommunityService extends BaseCoreService<Community>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		
@@ -125,7 +124,6 @@ public class CommunityService extends BaseCoreService<Community>{
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertCommunityReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -161,7 +159,6 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateCommunityReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
@@ -209,7 +206,6 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();
@@ -228,7 +224,7 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	public SearchQuery<PojoDataCommunity> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
 		List<Community> tmp = communityDao.getByIdIndustry(idx, startPage, maxPage);
 		
 		SearchQuery<Community> communityList = findAll(()->tmp);
@@ -242,16 +238,17 @@ public class CommunityService extends BaseCoreService<Community>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
-		result.setCount(communityList.getCount());
+		result.setCount(communityList.getData().size());
 		return result;
 	}
 
-	public SearchQuery<PojoDataCommunity> getAllByIdCategory(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByIdCategory(String idx, Integer startPage, Integer maxPage) throws Exception {
 		List<Community> tmp = communityDao.getByIdCategory(idx, startPage, maxPage);
 		
 		SearchQuery<Community> communityList = findAll(()->tmp);
@@ -265,12 +262,13 @@ public class CommunityService extends BaseCoreService<Community>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
-		result.setCount(communityList.getCount());
+		result.setCount(communityList.getData().size());
 		return result;
 	}
 }

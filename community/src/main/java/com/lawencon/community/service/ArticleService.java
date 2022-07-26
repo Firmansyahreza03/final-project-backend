@@ -3,19 +3,15 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ArticleDao;
 import com.lawencon.community.dao.IndustryDao;
-import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Article;
 import com.lawencon.community.model.Industry;
-import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
@@ -27,27 +23,26 @@ import com.lawencon.community.pojo.article.PojoFindByIdArticleRes;
 import com.lawencon.community.pojo.article.PojoInsertArticleReq;
 import com.lawencon.community.pojo.article.PojoUpdateArticleReq;
 import com.lawencon.model.SearchQuery;
+
 @Service
-public class ArticleService extends BaseCoreService<Article>{
+public class ArticleService extends BaseCoreService<Article> {
 	@Autowired
 	private ArticleDao articleDao;
 	@Autowired
 	private UserDao userDao;
 	@Autowired
-	private ProfileDao profileDao;
-	@Autowired
 	private IndustryDao industryDao;
 
-	private Article inputArticleData(Article result, Boolean isActive, String title, String content,
-			String idUser, String idIndustry) throws Exception {
+	private Article inputArticleData(Article result, Boolean isActive, String title, String content, String idUser,
+			String idIndustry) throws Exception {
 		User fkUser = userDao.getById(idUser);
 		Industry fkIndustry = industryDao.getById(idIndustry);
-	
+
 		result.setIsActive(isActive);
-		
+
 		result.setArticleTitle(title);
 		result.setArticleContent(content);
-		
+
 		result.setUser(fkUser);
 		result.setIndustry(fkIndustry);
 
@@ -57,7 +52,6 @@ public class ArticleService extends BaseCoreService<Article>{
 	private PojoDataArticle modelToRes(Article data) throws Exception {
 		PojoDataArticle result = new PojoDataArticle();
 		User fkUser = userDao.getById(data.getUser().getId());
-		Profile fkProfile = profileDao.getByIdUser(data.getUser().getId());
 		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
 
 		result.setId(data.getId());
@@ -68,26 +62,26 @@ public class ArticleService extends BaseCoreService<Article>{
 		result.setContent(data.getArticleContent());
 		result.setIdUser(fkUser.getId());
 		result.setIdIndustry(fkIndustry.getId());
-		result.setNameUser(fkProfile.getFullName());
 		result.setNameIndustry(fkIndustry.getIndustryName());
-		
+
 		return result;
 	}
-	
+
 	public PojoFindByIdArticleRes findById(String id) throws Exception {
 		Article data = articleDao.getById(id);
-				
+
 		PojoDataArticle result = modelToRes(data);
 		PojoFindByIdArticleRes resultData = new PojoFindByIdArticleRes();
 		resultData.setData(result);
-		
+
 		return resultData;
 	}
-	
+
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Article> getAllArticle= articleDao.findAll(query, startPage, maxPage);
+		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage);
+
 		List<PojoDataArticle> resultList = new ArrayList<>();
-		
+
 		getAllArticle.getData().forEach(d -> {
 			PojoDataArticle data;
 			try {
@@ -95,29 +89,29 @@ public class ArticleService extends BaseCoreService<Article>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
 		result.setData(resultList);
 		result.setCount(getAllArticle.getCount());
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertArticleReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
-			
-			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(), 
+
+			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(),
 					data.getIdUser(), data.getIdIndustry());
-			
+
 			begin();
-			Article result = super.save(reqData);
+			Article result = save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
-			
+
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Article");
 
@@ -129,25 +123,24 @@ public class ArticleService extends BaseCoreService<Article>{
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateArticleReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Article reqData = articleDao.getById(data.getId());
 
-			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(), 
+			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(),
 					data.getIdUser(), data.getIdIndustry());
-			
+
 			begin();
-			Article result = articleDao.save(reqData);
+			Article result = save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
-			
+
 			updateRes.setData(resData);
 			updateRes.setMessage("Successfully Editing Article");
 			return updateRes;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
@@ -155,18 +148,16 @@ public class ArticleService extends BaseCoreService<Article>{
 		}
 
 	}
-	
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();
 			boolean result = articleDao.deleteById(id);
 			commit();
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
-			if(result)
+			if (result)
 				deleteRes.setMessage("Successfully Delete Article");
-			else 
+			else
 				deleteRes.setMessage("Failed Delete Article");
 			return deleteRes;
 		} catch (Exception e) {
@@ -176,13 +167,14 @@ public class ArticleService extends BaseCoreService<Article>{
 		}
 	}
 
-	public SearchQuery<PojoDataArticle> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataArticle> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage)
+			throws Exception {
 		List<Article> tmp = articleDao.getByIdIndustry(idx, startPage, maxPage);
-		
-		SearchQuery<Article> articleList = findAll(()->tmp);
-		
+
+		SearchQuery<Article> articleList = findAll(() -> tmp);
+
 		List<PojoDataArticle> resultList = new ArrayList<>();
-		
+
 		articleList.getData().forEach(d -> {
 			PojoDataArticle data;
 			try {
@@ -190,12 +182,13 @@ public class ArticleService extends BaseCoreService<Article>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
 		result.setData(resultList);
-		result.setCount(articleList.getCount());
+		result.setCount(articleList.getData().size());
 		return result;
 	}
 }

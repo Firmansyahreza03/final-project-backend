@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ThreadCategoryDao;
@@ -19,6 +20,7 @@ import com.lawencon.community.pojo.threadcategory.PojoThreadCategoryData;
 import com.lawencon.community.pojo.threadcategory.PojoUpdateThreadCategoryReq;
 import com.lawencon.model.SearchQuery;
 
+@Service
 public class ThreadCategoryService extends BaseCoreService<ThreadCategory> {
 
 	@Autowired
@@ -58,9 +60,14 @@ public class ThreadCategoryService extends BaseCoreService<ThreadCategory> {
 		List<PojoThreadCategoryData> results = new ArrayList<>();
 
 		categoryList.getData().forEach(d -> {
-			PojoThreadCategoryData data = modelToRes(d);
-
-			results.add(data);
+			PojoThreadCategoryData data;
+			try {				
+				data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoThreadCategoryData> result = new SearchQuery<>();
 		result.setData(results);

@@ -1,5 +1,7 @@
 package com.lawencon.community.service;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +34,9 @@ public class CodeService {
 		PojoCodeData data = new PojoCodeData();
 		data.setCode(sb.toString());
 		return data;
+	}
+	
+	public String generateRefreshToken() {
+		return UUID.randomUUID().toString();
 	}
 }

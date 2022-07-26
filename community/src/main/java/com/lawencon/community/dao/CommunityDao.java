@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.base.AbstractJpaDao;
@@ -63,11 +65,15 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		
 		List<Community> res = new ArrayList<>();
 		
-		List<?> rs = createNativeQuery(sql.toString())
-				.setParameter("id", id)
-				.setFirstResult(startPage)
-				.setMaxResults(maxPage)
-				.getResultList();
+		Query q = createNativeQuery(sql.toString())
+				.setParameter("id", id);
+		
+		if(startPage != null && maxPage != null) {
+			q.setFirstResult(startPage)
+			.setMaxResults(maxPage);
+		}
+		
+		List<?> rs = q.getResultList();
 
 		rs.forEach(obj ->{
 			try {
@@ -88,11 +94,15 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		
 		List<Community> res = new ArrayList<>();
 		
-		List<?> rs = createNativeQuery(sql.toString())
-				.setParameter("id", id)
-				.setFirstResult(startPage)
-				.setMaxResults(maxPage)
-				.getResultList();
+		Query q = createNativeQuery(sql.toString())
+				.setParameter("id", id);
+		
+		if(startPage != null && maxPage != null) {
+			q.setFirstResult(startPage)
+			.setMaxResults(maxPage);
+		}
+		
+		List<?> rs = q.getResultList();
 
 		rs.forEach(obj ->{
 			try {

@@ -3,8 +3,6 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +37,8 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	@Autowired
 	private ThreadHdrDao threadHdrDao;
 
-	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, 
-			String idUser, String idThreadHdr) throws Exception {
+	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, String idUser, String idThreadHdr)
+			throws Exception {
 		result.setIsActive(isActive);
 		User fkUser = userDao.getById(idUser);
 		ThreadHdr fkThreadHdr = threadHdrDao.getById(idThreadHdr);
@@ -80,26 +78,26 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	}
 
 	public SearchQuery<PojoDataBookmark> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Bookmark> getAllBookmark = bookmarkDao.findAll(query, startPage, maxPage);
+		SearchQuery<Bookmark> bookmarkList = bookmarkDao.findAll(query, startPage, maxPage);
 		List<PojoDataBookmark> resultList = new ArrayList<>();
 
-		getAllBookmark.getData().forEach(d -> {
+		bookmarkList.getData().forEach(d -> {
 			PojoDataBookmark data;
 			try {
 				data = modelToRes(d);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 
 		SearchQuery<PojoDataBookmark> result = new SearchQuery<PojoDataBookmark>();
 		result.setData(resultList);
-		result.setCount(getAllBookmark.getCount());
+		result.setCount(bookmarkList.getCount());
 		return result;
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoInsertRes insert(PojoInsertBookmarkReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
@@ -123,7 +121,6 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 		}
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoUpdateRes update(PojoUpdateBookmarkReq data) throws Exception {
 		try {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
@@ -149,7 +146,6 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 
 	}
 
-	@Transactional(rollbackOn = Exception.class)
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();
@@ -168,26 +164,28 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 		}
 	}
 
-	public SearchQuery<PojoDataBookmark> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataBookmark> getByIdIndustry(String idx, Integer startPage, Integer maxPage)
+			throws Exception {
 		List<Bookmark> tmp = bookmarkDao.getByIdUser(idx, startPage, maxPage);
-		
-		SearchQuery<Bookmark> articleList = findAll(()->tmp);
-		
+
+		SearchQuery<Bookmark> bookmarkList = findAll(() -> tmp);
+
 		List<PojoDataBookmark> resultList = new ArrayList<>();
-		
-		articleList.getData().forEach(d -> {
+
+		bookmarkList.getData().forEach(d -> {
 			PojoDataBookmark data;
 			try {
 				data = modelToRes(d);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataBookmark> result = new SearchQuery<PojoDataBookmark>();
 		result.setData(resultList);
-		result.setCount(articleList.getCount());
+		result.setCount(bookmarkList.getData().size());
 		return result;
 	}
 }

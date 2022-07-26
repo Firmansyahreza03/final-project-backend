@@ -68,6 +68,7 @@ public class FileService extends BaseCoreService<File>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		

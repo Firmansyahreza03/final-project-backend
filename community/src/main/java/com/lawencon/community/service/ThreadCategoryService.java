@@ -60,9 +60,14 @@ public class ThreadCategoryService extends BaseCoreService<ThreadCategory> {
 		List<PojoThreadCategoryData> results = new ArrayList<>();
 
 		categoryList.getData().forEach(d -> {
-			PojoThreadCategoryData data = modelToRes(d);
-
-			results.add(data);
+			PojoThreadCategoryData data;
+			try {				
+				data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoThreadCategoryData> result = new SearchQuery<>();
 		result.setData(results);

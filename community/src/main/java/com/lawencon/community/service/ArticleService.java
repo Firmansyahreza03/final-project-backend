@@ -23,8 +23,9 @@ import com.lawencon.community.pojo.article.PojoFindByIdArticleRes;
 import com.lawencon.community.pojo.article.PojoInsertArticleReq;
 import com.lawencon.community.pojo.article.PojoUpdateArticleReq;
 import com.lawencon.model.SearchQuery;
+
 @Service
-public class ArticleService extends BaseCoreService<Article>{
+public class ArticleService extends BaseCoreService<Article> {
 	@Autowired
 	private ArticleDao articleDao;
 	@Autowired
@@ -32,16 +33,16 @@ public class ArticleService extends BaseCoreService<Article>{
 	@Autowired
 	private IndustryDao industryDao;
 
-	private Article inputArticleData(Article result, Boolean isActive, String title, String content,
-			String idUser, String idIndustry) throws Exception {
+	private Article inputArticleData(Article result, Boolean isActive, String title, String content, String idUser,
+			String idIndustry) throws Exception {
 		User fkUser = userDao.getById(idUser);
 		Industry fkIndustry = industryDao.getById(idIndustry);
-	
+
 		result.setIsActive(isActive);
-		
+
 		result.setArticleTitle(title);
 		result.setArticleContent(content);
-		
+
 		result.setUser(fkUser);
 		result.setIndustry(fkIndustry);
 
@@ -62,25 +63,25 @@ public class ArticleService extends BaseCoreService<Article>{
 		result.setIdUser(fkUser.getId());
 		result.setIdIndustry(fkIndustry.getId());
 		result.setNameIndustry(fkIndustry.getIndustryName());
-		
+
 		return result;
 	}
-	
+
 	public PojoFindByIdArticleRes findById(String id) throws Exception {
 		Article data = articleDao.getById(id);
-				
+
 		PojoDataArticle result = modelToRes(data);
 		PojoFindByIdArticleRes resultData = new PojoFindByIdArticleRes();
 		resultData.setData(result);
-		
+
 		return resultData;
 	}
-	
+
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Article> getAllArticle= articleDao.findAll(query, startPage, maxPage);
-		
+		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage);
+
 		List<PojoDataArticle> resultList = new ArrayList<>();
-		
+
 		getAllArticle.getData().forEach(d -> {
 			PojoDataArticle data;
 			try {
@@ -88,9 +89,10 @@ public class ArticleService extends BaseCoreService<Article>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
 		result.setData(resultList);
 		result.setCount(getAllArticle.getCount());
@@ -100,16 +102,16 @@ public class ArticleService extends BaseCoreService<Article>{
 	public PojoInsertRes insert(PojoInsertArticleReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
-			
-			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(), 
+
+			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(),
 					data.getIdUser(), data.getIdIndustry());
-			
+
 			begin();
 			Article result = save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
-			
+
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Article");
 
@@ -126,19 +128,19 @@ public class ArticleService extends BaseCoreService<Article>{
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Article reqData = articleDao.getById(data.getId());
 
-			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(), 
+			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(),
 					data.getIdUser(), data.getIdIndustry());
-			
+
 			begin();
 			Article result = save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
-			
+
 			updateRes.setData(resData);
 			updateRes.setMessage("Successfully Editing Article");
 			return updateRes;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
@@ -146,7 +148,6 @@ public class ArticleService extends BaseCoreService<Article>{
 		}
 
 	}
-	
 
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
@@ -154,9 +155,9 @@ public class ArticleService extends BaseCoreService<Article>{
 			boolean result = articleDao.deleteById(id);
 			commit();
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
-			if(result)
+			if (result)
 				deleteRes.setMessage("Successfully Delete Article");
-			else 
+			else
 				deleteRes.setMessage("Failed Delete Article");
 			return deleteRes;
 		} catch (Exception e) {
@@ -166,13 +167,14 @@ public class ArticleService extends BaseCoreService<Article>{
 		}
 	}
 
-	public SearchQuery<PojoDataArticle> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataArticle> getAllByIdIndustry(String idx, Integer startPage, Integer maxPage)
+			throws Exception {
 		List<Article> tmp = articleDao.getByIdIndustry(idx, startPage, maxPage);
-		
-		SearchQuery<Article> articleList = findAll(()->tmp);
-		
+
+		SearchQuery<Article> articleList = findAll(() -> tmp);
+
 		List<PojoDataArticle> resultList = new ArrayList<>();
-		
+
 		articleList.getData().forEach(d -> {
 			PojoDataArticle data;
 			try {
@@ -180,9 +182,10 @@ public class ArticleService extends BaseCoreService<Article>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataArticle> result = new SearchQuery<PojoDataArticle>();
 		result.setData(resultList);
 		result.setCount(articleList.getData().size());

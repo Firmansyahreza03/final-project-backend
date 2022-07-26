@@ -66,6 +66,7 @@ public class BalanceService extends BaseCoreService<Balance> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 

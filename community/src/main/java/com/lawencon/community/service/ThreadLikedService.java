@@ -54,9 +54,13 @@ public class ThreadLikedService extends BaseCoreService<ThreadLiked> {
 		List<PojoThreadLikedData> results = new ArrayList<>();
 		
 		getAllThread.getData().forEach(d -> {
-			PojoThreadLikedData data = modelToRes(d);
-			
-			results.add(data);
+			try {				
+				PojoThreadLikedData data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoThreadLikedData> result = new SearchQuery<>();
 		result.setData(results);

@@ -114,6 +114,7 @@ public class CommunityService extends BaseCoreService<Community>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		
@@ -237,6 +238,7 @@ public class CommunityService extends BaseCoreService<Community>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		
@@ -260,6 +262,7 @@ public class CommunityService extends BaseCoreService<Community>{
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		

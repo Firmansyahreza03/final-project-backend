@@ -88,9 +88,14 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		List<PojoThreadHdrData> results = new ArrayList<>();
 
 		threadList.getData().forEach(d -> {
-			PojoThreadHdrData data = modelToRes(d);
-
-			results.add(data);
+			PojoThreadHdrData data;
+			try {
+				data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
 		result.setData(results);
@@ -182,6 +187,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 

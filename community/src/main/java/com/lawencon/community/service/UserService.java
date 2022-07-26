@@ -69,9 +69,13 @@ public class UserService extends BaseCoreService<User> implements UserDetailsSer
 		List<PojoUserData> results = new ArrayList<>();
 
 		getAllUser.getData().forEach(d -> {
-			PojoUserData data = modelToRes(d);
-
-			results.add(data);
+			try {				
+				PojoUserData data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 
 		SearchQuery<PojoUserData> result = new SearchQuery<>();

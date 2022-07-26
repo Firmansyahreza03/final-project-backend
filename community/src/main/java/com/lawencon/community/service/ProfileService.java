@@ -86,9 +86,13 @@ public class ProfileService extends BaseCoreService<Profile> {
 		List<PojoProfileData> results = new ArrayList<>();
 
 		profileList.getData().forEach(d -> {
-			PojoProfileData data = modelToRes(d);
-
-			results.add(data);
+			try {
+				PojoProfileData data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoProfileData> result = new SearchQuery<>();
 		result.setData(results);

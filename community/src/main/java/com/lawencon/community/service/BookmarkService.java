@@ -88,6 +88,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 
@@ -178,6 +179,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 

@@ -51,6 +51,7 @@ public class PollingOptionService extends BaseCoreService<PollingOption> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 

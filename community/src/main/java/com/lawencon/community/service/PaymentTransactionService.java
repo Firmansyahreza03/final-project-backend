@@ -86,6 +86,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 

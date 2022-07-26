@@ -59,10 +59,14 @@ public class IndustryService extends BaseCoreService<Industry> {
 		List<PojoDataIndustry> resultList = new ArrayList<>();
 
 		industryList.getData().forEach(d -> {
-			PojoDataIndustry data = modelToRes(d);
-
-			resultList.add(data);
-
+			PojoDataIndustry data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoDataIndustry> result = new SearchQuery<PojoDataIndustry>();
 		result.setData(resultList);
@@ -77,14 +81,14 @@ public class IndustryService extends BaseCoreService<Industry> {
 
 			Industry reqData = inputIndustry(new Industry(), data.getName(), data.getIsActive());
 			reqData.setIndustryCode(data.getCode());
-			
+
 			Industry result = save(reqData);
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
 
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Industry");
-			
+
 			commit();
 			return insertRes;
 		} catch (Exception e) {
@@ -93,42 +97,42 @@ public class IndustryService extends BaseCoreService<Industry> {
 			throw new Exception(e);
 		}
 	}
-	
+
 	public PojoUpdateRes update(PojoUpdateIndustryReq data) throws Exception {
 		try {
 			begin();
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Industry reqData = industryDao.getById(data.getId());
-			
+
 			reqData = inputIndustry(reqData, data.getName(), data.getIsActive());
 			reqData.setVersion(data.getVersion());
-			
+
 			Industry result = save(reqData);
-			
+
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
-			
+
 			updateRes.setData(resData);
 			updateRes.setMessage("Successfully Editing Industry");
-			
+
 			commit();
 			return updateRes;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
 			throw new Exception(e);
 		}
 	}
-	
+
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
 			begin();
 			boolean result = industryDao.deleteById(id);
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
-			if(result)
+			if (result)
 				deleteRes.setMessage("Successfully Delete Industry");
-			else 
+			else
 				deleteRes.setMessage("Failed Delete Industry");
 			commit();
 			return deleteRes;

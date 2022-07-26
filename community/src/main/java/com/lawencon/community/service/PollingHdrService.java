@@ -59,9 +59,14 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 		List<PojoPollingHdrData> results = new ArrayList<>();
 
 		pollingList.getData().forEach(d -> {
-			PojoPollingHdrData data = modelToRes(d);
-
-			results.add(data);
+			PojoPollingHdrData data;
+			try {				
+				data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoPollingHdrData> result = new SearchQuery<>();
 		result.setData(results);
@@ -87,6 +92,7 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 					option.setIsActive(true);
 					optionService.insert(option);
 				} catch (Exception e) {
+					e.printStackTrace();
 					throw new RuntimeException(e);
 				}
 			});

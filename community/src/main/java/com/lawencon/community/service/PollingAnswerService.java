@@ -63,9 +63,14 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 		List<PojoPollingAnswerData> results = new ArrayList<>();
 
 		answerList.getData().forEach(d -> {
-			PojoPollingAnswerData data = modelToRes(d);
-
-			results.add(data);
+			PojoPollingAnswerData data;
+			try {
+				data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoPollingAnswerData> result = new SearchQuery<>();
 		result.setData(results);

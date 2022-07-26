@@ -78,14 +78,16 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 		List<PojoThreadDtlData> results = new ArrayList<>();
 
 		threadList.getData().forEach(d -> {
-			PojoThreadDtlData data = modelToRes(d);
+			PojoThreadDtlData data;
 			try {
+				data = modelToRes(d);
 				Profile profile = profileDao.getByIdUser(d.getUser().getId());
 				data.setUserFullName(profile.getFullName());
+				results.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
-			results.add(data);
 		});
 		SearchQuery<PojoThreadDtlData> result = new SearchQuery<>();
 		result.setData(results);
@@ -142,14 +144,14 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 			throw new Exception(e);
 		}
 	}
-	
-	public SearchQuery<PojoThreadDtlData> findByHdrId(String id, Integer startPage, Integer maxPage) throws Exception{
+
+	public SearchQuery<PojoThreadDtlData> findByHdrId(String id, Integer startPage, Integer maxPage) throws Exception {
 		List<ThreadDtl> detailList = dtlDao.findByHdrId(id, startPage, maxPage);
-		
+
 		SearchQuery<ThreadDtl> details = findAll(() -> detailList);
-		
+
 		List<PojoThreadDtlData> resultList = new ArrayList<>();
-		
+
 		details.getData().forEach(d -> {
 			PojoThreadDtlData data;
 			try {
@@ -157,9 +159,10 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoThreadDtlData> result = new SearchQuery<>();
 		result.setData(resultList);
 		result.setCount(details.getData().size());

@@ -69,6 +69,7 @@ public class CommunityCategoryService extends BaseCoreService<CommunityCategory>
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 		

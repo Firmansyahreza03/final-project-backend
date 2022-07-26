@@ -110,6 +110,7 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
 		});
 

@@ -23,26 +23,14 @@ public class PojoInsertProfileReq {
 	@NotBlank(message = "password can not be empty")
 	private String userPassword;
 
-	@NotBlank(message = "subscription status can not be empty")
-	private String subscriptionStatus;
-
 	@NotBlank(message = "verification code")
 	private String verificationCode;
-
-	@NotBlank(message = "role can not be empty")
-	private String roleId;
-
-	@NotBlank(message = "balance can not be empty")
-	private String balanceId;
 
 	@NotBlank(message = "file name can not be empty")
 	private String fileName;
 
 	@NotBlank(message = "file extinsion can not be empty")
 	private String fileExt;
-
-	@NotBlank(message = "user can not be empty")
-	private String userId;
 
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
@@ -87,14 +75,6 @@ public class PojoInsertProfileReq {
 		this.industryId = industryId;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	public String getUserEmail() {
 		return userEmail;
 	}
@@ -111,36 +91,12 @@ public class PojoInsertProfileReq {
 		this.userPassword = userPassword;
 	}
 
-	public String getSubscriptionStatus() {
-		return subscriptionStatus;
-	}
-
-	public void setSubscriptionStatus(String subscriptionStatus) {
-		this.subscriptionStatus = subscriptionStatus;
-	}
-
 	public String getVerificationCode() {
 		return verificationCode;
 	}
 
 	public void setVerificationCode(String verificationCode) {
 		this.verificationCode = verificationCode;
-	}
-
-	public String getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(String roleId) {
-		this.roleId = roleId;
-	}
-
-	public String getBalanceId() {
-		return balanceId;
-	}
-
-	public void setBalanceId(String balanceId) {
-		this.balanceId = balanceId;
 	}
 
 	public String getFileName() {

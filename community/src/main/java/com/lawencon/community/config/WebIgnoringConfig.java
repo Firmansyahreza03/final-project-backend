@@ -25,6 +25,8 @@ public class WebIgnoringConfig {
 		
 		matchers.add(new AntPathRequestMatcher("/swagger-ui/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/v3/api-docs/**", HttpMethod.GET.name()));
+        
+        matchers.add(new AntPathRequestMatcher("/industries", HttpMethod.GET.name()));
 
 		return matchers;
 	}

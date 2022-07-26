@@ -4,28 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
-import com.lawencon.community.constant.RoleType;
+import com.lawencon.base.ConnHandler;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.User;
-import com.lawencon.community.pojo.PojoInsertRes;
-import com.lawencon.community.pojo.PojoInsertResData;
 import com.lawencon.community.pojo.user.PojoFindByIdUserRes;
-import com.lawencon.community.pojo.user.PojoRegisUserReq;
 import com.lawencon.community.pojo.user.PojoUserData;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.RefreshTokenEntity;
+import com.lawencon.security.RefreshTokenService;
+import com.lawencon.util.JwtUtil;
 
 @Service
 public class UserService extends BaseCoreService<User> implements UserDetailsService {
 
 	@Autowired
 	private UserDao userDao;
-	
+	@Autowired
+	private JwtUtil jwtUtil;
+	@Autowired
+	private RefreshTokenService tokenService;
+
 	private PojoUserData modelToRes(User data) {
 		PojoUserData res = new PojoUserData();
 
@@ -47,31 +54,6 @@ public class UserService extends BaseCoreService<User> implements UserDetailsSer
 		return res;
 	}
 
-	public PojoInsertRes regisUser(PojoRegisUserReq data) throws Exception {
-		PojoInsertRes insertRes = new PojoInsertRes();
-		data.setIsActive(true);
-		try {
-			User user = new User();
-			user.setUserEmail(data.getUserEmail());
-			user.setIsActive(data.getIsActive());
-
-			// KIRIM EMAIL KODE VERIFIKASI
-
-			User res = saveNonLogin(user, () -> userDao.findByRoleCode(RoleType.SYSTEM.name()).getId());
-
-			PojoInsertResData resData = new PojoInsertResData();
-			resData.setId(res.getId());
-
-			insertRes.setData(resData);
-			insertRes.setMessage("Successfully Register User");
-			return insertRes;
-		} catch (Exception e) {
-			e.printStackTrace();
-			rollback();
-			throw new Exception(e);
-		}
-	}
-
 	public PojoFindByIdUserRes findById(String id) throws Exception {
 		User data = userDao.getById(id);
 
@@ -87,9 +69,13 @@ public class UserService extends BaseCoreService<User> implements UserDetailsSer
 		List<PojoUserData> results = new ArrayList<>();
 
 		getAllUser.getData().forEach(d -> {
-			PojoUserData data = modelToRes(d);
-
-			results.add(data);
+			try {				
+				PojoUserData data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 
 		SearchQuery<PojoUserData> result = new SearchQuery<>();
@@ -97,24 +83,50 @@ public class UserService extends BaseCoreService<User> implements UserDetailsSer
 		result.setCount(getAllUser.getCount());
 		return result;
 	}
-	
+
 	public User findUserToLogin(String mail) throws Exception {
 		User resultUser = userDao.findByEmail(mail);
 		return resultUser;
 	}
+
 	@Override
 	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 		User userDb = null;
 		try {
 			userDb = userDao.findByEmail(mail);
 			if (userDb == null) {
-				throw new RuntimeException("USER DOESNOT EXIST");
+				throw new RuntimeException("USER DOES NOT EXIST");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new org.springframework.security.core.userdetails.User(mail, userDb.getUserPassword(), new ArrayList<>());
+		Authentication auth = new UsernamePasswordAuthenticationToken(userDb.getId(), null);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+		return new org.springframework.security.core.userdetails.User(mail, userDb.getUserPassword(),
+				new ArrayList<>());
 
 	}
-	
+
+	public String updateToken(String id) throws Exception {
+		User user = userDao.getById(id);
+
+		RefreshTokenEntity refreshToken = jwtUtil.generateRefreshToken();
+		if(user.getToken() != null) {						
+			RefreshTokenEntity token = ConnHandler.getManager().find(RefreshTokenEntity.class, user.getToken().getId());
+			token.setToken(refreshToken.getToken());
+			token.setExpiredDate(refreshToken.getExpiredDate());
+			begin();
+			tokenService.saveToken(token);
+		} else {
+			begin();
+			RefreshTokenEntity tokenNew = tokenService.saveToken(refreshToken);
+			user.setToken(tokenNew);
+		}
+		
+		User res = save(user);
+		String token = res.getToken().getToken();
+		commit();
+		return token;
+	}
+
 }

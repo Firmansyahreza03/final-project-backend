@@ -20,6 +20,7 @@ import com.lawencon.community.model.Balance;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.Industry;
 import com.lawencon.community.model.Profile;
+import com.lawencon.community.model.Role;
 import com.lawencon.community.model.SubscriptionStatus;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoInsertRes;
@@ -86,9 +87,13 @@ public class ProfileService extends BaseCoreService<Profile> {
 		List<PojoProfileData> results = new ArrayList<>();
 
 		profileList.getData().forEach(d -> {
-			PojoProfileData data = modelToRes(d);
-
-			results.add(data);
+			try {
+				PojoProfileData data = modelToRes(d);
+				results.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
 		});
 		SearchQuery<PojoProfileData> result = new SearchQuery<>();
 		result.setData(results);
@@ -98,7 +103,6 @@ public class ProfileService extends BaseCoreService<Profile> {
 
 	public PojoInsertRes regist(PojoInsertProfileReq data) throws Exception {
 		try {
-			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
 
 			Profile reqData = new Profile();
@@ -118,6 +122,7 @@ public class ProfileService extends BaseCoreService<Profile> {
 			balanceData.setBalance(0l);
 			balanceData.setIsActive(true);
 			balanceData.setCreatedBy(creator.getId());
+			begin();
 			Balance balance = balanceDao.save(balanceData);
 			if (data.getFileName() != null) {
 				File fileData = new File();
@@ -128,8 +133,8 @@ public class ProfileService extends BaseCoreService<Profile> {
 				File file = fileDao.save(fileData);
 				userData.setFile(file);
 			}
-			com.lawencon.community.model.Role role = roleDao.findByRoleCode(RoleType.NONADMIN.name());
-
+			Role role = roleDao.findByRoleCode(RoleType.NONADMIN.name());
+			
 			SubscriptionStatus statusData = new SubscriptionStatus();
 			statusData.setIsSubscriber(false);
 			statusData.setCreatedBy(creator.getId());

@@ -48,6 +48,7 @@ public class UserController {
 			throws Exception {
 		SearchQuery<PojoProfileData> res = service.getAll(query, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
+
 	}
 	
 	@GetMapping("/generate-valid-code/{mail}")
@@ -58,7 +59,9 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody PojoInsertProfileReq data) throws Exception {
+
 		PojoInsertRes insertRes = profileUserService.regist(data);
+
 		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
 	}
 }

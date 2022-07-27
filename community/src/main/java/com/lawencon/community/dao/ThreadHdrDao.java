@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.base.AbstractJpaDao;
-import com.lawencon.community.model.Industry;
+import com.lawencon.community.model.File;
 import com.lawencon.community.model.ThreadCategory;
 import com.lawencon.community.model.ThreadHdr;
 
@@ -16,24 +16,21 @@ import com.lawencon.community.model.ThreadHdr;
 public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 
 	public List<ThreadHdr> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception {
-		StringBuilder sql = new StringBuilder()
-				.append(" SELECT th.thread_name, th.is_premium, th.industry_id, ti.industry_name, th.category_id, tc.category_name, th.created_by, th.id ")
-				.append(" FROM comm_thread_hdr th ")
-				.append(" INNER JOIN comm_industry ti ON ti.id = th.industry_id ")
+		StringBuilder sql = new StringBuilder().append(
+				" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
+				.append(" FROM comm_thread_hdr th ").append(" INNER JOIN comm_industry ti ON ti.id = th.industry_id ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
 				.append(" WHERE th.created_by = :id ");
 
 		List<ThreadHdr> hdrs = new ArrayList<>();
 		try {
-			
-			Query q = createNativeQuery(sql.toString())
-					.setParameter("id", id);
-			
-			if(startPage != null && maxPage != null) {
-				q.setFirstResult(startPage)
-				.setMaxResults(maxPage);
+
+			Query q = createNativeQuery(sql.toString()).setParameter("id", id);
+
+			if (startPage != null && maxPage != null) {
+				q.setFirstResult(startPage).setMaxResults(maxPage);
 			}
-			
+
 			List<?> result = q.getResultList();
 
 			result.forEach(obj -> {
@@ -41,16 +38,16 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 				ThreadHdr hdr = new ThreadHdr();
 				hdr.setThreadName(objArr[0].toString());
 				hdr.setIsPremium(Boolean.valueOf(objArr[1].toString()));
-				Industry industry = new Industry();
-				industry.setId(objArr[2].toString());
-				industry.setIndustryName(objArr[3].toString());
-				hdr.setIndustry(industry);
 				ThreadCategory category = new ThreadCategory();
-				category.setId(objArr[4].toString());
-				category.setCategoryName(objArr[5].toString());
+				category.setId(objArr[2].toString());
+				category.setCategoryName(objArr[3].toString());
 				hdr.setCategory(category);
-				hdr.setCreatedBy(objArr[6].toString());
-				hdr.setId(objArr[7].toString());
+				hdr.setCreatedBy(objArr[4].toString());
+				hdr.setId(objArr[5].toString());
+				hdr.setThreadContent(objArr[6].toString());
+				File file = new File();
+				file.setId(objArr[7].toString());
+				hdr.setFile(file);
 
 				hdrs.add(hdr);
 			});

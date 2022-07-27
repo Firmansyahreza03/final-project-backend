@@ -65,7 +65,7 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 
 		PojoThreadDtlData result = modelToRes(data);
 
-		Profile profile = profileDao.getByIdUser(data.getUser().getId());
+		Profile profile = profileDao.getByUserMail(data.getUser().getUserEmail());
 		result.setUserFullName(profile.getFullName());
 
 		PojoFindByIdThreadDtlRes res = new PojoFindByIdThreadDtlRes();
@@ -81,7 +81,7 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 			PojoThreadDtlData data;
 			try {
 				data = modelToRes(d);
-				Profile profile = profileDao.getByIdUser(d.getUser().getId());
+				Profile profile = profileDao.getByUserMail(d.getUser().getUserEmail());
 				data.setUserFullName(profile.getFullName());
 				results.add(data);
 			} catch (Exception e) {

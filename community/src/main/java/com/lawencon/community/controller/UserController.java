@@ -26,9 +26,6 @@ public class UserController {
 	private CodeService codeService;
 
 	@Autowired
-	private ProfileUserService profileUserService;
-
-	@Autowired
 	private ProfileUserService service;
 
 	@GetMapping("{id}")
@@ -39,7 +36,7 @@ public class UserController {
 	
 	@GetMapping("/email={mail}")
 	public ResponseEntity<PojoFindByIdProfileRes> findByMail(@PathVariable("mail") String mail) throws Exception {
-		PojoFindByIdProfileRes res = service.findByMai(mail);
+		PojoFindByIdProfileRes res = service.findByMail(mail);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
@@ -60,7 +57,7 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody PojoInsertProfileReq data) throws Exception {
 
-		PojoInsertRes insertRes = profileUserService.regist(data);
+		PojoInsertRes insertRes = service.regist(data);
 
 		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
 	}

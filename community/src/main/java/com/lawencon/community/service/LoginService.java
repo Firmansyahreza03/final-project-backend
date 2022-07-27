@@ -1,7 +1,6 @@
 package com.lawencon.community.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,22 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.base.ConnHandler;
-import com.lawencon.community.dao.BalanceDao;
-import com.lawencon.community.dao.FileDao;
-import com.lawencon.community.dao.IndustryDao;
-import com.lawencon.community.dao.ProfileDao;
-import com.lawencon.community.dao.RoleDao;
-import com.lawencon.community.dao.SubscriptionStatusDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.User;
-import com.lawencon.community.pojo.user.PojoFindByIdUserRes;
-import com.lawencon.community.pojo.user.PojoUserData;
-import com.lawencon.model.SearchQuery;
 import com.lawencon.security.RefreshTokenEntity;
 import com.lawencon.security.RefreshTokenService;
 import com.lawencon.util.JwtUtil;

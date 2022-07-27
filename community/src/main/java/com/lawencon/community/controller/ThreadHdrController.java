@@ -62,10 +62,10 @@ public class ThreadHdrController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@GetMapping("users/id")
-	public ResponseEntity<SearchQuery<PojoThreadHdrData>> findByCreatorId(@PathVariable("id") String id,
+	@GetMapping("users/{email}")
+	public ResponseEntity<SearchQuery<PojoThreadHdrData>> findByCreatorId(@PathVariable("email") String email,
 			Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<PojoThreadHdrData> res = service.findByCreatorId(id, startPage, maxPage);
+		SearchQuery<PojoThreadHdrData> res = service.findByCreatorEmail(email, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 }

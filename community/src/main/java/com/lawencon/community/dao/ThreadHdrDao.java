@@ -16,9 +16,10 @@ import com.lawencon.community.model.ThreadHdr;
 public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 
 	public List<ThreadHdr> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception {
-		StringBuilder sql = new StringBuilder().append(
-				" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
-				.append(" FROM comm_thread_hdr th ").append(" INNER JOIN comm_industry ti ON ti.id = th.industry_id ")
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
+				.append(" FROM comm_thread_hdr th ")
+				.append(" INNER JOIN comm_industry ti ON ti.id = th.industry_id ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
 				.append(" WHERE th.created_by = :id ");
 

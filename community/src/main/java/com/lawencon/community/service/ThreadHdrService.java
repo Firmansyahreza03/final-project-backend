@@ -18,6 +18,7 @@ import com.lawencon.community.model.PollingHdr;
 import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.ThreadCategory;
 import com.lawencon.community.model.ThreadHdr;
+import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
@@ -97,8 +98,14 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
 		
-		Profile profile = profileDao.getById(data.getCreatedBy());
-		result.setCreatorName(profile.getFullName());
+		User user = userDao.getById(data.getCreatedBy());
+		try {			
+			Profile profile = profileDao.getByUserMail(user.getUserEmail());
+			result.setCreatorName(profile.getFullName());
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 		result.setCreatedAt(data.getCreatedAt());
 		result.setPhotoProfileCreator(userDao.getById(data.getCreatedBy()).getFile().getId());
 		if (data.getFile() != null) {

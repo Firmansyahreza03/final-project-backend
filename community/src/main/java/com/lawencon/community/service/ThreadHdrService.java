@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
-import com.lawencon.community.dao.IndustryDao;
+import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.PollingHdrDao;
 import com.lawencon.community.dao.ThreadCategoryDao;
 import com.lawencon.community.dao.ThreadHdrDao;
-import com.lawencon.community.model.Industry;
+import com.lawencon.community.dao.UserDao;
+import com.lawencon.community.model.File;
 import com.lawencon.community.model.PollingHdr;
 import com.lawencon.community.model.ThreadCategory;
 import com.lawencon.community.model.ThreadHdr;
@@ -34,22 +35,43 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	@Autowired
 	private ThreadCategoryDao categoryDao;
 	@Autowired
-	private IndustryDao industryDao;
-	@Autowired
 	private PollingHdrDao pollingHdrDao;
+	@Autowired
+	private CodeService codeService;
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private FileDao fileDao;
 
-	private ThreadHdr inputThreadData(ThreadHdr result, String name, String categoryId, String industryId,
-			Boolean isActive, Boolean isPremium, String pollingId) {
+	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
+			Boolean isActive, Boolean isPremium, String pollingId, String fileName, String fileExt, String idCreator) {
 		result.setThreadName(name);
 		ThreadCategory category = categoryDao.getById(categoryId);
 		result.setCategory(category);
-		Industry industry = industryDao.getById(industryId);
-		result.setIndustry(industry);
 		result.setIsActive(isActive);
 		result.setIsPremium(isPremium);
-		PollingHdr polling = pollingHdrDao.getById(pollingId);
-		if (polling != null) {
-			result.setPolling(polling);
+		result.setThreadContent(content);
+
+		if (fileName != null && fileExt != null) {
+			File file = new File();
+			file.setFileName(fileName);
+			file.setFileExtension(fileExt);
+			file.setIsActive(true);
+			file.setCreatedBy(idCreator);
+			try {
+				File res = fileDao.save(file);
+				result.setFile(res);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		}
+
+		if (pollingId != null) {
+			PollingHdr polling = pollingHdrDao.getById(pollingId);
+			if (polling != null) {
+				result.setPolling(polling);
+			}
 		}
 		return result;
 	}
@@ -60,15 +82,21 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		result.setId(data.getId());
 		result.setThreadName(data.getThreadName());
 		result.setThreadCode(data.getThreadCode());
+		result.setThreadContent(data.getThreadContent());
 		result.setIsPremium(data.getIsPremium());
-		result.setPollingHdrsId(data.getPolling().getId());
-		result.setPollingName(data.getPolling().getPollingName());
+		if (data.getPolling() != null) {
+			result.setPollingHdrsId(data.getPolling().getId());
+			result.setPollingName(data.getPolling().getPollingName());
+		}
 		result.setCategoryid(data.getCategory().getId());
 		result.setCategoryName(data.getCategory().getCategoryName());
-		result.setIndustryId(data.getIndustry().getId());
-		result.setIndustryName(data.getIndustry().getIndustryName());
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
+		if (data.getFile() != null) {
+			result.setFileId(data.getFile().getId());
+			result.setFileName(data.getFile().getFileName());
+			result.setFileExt(data.getFile().getFileExtension());
+		}
 
 		return result;
 	}
@@ -108,10 +136,11 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
 
-			ThreadHdr reqData = inputThreadData(new ThreadHdr(), data.getThreadName(), data.getCategoryid(),
-					data.getIndustryId(), data.getIsActive(), data.getIsPremium(), data.getPollingHdrId());
+			ThreadHdr reqData = inputThreadData(new ThreadHdr(), data.getThreadName(), data.getThreadContent(),
+					data.getCategoryId(), data.getIsActive(), data.getIsPremium(), data.getPollingHdrId(),
+					data.getFileName(), data.getFileExt(), userDao.findByEmail(data.getEmail()).getId());
 
-			reqData.setThreadCode(data.getThreadCode());
+			reqData.setThreadCode(codeService.generateRandomCodeThread().getCode());
 
 			ThreadHdr result = save(reqData);
 
@@ -135,8 +164,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			begin();
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			ThreadHdr reqData = inputThreadData(hdrDao.getById(data.getId()), data.getThreadName(),
-					data.getCategoryid(), data.getIndustryId(), data.getIsActive(), data.getIsPremium(),
-					data.getPollingHdrsId());
+					data.getThreadContent(), data.getCategoryId(), data.getIsActive(), data.getIsPremium(),
+					data.getPollingHdrsId(), data.getFileName(), data.getFileExt(),
+					userDao.findByEmail(data.getEmail()).getId());
 
 			reqData.setVersion(data.getVersion());
 			ThreadHdr result = save(reqData);

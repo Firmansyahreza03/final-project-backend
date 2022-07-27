@@ -22,6 +22,9 @@ public class ThreadHdr extends BaseEntity {
 	@Column(name = "thread_code", columnDefinition = "TEXT")
 	private String threadCode;
 
+	@Column(name = "thread_content", columnDefinition = "TEXT")
+	private String threadContent;
+
 	@Column(name = "is_premium")
 	private Boolean isPremium;
 
@@ -34,15 +37,23 @@ public class ThreadHdr extends BaseEntity {
 	private ThreadCategory category;
 
 	@OneToOne
-	@JoinColumn(name = "industry_id")
-	private Industry industry;
+	@JoinColumn(name = "file_id")
+	private File file;
 
-	public Industry getIndustry() {
-		return industry;
+	public File getFile() {
+		return file;
 	}
 
-	public void setIndustry(Industry industry) {
-		this.industry = industry;
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public String getThreadContent() {
+		return threadContent;
+	}
+
+	public void setThreadContent(String threadContent) {
+		this.threadContent = threadContent;
 	}
 
 	public String getThreadName() {

@@ -82,7 +82,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		return res;
 	}
 
-	public PojoFindByIdProfileRes findByMai(String mail) throws Exception {
+	public PojoFindByIdProfileRes findByMail(String mail) throws Exception {
 		Profile data = profileDao.getByUserMail(mail);
 
 		PojoProfileData result = modelToProfileRes(data);

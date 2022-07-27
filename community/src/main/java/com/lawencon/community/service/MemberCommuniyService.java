@@ -62,7 +62,7 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 	private PojoDataMemberCommunity modelToRes(MemberCommunity data) throws Exception {
 		PojoDataMemberCommunity result = new PojoDataMemberCommunity();
 		User fkUser = userDao.getById(data.getUser().getId());
-		Profile fkProfile = profileDao.getByIdUser(data.getUser().getId());
+		Profile fkProfile = profileDao.getByUserMail(data.getUser().getUserEmail());
 		Community fkCommunity = communityDao.getById(data.getCommunity().getId());
 		PaymentTransaction fkPayment = paymentDao.getById(data.getPayment().getId());
 

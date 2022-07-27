@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.threadhdr;
 
+import java.time.LocalDateTime;
+
 public class PojoThreadHdrData {
 
 	private String id;
@@ -16,6 +18,33 @@ public class PojoThreadHdrData {
 	private String fileId;
 	private String fileName;
 	private String fileExt;
+	private LocalDateTime createdAt;
+	private String creatorName;
+	private String photoProfileCreator;
+
+	public String getPhotoProfileCreator() {
+		return photoProfileCreator;
+	}
+
+	public void setPhotoProfileCreator(String photoProfileCreator) {
+		this.photoProfileCreator = photoProfileCreator;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
 
 	public String getFileId() {
 		return fileId;

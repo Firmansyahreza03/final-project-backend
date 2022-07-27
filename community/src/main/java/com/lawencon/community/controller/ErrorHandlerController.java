@@ -16,7 +16,7 @@ import com.lawencon.community.pojo.PojoErrorRes;
 
 
 @ControllerAdvice
-public class ErrorHandelerController {
+public class ErrorHandlerController {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<?> handleDtoValidation(MethodArgumentNotValidException e){

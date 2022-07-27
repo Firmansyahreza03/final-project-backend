@@ -97,9 +97,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		result.setCategoryName(data.getCategory().getCategoryName());
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
-		
+
 		User user = userDao.getById(data.getCreatedBy());
-		try {			
+		try {
 			Profile profile = profileDao.getByUserMail(user.getUserEmail());
 			result.setCreatorName(profile.getFullName());
 		} catch (Exception e) {
@@ -107,7 +107,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			throw new RuntimeException(e);
 		}
 		result.setCreatedAt(data.getCreatedAt());
-		result.setPhotoProfileCreator(userDao.getById(data.getCreatedBy()).getFile().getId());
+		if (user.getFile() != null) {
+			result.setPhotoProfileCreator(user.getFile().getId());
+		}
 		if (data.getFile() != null) {
 			result.setFileId(data.getFile().getId());
 			result.setFileName(data.getFile().getFileName());

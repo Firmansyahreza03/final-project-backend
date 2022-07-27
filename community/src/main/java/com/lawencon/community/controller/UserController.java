@@ -34,7 +34,7 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
-	@GetMapping("/email={mail}")
+	@GetMapping("/email/{mail}")
 	public ResponseEntity<PojoFindByIdProfileRes> findByMail(@PathVariable("mail") String mail) throws Exception {
 		PojoFindByIdProfileRes res = service.findByMail(mail);
 		return new ResponseEntity<>(res, HttpStatus.OK);

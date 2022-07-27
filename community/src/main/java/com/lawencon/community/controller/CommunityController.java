@@ -30,19 +30,20 @@ public class CommunityController {
 
 	@Autowired
 	private CommunityService service;
-	
+
 	@GetMapping("{id}")
-	public ResponseEntity<PojoFindByIdCommunityRes> findById(@PathVariable("id") String id) throws Exception{
+	public ResponseEntity<PojoFindByIdCommunityRes> findById(@PathVariable("id") String id) throws Exception {
 		PojoFindByIdCommunityRes res = service.findById(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<SearchQuery<PojoDataCommunity>> findAll(String query, Integer startPage, Integer maxPage) throws Exception{
+	public ResponseEntity<SearchQuery<PojoDataCommunity>> findAll(String query, Integer startPage, Integer maxPage)
+			throws Exception {
 		SearchQuery<PojoDataCommunity> res = service.getAll(query, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody @Valid PojoInsertCommunityReq req) throws Exception {
 		PojoInsertRes res = service.insert(req);
@@ -54,21 +55,23 @@ public class CommunityController {
 		PojoUpdateRes res = service.update(req);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("{id}")
-	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception{
+	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception {
 		PojoDeleteRes res = service.deleteById(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
-	@GetMapping("categories/{id}")
-	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByCategoryId(@PathVariable("id") String id, Integer startPage, Integer maxPage) throws Exception{
-		SearchQuery<PojoDataCommunity> res = service.getByIdCategory(id, startPage, maxPage);
+
+	@GetMapping("categories/{code}")
+	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByCategoryCode(@PathVariable("code") String code,
+			Integer startPage, Integer maxPage) throws Exception {
+		SearchQuery<PojoDataCommunity> res = service.getByCategoryCode(code, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("industries/{id}")
-	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByIndustryId(@PathVariable("id") String id, Integer startPage, Integer maxPage) throws Exception{
+	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByIndustryId(@PathVariable("id") String id,
+			Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<PojoDataCommunity> res = service.getByIdIndustry(id, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}

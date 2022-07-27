@@ -88,16 +88,17 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		return res;
 	}
 	
-	public List<Community> getByIdCategory(String id, Integer startPage, Integer maxPage) throws Exception {
+	public List<Community> getByCategoryCode(String code, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT c.* FROM comm_community c ")
-		.append(" WHERE c.category_id = :id ")
+		.append(" INNER JOIN comm_community_category cc ON cc.id = c.category_id ")
+		.append(" WHERE cc.category_code = :code ")
 		.append(" ORDER BY c.created_at DESC ");
 		
 		List<Community> res = new ArrayList<>();
 		
 		Query q = createNativeQuery(sql.toString())
-				.setParameter("id", id);
+				.setParameter("code", code);
 		
 		if(startPage != null && maxPage != null) {
 			q.setFirstResult(startPage)

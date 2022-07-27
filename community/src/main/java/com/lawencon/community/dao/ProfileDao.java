@@ -28,8 +28,10 @@ public class ProfileDao extends AbstractJpaDao<Profile> {
 		fkUser.setId(objArr[5].toString());
 		results.setUser(fkUser); 
 
-		results.setCreatedBy(objArr[6].toString());
-		results.setCreatedAt(((Timestamp) objArr[7]).toLocalDateTime());
+		if(objArr[6] != null & objArr[7] !=null) {
+			results.setCreatedBy(objArr[6].toString());
+			results.setCreatedAt(((Timestamp) objArr[7]).toLocalDateTime());			
+		}
 		
 		if(objArr[8] != null)
 			results.setUpdatedBy(objArr[8].toString());

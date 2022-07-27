@@ -220,9 +220,10 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		}
 	}
 
-	public SearchQuery<PojoThreadHdrData> findByCreatorId(String id, Integer startPage, Integer maxPage)
+	public SearchQuery<PojoThreadHdrData> findByCreatorEmail(String email, Integer startPage, Integer maxPage)
 			throws Exception {
-		List<ThreadHdr> threadList = hdrDao.findByCreatorId(id, startPage, maxPage);
+		User user = userDao.findByEmail(email);
+		List<ThreadHdr> threadList = hdrDao.findByCreatorId(user.getId(), startPage, maxPage);
 
 		SearchQuery<ThreadHdr> threads = findAll(() -> threadList);
 

@@ -21,7 +21,8 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 				.append(" FROM comm_thread_hdr th ")
 				.append(" INNER JOIN comm_industry ti ON ti.id = th.industry_id ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
-				.append(" WHERE th.created_by = :id ");
+				.append(" WHERE th.created_by = :id ")
+				.append(" ORDER BY th_created_at DESC ");
 
 		List<ThreadHdr> hdrs = new ArrayList<>();
 		try {

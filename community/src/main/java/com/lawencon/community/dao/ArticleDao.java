@@ -50,7 +50,8 @@ public class ArticleDao extends AbstractJpaDao<Article> {
 	public List<Article> getByIdIndustry(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT a.* FROM comm_article a ")
-		.append(" WHERE a.industry_id = :id ");
+		.append(" WHERE a.industry_id = :id ")
+		.append(" ORDER BY a.created_at DESC ");
 		
 		List<Article> res = new ArrayList<>();
 		Query q = createNativeQuery(sql.toString())

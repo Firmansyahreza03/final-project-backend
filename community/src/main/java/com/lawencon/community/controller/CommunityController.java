@@ -69,10 +69,10 @@ public class CommunityController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@GetMapping("industries/{id}")
-	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByIndustryId(@PathVariable("id") String id,
+	@GetMapping("industries/{email}")
+	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByIndustryId(@PathVariable("email") String email,
 			Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<PojoDataCommunity> res = service.getByIdIndustry(id, startPage, maxPage);
+		SearchQuery<PojoDataCommunity> res = service.getByIdIndustry(email, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 }

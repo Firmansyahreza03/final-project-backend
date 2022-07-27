@@ -12,10 +12,12 @@ import com.lawencon.community.dao.CommunityCategoryDao;
 import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.IndustryDao;
+import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.model.Community;
 import com.lawencon.community.model.CommunityCategory;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.Industry;
+import com.lawencon.community.model.Profile;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
@@ -36,7 +38,9 @@ public class CommunityService extends BaseCoreService<Community>{
 	private CommunityCategoryDao communityCategoryDao;
 	@Autowired
 	private FileDao fileDao;
-
+	@Autowired
+	private ProfileDao profileDao;
+	
 	private Community inputCommunityData(Community result, Boolean isActive, String code, String title, 
 			String provider, String location, LocalDateTime startAt, LocalDateTime endAt, String desc,
 			Long price, String idCategory, String idIndustry) throws Exception {
@@ -224,10 +228,12 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	public SearchQuery<PojoDataCommunity> getByIdIndustry(String idx, Integer startPage, Integer maxPage) throws Exception {
-		List<Community> tmp = communityDao.getByIdIndustry(idx, startPage, maxPage);
+	public SearchQuery<PojoDataCommunity> getByIdIndustry(String email, Integer startPage, Integer maxPage) throws Exception {
+		Profile profile = profileDao.getByUserMail(email);
 		
-		SearchQuery<Community> communityList = findAll(()->tmp);
+		List<Community> communities = communityDao.getByIdIndustry(profile.getIndustry().getId(), startPage, maxPage);
+		
+		SearchQuery<Community> communityList = findAll(()->communities);
 		
 		List<PojoDataCommunity> resultList = new ArrayList<>();
 		

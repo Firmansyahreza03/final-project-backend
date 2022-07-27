@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.PollingHdrDao;
+import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.dao.ThreadCategoryDao;
 import com.lawencon.community.dao.ThreadHdrDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.PollingHdr;
+import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.ThreadCategory;
 import com.lawencon.community.model.ThreadHdr;
 import com.lawencon.community.pojo.PojoDeleteRes;
@@ -42,6 +44,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	private UserDao userDao;
 	@Autowired
 	private FileDao fileDao;
+	@Autowired
+	private ProfileDao profileDao;
 
 	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
 			Boolean isActive, Boolean isPremium, String pollingId, String fileName, String fileExt, String idCreator) {
@@ -92,6 +96,11 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		result.setCategoryName(data.getCategory().getCategoryName());
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
+		
+		Profile profile = profileDao.getById(data.getCreatedBy());
+		result.setCreatorName(profile.getFullName());
+		result.setCreatedAt(data.getCreatedAt());
+		result.setPhotoProfileCreator(userDao.getById(data.getCreatedBy()).getFile().getId());
 		if (data.getFile() != null) {
 			result.setFileId(data.getFile().getId());
 			result.setFileName(data.getFile().getFileName());

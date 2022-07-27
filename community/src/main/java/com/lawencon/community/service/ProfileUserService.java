@@ -31,7 +31,7 @@ import com.lawencon.community.pojo.profile.PojoProfileData;
 import com.lawencon.model.SearchQuery;
 
 @Service
-public class ProfileService extends BaseCoreService<Profile> {
+public class ProfileUserService extends BaseCoreService<Profile> {
 
 	@Autowired
 	private ProfileDao profileDao;
@@ -50,7 +50,7 @@ public class ProfileService extends BaseCoreService<Profile> {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private PojoProfileData modelToRes(Profile data) {
+	private PojoProfileData modelToProfileRes(Profile data) {
 		PojoProfileData result = new PojoProfileData();
 
 		result.setCompanyName(data.getCompanyName());
@@ -75,7 +75,17 @@ public class ProfileService extends BaseCoreService<Profile> {
 	public PojoFindByIdProfileRes findById(String id) throws Exception {
 		Profile data = profileDao.getById(id);
 
-		PojoProfileData result = modelToRes(data);
+		PojoProfileData result = modelToProfileRes(data);
+		PojoFindByIdProfileRes res = new PojoFindByIdProfileRes();
+		res.setData(result);
+
+		return res;
+	}
+
+	public PojoFindByIdProfileRes findByMail(String mail) throws Exception {
+		Profile data = profileDao.getByUserMail(mail);
+
+		PojoProfileData result = modelToProfileRes(data);
 		PojoFindByIdProfileRes res = new PojoFindByIdProfileRes();
 		res.setData(result);
 
@@ -88,7 +98,7 @@ public class ProfileService extends BaseCoreService<Profile> {
 
 		profileList.getData().forEach(d -> {
 			try {
-				PojoProfileData data = modelToRes(d);
+				PojoProfileData data = modelToProfileRes(d);
 				results.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();

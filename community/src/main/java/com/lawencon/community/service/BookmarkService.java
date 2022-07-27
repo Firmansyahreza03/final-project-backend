@@ -52,7 +52,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	private PojoDataBookmark modelToRes(Bookmark data) throws Exception {
 		PojoDataBookmark result = new PojoDataBookmark();
 		User fkUser = userDao.getById(data.getUser().getId());
-		Profile fkProfile = profileDao.getByIdUser(data.getUser().getId());
+		Profile fkProfile = profileDao.getByUserMail(data.getUser().getUserEmail());
 		ThreadHdr fkThreadHdr = threadHdrDao.getById(data.getThreadHdr().getId());
 
 		result.setId(data.getId());

@@ -9,19 +9,53 @@ public class PojoUpdateThreadHdrReq {
 	private String id;
 	@NotBlank(message = "thread name can not be empty")
 	private String threadName;
-	@NotBlank(message = "thread code can not be empty")
-	private String threadCode;
+	@NotBlank(message = "thread content can not be empty")
+	private String threadContent;
 	@NotNull(message = "must be true or false")
 	private Boolean isPremium;
 	private String pollingHdrsId;
 	@NotBlank(message = "category can not be empty")
-	private String categoryid;
-	@NotBlank(message = "industry can not be empty")
-	private String industryId;
+	private String categoryId;
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
 	@NotNull(message = "version can not be empty")
 	private Integer version;
+	private String fileName;
+	private String fileExt;
+	@NotBlank(message = "email can not be empty")
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getThreadContent() {
+		return threadContent;
+	}
+
+	public void setThreadContent(String threadContent) {
+		this.threadContent = threadContent;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileExt() {
+		return fileExt;
+	}
+
+	public void setFileExt(String fileExt) {
+		this.fileExt = fileExt;
+	}
 
 	public String getId() {
 		return id;
@@ -47,14 +81,6 @@ public class PojoUpdateThreadHdrReq {
 		this.threadName = threadName;
 	}
 
-	public String getThreadCode() {
-		return threadCode;
-	}
-
-	public void setThreadCode(String threadCode) {
-		this.threadCode = threadCode;
-	}
-
 	public Boolean getIsPremium() {
 		return isPremium;
 	}
@@ -71,20 +97,12 @@ public class PojoUpdateThreadHdrReq {
 		this.pollingHdrsId = pollingHdrsId;
 	}
 
-	public String getCategoryid() {
-		return categoryid;
+	public String getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryid(String categoryid) {
-		this.categoryid = categoryid;
-	}
-
-	public String getIndustryId() {
-		return industryId;
-	}
-
-	public void setIndustryId(String industryId) {
-		this.industryId = industryId;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public Boolean getIsActive() {

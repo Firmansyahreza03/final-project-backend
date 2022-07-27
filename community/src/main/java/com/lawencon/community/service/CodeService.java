@@ -1,7 +1,5 @@
 package com.lawencon.community.service;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +14,13 @@ public class CodeService {
 	
 	public PojoCodeData generateRandomCode(String email) {
 
-		String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "1234567890";
+		String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "1234567890";
 
 		StringBuilder sb = new StringBuilder(5);
 
 		for (int i = 0; i < 5; i++) {
-			int index = (int) (AlphaNumericString.length() * Math.random());
-			sb.append(AlphaNumericString.charAt(index));
+			int index = (int) (alphaNumericString.length() * Math.random());
+			sb.append(alphaNumericString.charAt(index));
 		}
 
 		EmailDtl emailDtl = new EmailDtl();
@@ -36,7 +34,18 @@ public class CodeService {
 		return data;
 	}
 	
-	public String generateRefreshToken() {
-		return UUID.randomUUID().toString();
+	public PojoCodeData generateRandomCodeThread() {
+
+		String numericString = "1234567890";
+
+		StringBuilder sb = new StringBuilder(5);
+
+		for (int i = 0; i < 5; i++) {
+			int index = (int) (numericString.length() * Math.random());
+			sb.append(numericString.charAt(index));
+		}
+		PojoCodeData data = new PojoCodeData();
+		data.setCode(sb.toString());
+		return data;
 	}
 }

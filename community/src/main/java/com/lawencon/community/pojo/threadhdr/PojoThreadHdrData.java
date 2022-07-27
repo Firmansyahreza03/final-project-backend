@@ -5,15 +5,49 @@ public class PojoThreadHdrData {
 	private String id;
 	private String threadName;
 	private String threadCode;
+	private String threadContent;
 	private Boolean isPremium;
 	private String pollingHdrsId;
 	private String pollingName;
 	private String categoryid;
 	private String categoryName;
-	private String industryId;
-	private String industryName;
 	private Boolean isActive;
 	private Integer version;
+	private String fileId;
+	private String fileName;
+	private String fileExt;
+
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileExt() {
+		return fileExt;
+	}
+
+	public void setFileExt(String fileExt) {
+		this.fileExt = fileExt;
+	}
+
+	public String getThreadContent() {
+		return threadContent;
+	}
+
+	public void setThreadContent(String threadContent) {
+		this.threadContent = threadContent;
+	}
 
 	public String getId() {
 		return id;
@@ -93,22 +127,6 @@ public class PojoThreadHdrData {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-
-	public String getIndustryId() {
-		return industryId;
-	}
-
-	public void setIndustryId(String industryId) {
-		this.industryId = industryId;
-	}
-
-	public String getIndustryName() {
-		return industryName;
-	}
-
-	public void setIndustryName(String industryName) {
-		this.industryName = industryName;
 	}
 
 }

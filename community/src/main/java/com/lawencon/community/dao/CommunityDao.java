@@ -61,7 +61,8 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 	public List<Community> getByIdIndustry(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT c.* FROM comm_community c ")
-		.append(" WHERE c.industry_id = :id ");
+		.append(" WHERE c.industry_id = :id ")
+		.append(" ORDER BY c.created_at DESC ");
 		
 		List<Community> res = new ArrayList<>();
 		
@@ -90,7 +91,8 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 	public List<Community> getByIdCategory(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT c.* FROM comm_community c ")
-		.append(" WHERE c.category_id = :id ");
+		.append(" WHERE c.category_id = :id ")
+		.append(" ORDER BY c.created_at DESC ");
 		
 		List<Community> res = new ArrayList<>();
 		

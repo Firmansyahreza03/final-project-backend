@@ -248,10 +248,10 @@ public class CommunityService extends BaseCoreService<Community>{
 		return result;
 	}
 
-	public SearchQuery<PojoDataCommunity> getByIdCategory(String idx, Integer startPage, Integer maxPage) throws Exception {
-		List<Community> tmp = communityDao.getByIdCategory(idx, startPage, maxPage);
+	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, Integer startPage, Integer maxPage) throws Exception {
+		List<Community> communities = communityDao.getByCategoryCode(code, startPage, maxPage);
 		
-		SearchQuery<Community> communityList = findAll(()->tmp);
+		SearchQuery<Community> communityList = findAll(()->communities);
 		
 		List<PojoDataCommunity> resultList = new ArrayList<>();
 		

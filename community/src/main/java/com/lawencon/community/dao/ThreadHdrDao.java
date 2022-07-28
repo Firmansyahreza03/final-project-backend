@@ -19,7 +19,6 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 		StringBuilder sql = new StringBuilder()
 				.append(" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
 				.append(" FROM comm_thread_hdr th ")
-				.append(" INNER JOIN comm_industry ti ON ti.id = th.industry_id ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
 				.append(" WHERE th.created_by = :id ")
 				.append(" ORDER BY th_created_at DESC ");
@@ -47,9 +46,11 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 				hdr.setCreatedBy(objArr[4].toString());
 				hdr.setId(objArr[5].toString());
 				hdr.setThreadContent(objArr[6].toString());
-				File file = new File();
-				file.setId(objArr[7].toString());
-				hdr.setFile(file);
+				if(objArr[7]!=null) {					
+					File file = new File();
+					file.setId(objArr[7].toString());
+					hdr.setFile(file);
+				}
 
 				hdrs.add(hdr);
 			});

@@ -2,6 +2,8 @@ package com.lawencon.community.pojo.community;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PojoDataCommunity {
 	private String  id;
 	private Boolean isActive;
@@ -10,7 +12,9 @@ public class PojoDataCommunity {
 	private String title;
 	private String provider;
 	private String location;
+	@JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime startAt;
+	@JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime endAt;
 	private String desc;
 	private String code;

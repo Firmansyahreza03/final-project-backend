@@ -17,17 +17,17 @@ public class PojoInsertCommunityReq {
 	private String provider;
 	@NotBlank(message = "location cannot be empty")
 	private String location;
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
-	@NotBlank(message = "start time cannot be empty")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
+	@NotNull(message = "start time cannot be empty")
 	private LocalDateTime startAt;
-	@JsonFormat(pattern = "yyyy-MM-dd@HH:mm")
-	@NotBlank(message = "end time cannot be empty")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
+	@NotNull(message = "end time cannot be empty")
 	private LocalDateTime endAt;
 	@NotBlank(message = "description cannot be empty")
 	private String desc;
 	@NotBlank(message = "code cannot be empty")
 	private String code;
-	@NotBlank(message = "price cannot be empty")
+	@NotNull(message = "price cannot be empty")
 	private Long price;
 	@NotBlank(message = "id category cannot be empty")
 	private String idCategory;

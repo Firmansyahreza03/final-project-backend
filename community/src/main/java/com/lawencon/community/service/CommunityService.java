@@ -137,7 +137,7 @@ public class CommunityService extends BaseCoreService<Community>{
 					data.getEndAt(), data.getDesc(), data.getPrice(), 
 					data.getIdCategory(), data.getIdIndustry());
 			
-			if(data.getIdFile()!=null) {
+			if(data.getNameFile()!=null) {
 				File fkFile = new File();
 				fkFile.setFileName(data.getNameFile());
 				fkFile.setFileExtension(data.getExtFile());
@@ -228,34 +228,10 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	public SearchQuery<PojoDataCommunity> getByIdIndustry(String email, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByIdIndustryAndCategoryCode(String email, String code, Integer startPage, Integer maxPage) throws Exception {
 		Profile profile = profileDao.getByUserMail(email);
 		
-		List<Community> communities = communityDao.getByIdIndustry(profile.getIndustry().getId(), startPage, maxPage);
-		
-		SearchQuery<Community> communityList = findAll(()->communities);
-		
-		List<PojoDataCommunity> resultList = new ArrayList<>();
-		
-		communityList.getData().forEach(d -> {
-			PojoDataCommunity data;
-			try {
-				data = modelToRes(d);
-				resultList.add(data);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-		});
-		
-		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
-		result.setData(resultList);
-		result.setCount(communityList.getData().size());
-		return result;
-	}
-
-	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, Integer startPage, Integer maxPage) throws Exception {
-		List<Community> communities = communityDao.getByCategoryCode(code, startPage, maxPage);
+		List<Community> communities = communityDao.getByIdIndustryAndCategoryCode(profile.getIndustry().getId(), code, startPage, maxPage);
 		
 		SearchQuery<Community> communityList = findAll(()->communities);
 		

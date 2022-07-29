@@ -40,8 +40,10 @@ public class CommunityService extends BaseCoreService<Community>{
 	private FileDao fileDao;
 	@Autowired
 	private ProfileDao profileDao;
+	@Autowired
+	private CodeService codeService;
 	
-	private Community inputCommunityData(Community result, Boolean isActive, String code, String title, 
+	private Community inputCommunityData(Community result, Boolean isActive, String title, 
 			String provider, String location, LocalDateTime startAt, LocalDateTime endAt, String desc,
 			Long price, String idCategory, String idIndustry) throws Exception {
 
@@ -50,7 +52,6 @@ public class CommunityService extends BaseCoreService<Community>{
 	
 		result.setIsActive(isActive);
 
-		result.setCommunityCode(code);
 		result.setCommunityTitle(title);
 		result.setCommunityProvider(provider);
 		result.setCommunityLocation(location);
@@ -132,10 +133,12 @@ public class CommunityService extends BaseCoreService<Community>{
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
 			
-			Community reqData = inputCommunityData(new Community(), true, data.getCode(), 
+			Community reqData = inputCommunityData(new Community(), true,  
 					data.getTitle(), data.getProvider(), data.getLocation(), data.getStartAt(), 
 					data.getEndAt(), data.getDesc(), data.getPrice(), 
 					data.getIdCategory(), data.getIdIndustry());
+			
+			reqData.setCommunityCode(codeService.generateRandomCodeAll().getCode());
 			
 			if(data.getNameFile()!=null) {
 				File fkFile = new File();
@@ -168,7 +171,7 @@ public class CommunityService extends BaseCoreService<Community>{
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Community reqData = communityDao.getById(data.getId());
 
-			reqData = inputCommunityData(reqData, data.getIsActive(), reqData.getCommunityCode(),
+			reqData = inputCommunityData(reqData, data.getIsActive(),
 					data.getTitle(), data.getProvider(), data.getLocation(), data.getStartAt(), 
 					data.getEndAt(), data.getDesc(), data.getPrice(), 
 					data.getIdCategory(), data.getIdIndustry());

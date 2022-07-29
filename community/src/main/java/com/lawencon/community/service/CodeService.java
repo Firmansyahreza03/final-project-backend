@@ -34,7 +34,7 @@ public class CodeService {
 		return data;
 	}
 	
-	public PojoCodeData generateRandomCodeThread() {
+	public PojoCodeData generateRandomCodeAll() {
 
 		String numericString = "1234567890";
 

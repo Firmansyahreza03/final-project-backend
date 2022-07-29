@@ -167,7 +167,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 					data.getCategoryId(), data.getIsActive(), data.getIsPremium(), data.getPollingHdrId(),
 					data.getFileName(), data.getFileExt(), userDao.findByEmail(data.getEmail()).getId());
 
-			reqData.setThreadCode(codeService.generateRandomCodeThread().getCode());
+			reqData.setThreadCode(codeService.generateRandomCodeAll().getCode());
 
 			ThreadHdr result = save(reqData);
 

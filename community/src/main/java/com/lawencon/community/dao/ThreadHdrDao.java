@@ -45,7 +45,6 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 				hdr.setCreatedBy(objArr[4].toString());
 				hdr.setId(objArr[5].toString());
 				hdr.setThreadContent(objArr[6].toString());
-
 				if (objArr[7] != null) {
 					File file = new File();
 					file.setId(objArr[7].toString());

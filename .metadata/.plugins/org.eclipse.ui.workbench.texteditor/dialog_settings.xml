@@ -8,6 +8,7 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="regist"/>
 			<item value="PojoDataRole"/>
 			<item value="idFile"/>
 			<item value="File"/>

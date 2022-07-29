@@ -17,6 +17,7 @@ import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.threadliked.PojoFindByIdThreadLikedRes;
 import com.lawencon.community.pojo.threadliked.PojoInsertThreadLikedReq;
+import com.lawencon.community.pojo.threadliked.PojoThreadLiked;
 import com.lawencon.community.pojo.threadliked.PojoThreadLikedData;
 import com.lawencon.community.service.ThreadLikedService;
 import com.lawencon.model.SearchQuery;
@@ -50,6 +51,12 @@ public class ThreadLikedController {
 	@DeleteMapping("{id}")
 	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception {
 		PojoDeleteRes res = service.deleteById(id);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@GetMapping("thread/{threadId}/user/{email}")
+	public ResponseEntity<PojoThreadLiked> countLike(@PathVariable("threadId") String idThread, @PathVariable("email") String email) throws Exception{
+		PojoThreadLiked res = service.likeThread(email, idThread);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 }

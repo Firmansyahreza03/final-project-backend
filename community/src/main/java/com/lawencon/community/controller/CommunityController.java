@@ -62,17 +62,10 @@ public class CommunityController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@GetMapping("categories/{code}")
-	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByCategoryCode(@PathVariable("code") String code,
+	@GetMapping("categories/{code}/industries/{email}")
+	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByIndustryIdAndCategoryCode(@PathVariable("email") String email, @PathVariable("code") String code,
 			Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<PojoDataCommunity> res = service.getByCategoryCode(code, startPage, maxPage);
-		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-
-	@GetMapping("industries/{email}")
-	public ResponseEntity<SearchQuery<PojoDataCommunity>> findByIndustryId(@PathVariable("email") String email,
-			Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<PojoDataCommunity> res = service.getByIdIndustry(email, startPage, maxPage);
+		SearchQuery<PojoDataCommunity> res = service.getByIdIndustryAndCategoryCode(email, code, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 }

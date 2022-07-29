@@ -16,12 +16,11 @@ import com.lawencon.community.model.ThreadHdr;
 public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 
 	public List<ThreadHdr> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception {
-		StringBuilder sql = new StringBuilder()
-				.append(" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
+		StringBuilder sql = new StringBuilder().append(
+				" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
 				.append(" FROM comm_thread_hdr th ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
-				.append(" WHERE th.created_by = :id ")
-				.append(" ORDER BY th_created_at DESC ");
+				.append(" WHERE th.created_by = :id ").append(" ORDER BY th.created_at DESC ");
 
 		List<ThreadHdr> hdrs = new ArrayList<>();
 		try {
@@ -46,7 +45,7 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 				hdr.setCreatedBy(objArr[4].toString());
 				hdr.setId(objArr[5].toString());
 				hdr.setThreadContent(objArr[6].toString());
-				if(objArr[7]!=null) {					
+				if (objArr[7] != null) {
 					File file = new File();
 					file.setId(objArr[7].toString());
 					hdr.setFile(file);

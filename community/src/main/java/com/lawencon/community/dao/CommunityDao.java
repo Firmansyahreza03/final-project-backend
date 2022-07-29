@@ -58,46 +58,17 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		return results;
 	}
 
-	public List<Community> getByIdIndustry(String id, Integer startPage, Integer maxPage) throws Exception {
-		StringBuilder sql = new StringBuilder()
-		.append("SELECT c.* FROM comm_community c ")
-		.append(" WHERE c.industry_id = :id ")
-		.append(" ORDER BY c.created_at DESC ");
-		
-		List<Community> res = new ArrayList<>();
-		
-		Query q = createNativeQuery(sql.toString())
-				.setParameter("id", id);
-		
-		if(startPage != null && maxPage != null) {
-			q.setFirstResult(startPage)
-			.setMaxResults(maxPage);
-		}
-		
-		List<?> rs = q.getResultList();
-
-		rs.forEach(obj ->{
-			try {
-				Community data = inputData(obj);
-				res.add(data);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		
-		return res;
-	}
-	
-	public List<Community> getByCategoryCode(String code, Integer startPage, Integer maxPage) throws Exception {
+	public List<Community> getByIdIndustryAndCategoryCode(String id, String code, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT c.* FROM comm_community c ")
 		.append(" INNER JOIN comm_community_category cc ON cc.id = c.category_id ")
-		.append(" WHERE cc.category_code = :code ")
+		.append(" WHERE c.industry_id = :id AND cc.category_code = :code ")
 		.append(" ORDER BY c.created_at DESC ");
 		
 		List<Community> res = new ArrayList<>();
 		
 		Query q = createNativeQuery(sql.toString())
+				.setParameter("id", id)
 				.setParameter("code", code);
 		
 		if(startPage != null && maxPage != null) {

@@ -52,4 +52,48 @@ public class ThreadLikedDao extends AbstractJpaDao<ThreadLiked>{
 		}
 		return results;
 	}
+	
+	public String findByUserLogged(String idUser, String idThreadHdr) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT tl.id FROM comm_thread_liked tl ")
+				.append(" WHERE tl.created_by = :idUser AND tl.hdr_id = :idThreadHdr ");
+		
+		String result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("idUser", idUser)
+					.setParameter("idThreadHdr", idThreadHdr)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = res.toString();
+			}
+		} catch (Exception e) {
+			result = null;
+		}
+		return result;
+	}
+	
+	public Long countThreadLikedId(String hdrId) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT COUNT(tl.id) FROM comm_thread_liked tl ")
+				.append(" WHERE tl.hdr_id = :hdrId ")
+				.append(" GROUP BY (tl.hdr_id) ");
+		
+		Long result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("hdrId", hdrId)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = Long.valueOf(res.toString());
+			} else {
+				result = 0l;
+			}
+		} catch (Exception e) {
+			result = 0l;
+		}
+		return result;
+	}
 }

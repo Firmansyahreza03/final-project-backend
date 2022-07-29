@@ -137,7 +137,7 @@ public class CommunityService extends BaseCoreService<Community>{
 					data.getEndAt(), data.getDesc(), data.getPrice(), 
 					data.getIdCategory(), data.getIdIndustry());
 			
-			if(data.getIdFile()!=null) {
+			if(data.getNameFile()!=null) {
 				File fkFile = new File();
 				fkFile.setFileName(data.getNameFile());
 				fkFile.setFileExtension(data.getExtFile());

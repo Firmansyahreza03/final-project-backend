@@ -12,6 +12,7 @@ import com.lawencon.community.dao.PollingHdrDao;
 import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.dao.ThreadCategoryDao;
 import com.lawencon.community.dao.ThreadHdrDao;
+import com.lawencon.community.dao.ThreadLikedDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.PollingHdr;
@@ -47,6 +48,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	private FileDao fileDao;
 	@Autowired
 	private ProfileDao profileDao;
+	@Autowired
+	private ThreadLikedDao likedDao;
 
 	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
 			Boolean isActive, Boolean isPremium, String pollingId, String fileName, String fileExt, String idCreator) {
@@ -123,6 +126,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		ThreadHdr data = hdrDao.getById(id);
 
 		PojoThreadHdrData result = modelToRes(data);
+		Long counterLike = likedDao.countThreadLikedId(id);
+		result.setCounterLike(counterLike);
+		result.setCountComment(0l); //NANTI DIGANTI
 		PojoFindByIdThreadHdrRes res = new PojoFindByIdThreadHdrRes();
 		res.setData(result);
 
@@ -137,6 +143,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			PojoThreadHdrData data;
 			try {
 				data = modelToRes(d);
+				Long counterLike = likedDao.countThreadLikedId(d.getId());
+				data.setCounterLike(counterLike);
+				data.setCountComment(0l); //NANTI DIGANTI
 				results.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -233,6 +242,9 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			PojoThreadHdrData data;
 			try {
 				data = modelToRes(d);
+				Long counterLike = likedDao.countThreadLikedId(d.getId());
+				data.setCounterLike(counterLike);
+				data.setCountComment(0l); //NANTI DIGANTI
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();

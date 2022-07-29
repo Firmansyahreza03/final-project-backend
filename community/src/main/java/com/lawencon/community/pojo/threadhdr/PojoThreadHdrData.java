@@ -21,6 +21,24 @@ public class PojoThreadHdrData {
 	private LocalDateTime createdAt;
 	private String creatorName;
 	private String photoProfileCreator;
+	private Long counterLike;
+	private Long countComment;
+
+	public Long getCounterLike() {
+		return counterLike;
+	}
+
+	public void setCounterLike(Long counterLike) {
+		this.counterLike = counterLike;
+	}
+
+	public Long getCountComment() {
+		return countComment;
+	}
+
+	public void setCountComment(Long countComment) {
+		this.countComment = countComment;
+	}
 
 	public String getPhotoProfileCreator() {
 		return photoProfileCreator;

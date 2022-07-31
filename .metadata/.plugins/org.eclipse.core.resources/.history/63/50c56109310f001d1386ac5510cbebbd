@@ -63,11 +63,11 @@ public class AbstractJpaDao<T extends BaseEntity> {
 			int startPage, int maxPage,
 			String... fields) {
 		
-		String finalQuery = "*"+extractQuery(query) + "*";
+		String finalQuery = extractQuery(query);
 		
 		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager())
 				.search(clazz)
-			.where(f -> f.simpleQueryString().fields(fields).matching(finalQuery));
+			.where(f -> f.match().fields(fields).matching(finalQuery));
 
 		List<T> result = searchObj.fetch(startPage, maxPage).hits();
 		List<T> resultAll = searchObj.fetchAllHits();
@@ -81,7 +81,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 	
 	private String extractQuery(String query) {
 		String[] queries = query.split(" ");
-		return Arrays.asList(queries).stream().collect(Collectors.joining("*|"));
+		return Arrays.asList(queries).stream().collect(Collectors.joining("*"));
 	}
 
 	public SearchQuery<T> findAll(String query, Integer startPage, Integer maxPage, String... fields) throws Exception {

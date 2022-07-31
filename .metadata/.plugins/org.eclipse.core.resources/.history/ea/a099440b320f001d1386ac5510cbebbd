@@ -63,7 +63,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 			int startPage, int maxPage,
 			String... fields) {
 		
-		String finalQuery = "*"+extractQuery(query) + "*";
+		String finalQuery = extractQuery(query) + "*";
 		
 		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager())
 				.search(clazz)

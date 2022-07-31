@@ -35,7 +35,7 @@ public class IndustryController {
 	public ResponseEntity<PojoFindByIdIndustryRes> findById(String id) throws Exception {
 		PojoFindByIdIndustryRes res = service.findById(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
+	} 
 
 	@GetMapping
 	public ResponseEntity<SearchQuery<PojoDataIndustry>> findAll(String query, Integer startPage, Integer maxPage)

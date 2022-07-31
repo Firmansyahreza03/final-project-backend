@@ -1,6 +1,8 @@
 package com.lawencon.base;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -56,10 +58,16 @@ public class AbstractJpaDao<T extends BaseEntity> {
 				.getResultList();
 	}
 
-	private SearchQuery<T> getAll(String query, int startPage, int maxPage, String... fields) {
+	private SearchQuery<T> getAll( 
+			String query, 
+			int startPage, int maxPage,
+			String... fields) {
+		
+		String finalQuery = "*"+extractQuery(query) + "*";
+		
 		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager())
 				.search(clazz)
-				.where(f -> f.wildcard().fields(fields).matching("*" + query + "*"));
+			.where(f -> f.simpleQueryString().fields(fields).matching(finalQuery));
 
 		List<T> result = searchObj.fetch(startPage, maxPage).hits();
 		List<T> resultAll = searchObj.fetchAllHits();
@@ -69,6 +77,11 @@ public class AbstractJpaDao<T extends BaseEntity> {
 		data.setCount(resultAll.size());
 
 		return data;
+	}
+	
+	private String extractQuery(String query) {
+		String[] queries = query.split(" ");
+		return Arrays.asList(queries).stream().collect(Collectors.joining("*|"));
 	}
 
 	public SearchQuery<T> findAll(String query, Integer startPage, Integer maxPage, String... fields) throws Exception {

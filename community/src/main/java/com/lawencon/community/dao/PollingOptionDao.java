@@ -1,5 +1,6 @@
 package com.lawencon.community.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +9,40 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.base.AbstractJpaDao;
+import com.lawencon.community.model.Article;
+import com.lawencon.community.model.Industry;
 import com.lawencon.community.model.PollingHdr;
 import com.lawencon.community.model.PollingOption;
+import com.lawencon.community.model.User;
 
 @Repository
 public class PollingOptionDao extends AbstractJpaDao<PollingOption> {
 
+	private PollingOption inputData(Object obj) throws Exception{
+		PollingOption results = new PollingOption();
+		Object[] objArr = (Object[]) obj;
+		results.setId(objArr[0].toString());
+		
+		PollingHdr pollingHdr = new PollingHdr();
+		pollingHdr.setId(objArr[1].toString());
+		results.setPollingHdr(pollingHdr);
+
+		results.setOptionName(objArr[2].toString());
+		
+		results.setCreatedBy(objArr[3].toString());
+		results.setCreatedAt(((Timestamp) objArr[4]).toLocalDateTime());
+		
+		if(objArr[5] != null)
+			results.setUpdatedBy(objArr[5].toString());
+		if(objArr[6] != null)
+			results.setUpdatedAt(((Timestamp) objArr[6]).toLocalDateTime());
+		
+		results.setIsActive(Boolean.valueOf(objArr[7].toString()));
+		results.setVersion(Integer.valueOf(objArr[8].toString()));
+		
+		return results;
+	}
+	
 	public List<PollingOption> findByThreadId(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 				.append(" SELECT po.* ")

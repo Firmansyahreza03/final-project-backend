@@ -17,24 +17,12 @@ public class Bookmark extends BaseEntity {
 	@JoinColumn(name = "thread_hdr_id")
 	private ThreadHdr threadHdr;
 
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
 	public ThreadHdr getThreadHdr() {
 		return threadHdr;
 	}
 
 	public void setThreadHdr(ThreadHdr threadHdr) {
 		this.threadHdr = threadHdr;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 }

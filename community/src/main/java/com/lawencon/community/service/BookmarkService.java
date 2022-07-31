@@ -18,12 +18,10 @@ import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
-import com.lawencon.community.pojo.PojoUpdateRes;
-import com.lawencon.community.pojo.PojoUpdateResData;
+import com.lawencon.community.pojo.bookmark.PojoBookmark;
 import com.lawencon.community.pojo.bookmark.PojoDataBookmark;
 import com.lawencon.community.pojo.bookmark.PojoFindByIdBookmarkRes;
 import com.lawencon.community.pojo.bookmark.PojoInsertBookmarkReq;
-import com.lawencon.community.pojo.bookmark.PojoUpdateBookmarkReq;
 import com.lawencon.model.SearchQuery;
 
 @Service
@@ -37,13 +35,11 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	@Autowired
 	private ThreadHdrDao threadHdrDao;
 
-	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, String idUser, String idThreadHdr)
+	private Bookmark inputBookmarkData(Bookmark result, Boolean isActive, String idThreadHdr)
 			throws Exception {
 		result.setIsActive(isActive);
-		User fkUser = userDao.getById(idUser);
 		ThreadHdr fkThreadHdr = threadHdrDao.getById(idThreadHdr);
 
-		result.setUser(fkUser);
 		result.setThreadHdr(fkThreadHdr);
 
 		return result;
@@ -51,8 +47,8 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 
 	private PojoDataBookmark modelToRes(Bookmark data) throws Exception {
 		PojoDataBookmark result = new PojoDataBookmark();
-		User fkUser = userDao.getById(data.getUser().getId());
-		Profile fkProfile = profileDao.getByUserMail(data.getUser().getUserEmail());
+		User fkUser = userDao.getById(data.getCreatedBy());
+		Profile fkProfile = profileDao.getByUserMail(fkUser.getUserEmail());
 		ThreadHdr fkThreadHdr = threadHdrDao.getById(data.getThreadHdr().getId());
 
 		result.setId(data.getId());
@@ -102,11 +98,10 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
 
-			Bookmark reqData = inputBookmarkData(new Bookmark(), true, data.getIdUser(), data.getIdThreadHdr());
+			Bookmark reqData = inputBookmarkData(new Bookmark(), true, data.getIdThreadHdr());
 
-			begin();
 			Bookmark result = super.save(reqData);
-			commit();
+			
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
 
@@ -116,41 +111,14 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 			return insertRes;
 		} catch (Exception e) {
 			e.printStackTrace();
-			rollback();
-			throw new Exception(e);
+			throw new RuntimeException(e);
 		}
-	}
-
-	public PojoUpdateRes update(PojoUpdateBookmarkReq data) throws Exception {
-		try {
-			PojoUpdateRes updateRes = new PojoUpdateRes();
-			Bookmark reqData = bookmarkDao.getById(data.getId());
-
-			reqData = inputBookmarkData(reqData, data.getIsActive(), data.getIdUser(), data.getIdThreadHdr());
-
-			begin();
-			Bookmark result = bookmarkDao.save(reqData);
-			commit();
-			PojoUpdateResData resData = new PojoUpdateResData();
-			resData.setVersion(result.getVersion());
-
-			updateRes.setData(resData);
-			updateRes.setMessage("Successfully Editing Bookmark");
-			return updateRes;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			rollback();
-			throw new Exception(e);
-		}
-
 	}
 
 	public PojoDeleteRes deleteById(String id) throws Exception {
 		try {
-			begin();
 			boolean result = bookmarkDao.deleteById(id);
-			commit();
+
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
 			if (result)
 				deleteRes.setMessage("Successfully Delete Bookmark");
@@ -159,33 +127,58 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 			return deleteRes;
 		} catch (Exception e) {
 			e.printStackTrace();
-			rollback();
-			throw new Exception(e);
+			throw new RuntimeException(e);
 		}
 	}
 
-	public SearchQuery<PojoDataBookmark> getByIdIndustry(String idx, Integer startPage, Integer maxPage)
-			throws Exception {
-		List<Bookmark> tmp = bookmarkDao.getByIdUser(idx, startPage, maxPage);
-
-		SearchQuery<Bookmark> bookmarkList = findAll(() -> tmp);
-
+	public SearchQuery<PojoDataBookmark> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception{
+		List<Bookmark> bookmarkList = bookmarkDao.getByIdUser(id, startPage, maxPage);
+		
+		SearchQuery<Bookmark> bookmarks = findAll(() -> bookmarkList);
+		
 		List<PojoDataBookmark> resultList = new ArrayList<>();
-
-		bookmarkList.getData().forEach(d -> {
+		
+		bookmarks.getData().forEach(d -> {
 			PojoDataBookmark data;
 			try {
 				data = modelToRes(d);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new RuntimeException(e);
 			}
 		});
-
-		SearchQuery<PojoDataBookmark> result = new SearchQuery<PojoDataBookmark>();
+		
+		SearchQuery<PojoDataBookmark> result = new SearchQuery<>();
 		result.setData(resultList);
-		result.setCount(bookmarkList.getData().size());
+		result.setCount(bookmarks.getData().size());
+		return result;
+	}
+	
+	public PojoBookmark bookmarkThread(String email, String hdrId) throws Exception{
+		PojoBookmark result = new PojoBookmark();
+		
+		Profile profile = profileDao.getByUserMail(email);
+		String threadBookmarkId = bookmarkDao.findByUserLogged(profile.getUser().getId(), hdrId);
+		try {
+			begin();
+			if(threadBookmarkId != null) {
+				PojoDeleteRes res = deleteById(threadBookmarkId);
+				result.setMessage(res.getMessage());
+				result.setIsBookmark(false);
+			} else {
+				PojoInsertBookmarkReq data = new PojoInsertBookmarkReq();
+				data.setIdThreadHdr(hdrId);
+				data.setIsActive(true);
+				PojoInsertRes res = insert(data);
+				result.setMessage(res.getMessage());
+				result.setIsBookmark(true);
+			}
+			commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		
 		return result;
 	}
 }

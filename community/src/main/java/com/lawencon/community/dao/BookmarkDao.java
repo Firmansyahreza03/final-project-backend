@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.lawencon.base.AbstractJpaDao;
 import com.lawencon.community.model.Bookmark;
 import com.lawencon.community.model.ThreadHdr;
-import com.lawencon.community.model.User;
 
 @Repository
 public class BookmarkDao extends AbstractJpaDao<Bookmark>{
@@ -25,20 +24,16 @@ public class BookmarkDao extends AbstractJpaDao<Bookmark>{
 		fkThreadHdr.setId(objArr[1].toString());
 		results.setThreadHdr(fkThreadHdr);
 		
-		User fkUser= new User();
-		fkUser.setId(objArr[2].toString());
-		results.setUser(fkUser);
+		results.setCreatedBy(objArr[2].toString());
+		results.setCreatedAt(((Timestamp) objArr[3]).toLocalDateTime());
 		
-		results.setCreatedBy(objArr[3].toString());
-		results.setCreatedAt(((Timestamp) objArr[4]).toLocalDateTime());
-		
+		if(objArr[4] != null)
+			results.setUpdatedBy(objArr[4].toString());
 		if(objArr[5] != null)
-			results.setUpdatedBy(objArr[5].toString());
-		if(objArr[6] != null)
-			results.setUpdatedAt(((Timestamp) objArr[6]).toLocalDateTime());
+			results.setUpdatedAt(((Timestamp) objArr[5]).toLocalDateTime());
 		
-		results.setIsActive(Boolean.valueOf(objArr[7].toString()));
-		results.setVersion(Integer.valueOf(objArr[8].toString()));
+		results.setIsActive(Boolean.valueOf(objArr[6].toString()));
+		results.setVersion(Integer.valueOf(objArr[7].toString()));
 		
 		return results;
 	}
@@ -46,8 +41,7 @@ public class BookmarkDao extends AbstractJpaDao<Bookmark>{
 	public List<Bookmark> getByIdUser(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT b.* FROM comm_bookmark b ")
-		.append(" INNER JOIN comm_user u ON b.id = u.balance_id ")
-		.append(" WHERE u.id = :id ");
+		.append(" WHERE b.created_by = :id ");
 		
 		List<Bookmark> res = new ArrayList<>();
 		
@@ -71,5 +65,26 @@ public class BookmarkDao extends AbstractJpaDao<Bookmark>{
 		});
 		
 		return res;
+	}
+	
+	public String findByUserLogged(String idUser, String idThreadHdr) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT b.id FROM comm_bookmark b ")
+				.append(" WHERE b.created_by = :idUser AND b.thread_hdr_id = :idThreadHdr ");
+		
+		String result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("idUser", idUser)
+					.setParameter("idThreadHdr", idThreadHdr)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = res.toString();
+			}
+		} catch (Exception e) {
+			result = null;
+		}
+		return result;
 	}
 }

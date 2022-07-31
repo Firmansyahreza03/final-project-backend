@@ -55,7 +55,7 @@ public class ThreadLikedController {
 	}
 	
 	@GetMapping("thread/{threadId}/user/{email}")
-	public ResponseEntity<PojoThreadLiked> countLike(@PathVariable("threadId") String idThread, @PathVariable("email") String email) throws Exception{
+	public ResponseEntity<PojoThreadLiked> findByThreadHdrAndEmail(@PathVariable("threadId") String idThread, @PathVariable("email") String email) throws Exception{
 		PojoThreadLiked res = service.likeThread(email, idThread);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}

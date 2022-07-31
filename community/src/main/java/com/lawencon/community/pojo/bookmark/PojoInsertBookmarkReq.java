@@ -16,19 +16,11 @@ public class PojoInsertBookmarkReq {
 
 	@NotBlank(message = "id thread header cannot be empty")
 	private String idThreadHdr;
-	@NotBlank(message = "id user cannot be empty")
-	private String idUser;
 
 	public String getIdThreadHdr() {
 		return idThreadHdr;
 	}
 	public void setIdThreadHdr(String idThreadHdr) {
 		this.idThreadHdr = idThreadHdr;
-	}
-	public String getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
 	}
 }

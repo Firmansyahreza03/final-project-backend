@@ -25,8 +25,6 @@ public class PojoInsertCommunityReq {
 	private LocalDateTime endAt;
 	@NotBlank(message = "description cannot be empty")
 	private String desc;
-	@NotBlank(message = "code cannot be empty")
-	private String code;
 	@NotNull(message = "price cannot be empty")
 	private Long price;
 	@NotBlank(message = "id category cannot be empty")
@@ -82,12 +80,6 @@ public class PojoInsertCommunityReq {
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
 	}
 	public Long getPrice() {
 		return price;

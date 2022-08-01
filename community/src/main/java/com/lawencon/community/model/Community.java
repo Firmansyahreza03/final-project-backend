@@ -9,13 +9,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
-
 import com.lawencon.base.BaseEntity;
 
 @Entity
-@Indexed
 @Table(name = "comm_community", uniqueConstraints = {
 		@UniqueConstraint(
 				name = "community_code_bk", columnNames = { "community_code" }
@@ -26,35 +22,27 @@ public class Community extends BaseEntity {
 
 	private static final long serialVersionUID = 5624571446289080291L;
 
-	@FullTextField
 	@Column(name = "community_title", columnDefinition = "TEXT")
 	private String communityTitle;
 
-	@FullTextField
 	@Column(name = "community_provider", columnDefinition = "TEXT")
 	private String communityProvider;
 
-	@FullTextField
 	@Column(name = "community_location", columnDefinition = "TEXT")
 	private String communityLocation;
 
-	@FullTextField
 	@Column(name = "community_start_at")
 	private LocalDateTime communityStartAt;
 
-	@FullTextField
 	@Column(name = "community_end_at")
 	private LocalDateTime communityEndAt;
 
-	@FullTextField
 	@Column(name = "community_desc", columnDefinition = "TEXT")
 	private String communityDesc;
 
-	@FullTextField
 	@Column(name = "community_code", columnDefinition = "TEXT")
 	private String communityCode;
 
-	@FullTextField
 	@Column(name = "community_price")
 	private Long communityPrice;
 

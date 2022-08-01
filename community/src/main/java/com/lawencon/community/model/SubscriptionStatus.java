@@ -8,12 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
-
 import com.lawencon.base.BaseEntity;
 
 @Entity
-@Indexed
 @Table(name = "comm_subscription_status")
 public class SubscriptionStatus extends BaseEntity {
 

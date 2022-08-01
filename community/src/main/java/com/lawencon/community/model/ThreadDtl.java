@@ -6,19 +6,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
-
 import com.lawencon.base.BaseEntity;
 
 @Entity
-@Indexed
 @Table(name = "comm_thread_dtl")
 public class ThreadDtl extends BaseEntity {
 
 	private static final long serialVersionUID = 7910721000750756493L;
 
-	@FullTextField
 	@Column(name = "thread_comment", columnDefinition = "TEXT")
 	private String threadComment;
 

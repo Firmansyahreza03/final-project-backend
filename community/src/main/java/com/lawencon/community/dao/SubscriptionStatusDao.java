@@ -29,10 +29,13 @@ public class SubscriptionStatusDao extends AbstractJpaDao<SubscriptionStatus> {
 				res.setIsSubscriber(Boolean.valueOf(objArr[1].toString()));
 				
 				PaymentTransaction transaction = new PaymentTransaction();
-				transaction.setId(objArr[2].toString());
-				res.setPayment(transaction);
-				
-				res.setExpiredAt(((Timestamp) objArr[3]).toLocalDateTime());
+				if(objArr[2] != null) {	
+					transaction.setId(objArr[2].toString());
+					res.setPayment(transaction);
+				}
+				if(objArr[3] != null) {	
+					res.setExpiredAt(((Timestamp) objArr[3]).toLocalDateTime());
+				}
 				res.setCreatedBy(objArr[4].toString());
 				res.setCreatedAt(((Timestamp) objArr[5]).toLocalDateTime());
 				if(objArr[6] != null) {					

@@ -55,7 +55,6 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		result.setId(data.getId());
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
-		
 
 		result.setFullName(data.getFullName());
 		result.setCompanyName(data.getCompanyName());

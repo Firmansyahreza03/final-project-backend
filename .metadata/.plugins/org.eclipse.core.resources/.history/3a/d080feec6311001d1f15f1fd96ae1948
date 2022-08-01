@@ -52,22 +52,19 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 	private PojoProfileData modelToProfileRes(Profile data) throws Exception{
 		PojoProfileData result = new PojoProfileData();
-		result.setId(data.getId());
-		result.setIsActive(data.getIsActive());
-		result.setVersion(data.getVersion());
-		
-
-		result.setFullName(data.getFullName());
-		result.setCompanyName(data.getCompanyName());
-		result.setPositionName(data.getPositionName());
-		
 		SubscriptionStatus fkSubs = statusDao.findByUserId(data.getUser().getId());
 		result.setIsSubscriber(fkSubs.getIsSubscriber());
 		
 		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
 		result.setIndustryId(fkIndustry.getId());
 		result.setIndustryName(fkIndustry.getIndustryName());
-
+		
+		result.setCompanyName(data.getCompanyName());
+		result.setFullName(data.getFullName());
+		result.setId(data.getId());
+		result.setIsActive(data.getIsActive());
+		result.setPositionName(data.getPositionName());
+		result.setVersion(data.getVersion());
 		User fkUser = userDao.getById(data.getUser().getId());
 		result.setUserId(fkUser.getId());
 		result.setUserEmail(fkUser.getUserEmail());

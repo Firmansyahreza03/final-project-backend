@@ -3,6 +3,9 @@ package com.lawencon.community.pojo.profile;
 public class PojoProfileData {
 
 	private String id;
+	private Boolean isActive;
+	private Integer version;
+	
 	private String fullName;
 	private String companyName;
 	private String positionName;
@@ -10,10 +13,11 @@ public class PojoProfileData {
 	private String industryName;
 	private String userId;
 	private String userEmail;
+	private String roleCode;
+	private String roleName;
+	private Long balance;
 	private String fileId;
 	private Boolean isSubscriber;
-	private Boolean isActive;
-	private Integer version;
 
 	public String getId() {
 		return id;
@@ -109,6 +113,30 @@ public class PojoProfileData {
 
 	public void setIsSubscriber(Boolean isSubscriber) {
 		this.isSubscriber = isSubscriber;
+	}
+
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public Long getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Long balance) {
+		this.balance = balance;
 	}
 
 }

@@ -6,23 +6,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
-import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
-
 import com.lawencon.base.BaseEntity;
 
 @Entity
-@Indexed
 @Table(name = "comm_article")
 public class Article extends BaseEntity {
 
 	private static final long serialVersionUID = -4406344676030726269L;
 
-	@FullTextField
 	@Column(name = "article_title", columnDefinition = "TEXT")
 	private String articleTitle;
 
-	@FullTextField
 	@Column(name = "article_content", columnDefinition = "TEXT")
 	private String articleContent;
 

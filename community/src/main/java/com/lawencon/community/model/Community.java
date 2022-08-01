@@ -13,7 +13,11 @@ import com.lawencon.base.BaseEntity;
 
 @Entity
 @Table(name = "comm_community", uniqueConstraints = {
-		@UniqueConstraint(name = "community_code_bk", columnNames = { "community_code" }) })
+		@UniqueConstraint(
+				name = "community_code_bk", columnNames = { "community_code" }
+				) 
+		}
+)
 public class Community extends BaseEntity {
 
 	private static final long serialVersionUID = 5624571446289080291L;

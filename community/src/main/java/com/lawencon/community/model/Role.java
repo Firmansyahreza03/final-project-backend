@@ -9,7 +9,9 @@ import com.lawencon.base.BaseEntity;
 
 @Entity
 @Table(name = "comm_role", uniqueConstraints = {
-		@UniqueConstraint(name = "role_code_bk", columnNames = { "role_code" }) })
+		@UniqueConstraint(name = "role_code_bk", columnNames = { "role_code" }) 
+		}
+)
 public class Role extends BaseEntity {
 
 	private static final long serialVersionUID = 4148215435585064923L;

@@ -78,7 +78,7 @@ public class ArticleService extends BaseCoreService<Article> {
 	}
 
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage);
+		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage, "articleTitle", "articleContent");
 
 		List<PojoDataArticle> resultList = new ArrayList<>();
 

@@ -9,7 +9,8 @@ import com.lawencon.base.BaseEntity;
 
 @Entity
 @Table(name = "comm_thread_category", uniqueConstraints = {
-		@UniqueConstraint(name = "comm_thread_category", columnNames = { "category_code" }) })
+		@UniqueConstraint(name = "comm_thread_category", columnNames = { "category_code" }) 
+		})
 public class ThreadCategory extends BaseEntity {
 
 	private static final long serialVersionUID = 7878375313276296827L;

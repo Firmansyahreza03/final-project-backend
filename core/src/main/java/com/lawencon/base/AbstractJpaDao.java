@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
-import org.hibernate.search.engine.search.query.SearchFetchable;
-import org.hibernate.search.mapper.orm.Search;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.stereotype.Repository;
 
@@ -56,21 +58,45 @@ public class AbstractJpaDao<T extends BaseEntity> {
 				.getResultList();
 	}
 
-	private SearchQuery<T> getAll(String query, int startPage, int maxPage, String... fields) {
-		SearchFetchable<T> searchObj = Search.session(ConnHandler.getManager())
-				.search(clazz)
-				.where(f -> f.wildcard().fields(fields).matching("*" + query + "*"));
+	private SearchQuery<T> getAll( 
+			String query, 
+			int startPage, int maxPage,
+			String... fields) {
+		
+		CriteriaBuilder criteriaBuilder = em().getCriteriaBuilder();
+		CriteriaQuery<T> criteriaQueryData = criteriaBuilder.createQuery(clazz);
+		CriteriaQuery<Long> criteriaQueryCount = criteriaBuilder.createQuery(Long.class);
 
-		List<T> result = searchObj.fetch(startPage, maxPage).hits();
-		List<T> resultAll = searchObj.fetchAllHits();
+		Root<T> itemRoot = criteriaQueryData.from(clazz);
 
+		Predicate[] predicates = new Predicate[fields.length];
+		for (int i = 0; i < fields.length; i++) {
+			Predicate condition = criteriaBuilder.like(
+					criteriaBuilder.lower(itemRoot.get(fields[i])), "%" + query.toLowerCase() + "%"
+			);
+			predicates[i] = condition;
+		}
+		
+		criteriaQueryData.where(predicates).orderBy(criteriaBuilder.asc(itemRoot.get("createdAt")));
+		
+		criteriaQueryCount.select(criteriaBuilder.count(criteriaQueryCount.from(clazz)));
+		criteriaQueryCount.where(predicates);
+		
+		List<T> resultData = em().createQuery(criteriaQueryData)
+				.setFirstResult(startPage)
+				.setMaxResults(maxPage)
+				.getResultList();
+		
+		Long resultCount = em().createQuery(criteriaQueryCount).getSingleResult();
+		
 		SearchQuery<T> data = new SearchQuery<>();
-		data.setData(result);
-		data.setCount(resultAll.size());
+		data.setData(resultData);
+		data.setCount(resultCount.intValue());
 
 		return data;
-	}
 
+	}
+	
 	public SearchQuery<T> findAll(String query, Integer startPage, Integer maxPage, String... fields) throws Exception {
 		SearchQuery<T> sq = new SearchQuery<>();
 		List<T> data = null;

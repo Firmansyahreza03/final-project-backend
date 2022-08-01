@@ -50,23 +50,31 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private PojoProfileData modelToProfileRes(Profile data) {
+	private PojoProfileData modelToProfileRes(Profile data) throws Exception{
 		PojoProfileData result = new PojoProfileData();
-
-		result.setCompanyName(data.getCompanyName());
-		result.setFullName(data.getFullName());
 		result.setId(data.getId());
-		result.setIndustryId(data.getIndustry().getId());
-		result.setIndustryName(data.getIndustry().getIndustryName());
 		result.setIsActive(data.getIsActive());
-		result.setIsSubscriber(data.getUser().getSubscriptionStatus().getIsSubscriber());
-		result.setPositionName(data.getPositionName());
-		result.setUserEmail(data.getUser().getUserEmail());
-		result.setUserId(data.getUser().getId());
 		result.setVersion(data.getVersion());
+		
 
-		if (data.getUser().getFile() != null) {
-			result.setFileId(data.getUser().getFile().getId());
+		result.setFullName(data.getFullName());
+		result.setCompanyName(data.getCompanyName());
+		result.setPositionName(data.getPositionName());
+		
+		SubscriptionStatus fkSubs = statusDao.findByUserId(data.getUser().getId());
+		result.setIsSubscriber(fkSubs.getIsSubscriber());
+		
+		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
+		result.setIndustryId(fkIndustry.getId());
+		result.setIndustryName(fkIndustry.getIndustryName());
+
+		User fkUser = userDao.getById(data.getUser().getId());
+		result.setUserId(fkUser.getId());
+		result.setUserEmail(fkUser.getUserEmail());
+
+		if (fkUser.getFile() != null) {
+			File fkFile = fileDao.getById(fkUser.getFile().getId());
+			result.setFileId(fkFile.getId());
 		}
 
 		return result;

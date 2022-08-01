@@ -19,7 +19,7 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 
 	public List<ThreadHdr> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder().append(
-				" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id ")
+				" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id, th.created_at ")
 				.append(" FROM comm_thread_hdr th ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
 				.append(" WHERE th.created_by = :id ").append(" ORDER BY th.created_at DESC ");
@@ -52,6 +52,8 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 					file.setId(objArr[7].toString());
 					hdr.setFile(file);
 				}
+				
+				hdr.setCreatedAt(((Timestamp) objArr[8]).toLocalDateTime());
 
 				hdrs.add(hdr);
 			});

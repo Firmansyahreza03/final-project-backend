@@ -69,12 +69,20 @@ public class AbstractJpaDao<T extends BaseEntity> {
 
 		Root<T> itemRoot = criteriaQueryData.from(clazz);
 
-		Predicate[] predicates = new Predicate[fields.length];
+		String[] extractQuery = extractQuery(query);
+		Predicate[] predicates = new Predicate[fields.length * extractQuery.length];
+		
+		int countPredicate = 0;
+
 		for (int i = 0; i < fields.length; i++) {
-			Predicate condition = criteriaBuilder.like(
-					criteriaBuilder.lower(itemRoot.get(fields[i])), "%" + query.toLowerCase() + "%"
-			);
-			predicates[i] = condition;
+			for (String subQuery : extractQuery) {
+				Predicate condition = criteriaBuilder.like(
+						criteriaBuilder.lower(itemRoot.get(fields[i])), "%" + subQuery.toLowerCase() + "%"
+				);
+				predicates[countPredicate] = condition;
+				countPredicate++;
+			}
+
 		}
 		
 		Predicate predicate = criteriaBuilder.or(predicates); 
@@ -99,6 +107,12 @@ public class AbstractJpaDao<T extends BaseEntity> {
 		return data;
 
 	}
+	
+	private String[] extractQuery(String textQuery) {
+		String[] result = textQuery.split(" ");
+		return result;
+	}
+
 	
 	public SearchQuery<T> findAll(String query, Integer startPage, Integer maxPage, String... fields) throws Exception {
 		SearchQuery<T> sq = new SearchQuery<>();

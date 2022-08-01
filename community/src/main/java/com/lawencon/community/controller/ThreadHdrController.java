@@ -68,4 +68,11 @@ public class ThreadHdrController {
 		SearchQuery<PojoThreadHdrData> res = service.findByCreatorEmail(email, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("user-like/{email}")
+	public ResponseEntity<SearchQuery<PojoThreadHdrData>> findThreadThatAreLikedByUserLoggedEmail(@PathVariable("email") String email,
+			Integer startPage, Integer maxPage) throws Exception {
+		SearchQuery<PojoThreadHdrData> res = service.findThreadThatAreLikedByUserLoggedEmail(email, startPage, maxPage);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 }

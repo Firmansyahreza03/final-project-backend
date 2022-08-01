@@ -257,4 +257,32 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		result.setCount(threads.getData().size());
 		return result;
 	}
+	
+	public SearchQuery<PojoThreadHdrData> findThreadThatAreLikedByUserLoggedEmail(String email, Integer startPage, Integer maxPage) throws Exception{
+		User user = userDao.findByEmail(email);
+		List<ThreadHdr> threadList = hdrDao.findThreadByThreadLikeAndUserId(user.getId(), startPage, maxPage);
+		
+		SearchQuery<ThreadHdr> threads = findAll(() -> threadList);
+		
+		List<PojoThreadHdrData> resultList = new ArrayList<>();
+		
+		threads.getData().forEach(d -> {
+			PojoThreadHdrData data;
+			try {
+				data = modelToRes(d);
+				Long counterLike = likedDao.countThreadLikedId(d.getId());
+				data.setCounterLike(counterLike);
+				data.setCountComment(0l); //NANTI DIGANTI
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		});
+		
+		SearchQuery<PojoThreadHdrData> result = new SearchQuery<>();
+		result.setData(resultList);
+		result.setCount(threads.getData().size());
+		return result;
+	}
 }

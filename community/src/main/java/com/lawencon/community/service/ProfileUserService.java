@@ -50,7 +50,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private PojoProfileData modelToProfileRes(Profile data) throws Exception{
+	private PojoProfileData modelToProfileRes(Profile data) throws Exception {
 		PojoProfileData result = new PojoProfileData();
 		result.setId(data.getId());
 		result.setIsActive(data.getIsActive());
@@ -59,10 +59,10 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		result.setFullName(data.getFullName());
 		result.setCompanyName(data.getCompanyName());
 		result.setPositionName(data.getPositionName());
-		
+
 		SubscriptionStatus fkSubs = statusDao.findByUserId(data.getUser().getId());
 		result.setIsSubscriber(fkSubs.getIsSubscriber());
-		
+
 		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
 		result.setIndustryId(fkIndustry.getId());
 		result.setIndustryName(fkIndustry.getIndustryName());
@@ -70,6 +70,9 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		User fkUser = userDao.getById(data.getUser().getId());
 		result.setUserId(fkUser.getId());
 		result.setUserEmail(fkUser.getUserEmail());
+		result.setRoleCode(fkUser.getRole().getRoleCode());
+		result.setRoleName(fkUser.getRole().getRoleName());
+		result.setBalance(fkUser.getBalance().getBalance());
 
 		if (fkUser.getFile() != null) {
 			File fkFile = fileDao.getById(fkUser.getFile().getId());
@@ -100,8 +103,15 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	}
 
 	public SearchQuery<PojoProfileData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Profile> profileList = profileDao.findAll(query, startPage, maxPage,
-				"fullName", "companyName", "positionName");
+		SearchQuery<Profile> profileList = null;
+		if (query != null) {
+			profileList = profileDao.searchQuery(query, startPage, maxPage,
+					new String[] { "industry",  "industry", "user" }, 
+					new String[] { "industryName", "industryCode", "userEmail" },
+					 "fullName", "companyName", "positionName");
+		} else {
+			profileList = profileDao.findAll(query, startPage, maxPage);
+		}
 		List<PojoProfileData> results = new ArrayList<>();
 
 		profileList.getData().forEach(d -> {
@@ -152,7 +162,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 				userData.setFile(file);
 			}
 			Role role = roleDao.findByRoleCode(RoleType.NONADMIN.name());
-			
+
 			SubscriptionStatus statusData = new SubscriptionStatus();
 			statusData.setIsSubscriber(false);
 			statusData.setCreatedBy(creator.getId());

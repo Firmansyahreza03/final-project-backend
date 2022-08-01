@@ -7,6 +7,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -107,6 +108,72 @@ public class AbstractJpaDao<T extends BaseEntity> {
 		return data;
 
 	}
+	
+	public SearchQuery<T> searchQuery(
+			String textQuery, 
+			int startPosition, int limit, 
+			String[] fieldJoins,
+			String[] fieldInfieldJoins,
+			String... fields) {
+		
+		CriteriaBuilder criteriaBuilder = em().getCriteriaBuilder();
+		
+		CriteriaQuery<T> criteriaQueryData = criteriaBuilder.createQuery(clazz);
+		CriteriaQuery<Long> criteriaQueryCount = criteriaBuilder.createQuery(Long.class);
+				
+		Root<T> itemRootData = criteriaQueryData.from(clazz);
+
+		String[] extractQuery = extractQuery(textQuery);
+		Predicate[] predicates = new Predicate[(fields.length + fieldJoins.length) * extractQuery.length];
+		
+		int countPredicate = 0;
+		for (int i = 0; i < fields.length; i++) {
+			for (String subQuery : extractQuery) {
+				Predicate condition = criteriaBuilder.like(
+						criteriaBuilder.lower(itemRootData.get(fields[i])), "%" + subQuery.toLowerCase() + "%"
+				);
+				predicates[countPredicate] = condition;
+				countPredicate++;
+			}
+		}
+		
+		//join
+		Root<T> itemRootCount = criteriaQueryCount.from(clazz);
+		for (int i = 0; i < fieldJoins.length; i++) {	
+			itemRootCount.join(fieldJoins[i]);
+			Join<Object, Object> join = itemRootData.join(fieldJoins[i]);
+			for (String subQuery : extractQuery) {			
+				Predicate condition = criteriaBuilder.like(
+						criteriaBuilder.lower(join.get(fieldInfieldJoins[i])), "%" + subQuery.toLowerCase() + "%"
+				);
+				predicates[countPredicate] = condition;
+				countPredicate++;
+			}
+		}
+		Predicate predicate = criteriaBuilder.or(predicates); 
+		
+		criteriaQueryCount
+			.select(criteriaBuilder.count(itemRootCount))
+			.where(predicate);
+
+		criteriaQueryData
+			.where(predicate)
+			.orderBy(criteriaBuilder.asc(itemRootData.get("createdAt")));
+		
+		List<T> resultData = em().createQuery(criteriaQueryData)
+				.setFirstResult(startPosition)
+				.setMaxResults(limit)
+				.getResultList();
+		
+		Long resultCount = em().createQuery(criteriaQueryCount).getSingleResult();
+		
+		SearchQuery<T> data = new SearchQuery<>();
+		data.setData(resultData);
+		data.setCount(resultCount.intValue());
+
+		return data;
+	}
+
 	
 	private String[] extractQuery(String textQuery) {
 		String[] result = textQuery.split(" ");

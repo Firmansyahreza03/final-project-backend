@@ -77,10 +77,13 @@ public class AbstractJpaDao<T extends BaseEntity> {
 			predicates[i] = condition;
 		}
 		
-		criteriaQueryData.where(predicates).orderBy(criteriaBuilder.asc(itemRoot.get("createdAt")));
+		Predicate predicate = criteriaBuilder.or(predicates); 
+
+		
+		criteriaQueryData.where(predicate).orderBy(criteriaBuilder.asc(itemRoot.get("createdAt")));
 		
 		criteriaQueryCount.select(criteriaBuilder.count(criteriaQueryCount.from(clazz)));
-		criteriaQueryCount.where(predicates);
+		criteriaQueryCount.where(predicate);
 		
 		List<T> resultData = em().createQuery(criteriaQueryData)
 				.setFirstResult(startPage)

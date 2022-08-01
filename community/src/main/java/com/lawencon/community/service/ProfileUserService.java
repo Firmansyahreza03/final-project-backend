@@ -100,7 +100,8 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	}
 
 	public SearchQuery<PojoProfileData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Profile> profileList = profileDao.findAll(query, startPage, maxPage);
+		SearchQuery<Profile> profileList = profileDao.findAll(query, startPage, maxPage,
+				"fullName", "companyName", "positionName");
 		List<PojoProfileData> results = new ArrayList<>();
 
 		profileList.getData().forEach(d -> {

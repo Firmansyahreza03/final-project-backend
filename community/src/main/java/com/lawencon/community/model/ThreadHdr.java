@@ -7,21 +7,29 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+
 import com.lawencon.base.BaseEntity;
 
 @Entity
+@Indexed
 @Table(name = "comm_thread_hdr", uniqueConstraints = {
-		@UniqueConstraint(name = "thread_code_bk", columnNames = { "thread_code" }) })
+		@UniqueConstraint(name = "thread_code_bk", columnNames = { "thread_code" }) 
+		})
 public class ThreadHdr extends BaseEntity {
 
 	private static final long serialVersionUID = 6710710220692651928L;
 
+	@FullTextField
 	@Column(name = "thread_name", columnDefinition = "TEXT")
 	private String threadName;
 
+	@FullTextField
 	@Column(name = "thread_code", columnDefinition = "TEXT")
 	private String threadCode;
 
+	@FullTextField
 	@Column(name = "thread_content", columnDefinition = "TEXT")
 	private String threadContent;
 

@@ -7,18 +7,24 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
+
 import com.lawencon.base.BaseEntity;
 import com.lawencon.security.RefreshTokenEntity;
 
 @Entity
+@Indexed
 @Table(name = "comm_user", uniqueConstraints = { @UniqueConstraint(name = "email_bk", columnNames = { "user_email" }) })
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = -5365616900976826931L;
 
+	@FullTextField
 	@Column(name = "user_email", columnDefinition = "TEXT")
 	private String userEmail;
 
+	@FullTextField
 	@Column(name = "user_password", columnDefinition = "TEXT")
 	private String userPassword;
 
@@ -26,6 +32,7 @@ public class User extends BaseEntity {
 	@JoinColumn(name = "subscription_status_id")
 	private SubscriptionStatus subscriptionStatus;
 
+	@FullTextField
 	@Column(name = "verfication_code", columnDefinition = "TEXT")
 	private String verificationCode;
 

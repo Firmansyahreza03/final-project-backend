@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.lawencon.security.PrinncipallService.java&apos; to &apos;PrincipalService.java&apos;&#x0D;&#x0A;- Original project: &apos;core&apos;&#x0D;&#x0A;- Original element: &apos;com.lawencon.security.PrinncipallService.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.lawencon.security.PrincipalService.java&apos;" description="Rename compilation unit &apos;PrinncipallService.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.lawencon.security{PrinncipallService.java" name="PrincipalService.java" references="false" stamp="1659283699401" version="1.0"/>
+</session>

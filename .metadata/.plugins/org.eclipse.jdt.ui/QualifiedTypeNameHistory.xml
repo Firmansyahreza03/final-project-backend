@@ -4,4 +4,5 @@
     <fullyQualifiedTypeName name="javax.validation.constraints.Size"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+    <fullyQualifiedTypeName name="com.lawencon.base.AbstractJpaDao"/>
 </qualifiedTypeNameHistroy>

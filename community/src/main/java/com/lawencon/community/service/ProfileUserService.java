@@ -50,8 +50,9 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private PojoProfileData modelToProfileRes(Profile data) {
+	private PojoProfileData modelToProfileRes(Profile data) throws Exception{
 		PojoProfileData result = new PojoProfileData();
+		SubscriptionStatus fkSubs = statusDao.findByUserId(data.getUser().getId());
 
 		result.setCompanyName(data.getCompanyName());
 		result.setFullName(data.getFullName());
@@ -59,7 +60,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		result.setIndustryId(data.getIndustry().getId());
 		result.setIndustryName(data.getIndustry().getIndustryName());
 		result.setIsActive(data.getIsActive());
-		result.setIsSubscriber(data.getUser().getSubscriptionStatus().getIsSubscriber());
+		result.setIsSubscriber(fkSubs.getIsSubscriber());
 		result.setPositionName(data.getPositionName());
 		result.setUserEmail(data.getUser().getUserEmail());
 		result.setUserId(data.getUser().getId());

@@ -75,4 +75,11 @@ public class ThreadHdrController {
 		SearchQuery<PojoThreadHdrData> res = service.findThreadThatAreLikedByUserLoggedEmail(email, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("user-bookmark/{email}")
+	public ResponseEntity<SearchQuery<PojoThreadHdrData>> findThreadThatAreBookmarkedByUserLoggedEmail(@PathVariable("email") String email,
+			Integer startPage, Integer maxPage) throws Exception {
+		SearchQuery<PojoThreadHdrData> res = service.findThreadThatAreBookmarkedByUserLoggedEmail(email, startPage, maxPage);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 }

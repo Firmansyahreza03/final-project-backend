@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.ArticleDao;
 import com.lawencon.community.dao.IndustryDao;
-import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Article;
 import com.lawencon.community.model.Industry;
-import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
@@ -29,21 +27,15 @@ public class ArticleService extends BaseCoreService<Article> {
 	@Autowired
 	private ArticleDao articleDao;
 	@Autowired
-	private UserDao userDao;
-	@Autowired
 	private IndustryDao industryDao;
 
-	private Article inputArticleData(Article result, Boolean isActive, String title, String content, String idUser,
-			String idIndustry) throws Exception {
-		User fkUser = userDao.getById(idUser);
+	private Article inputArticleData(Article result, Boolean isActive, String title, String content, String idIndustry) throws Exception {
 		Industry fkIndustry = industryDao.getById(idIndustry);
 
 		result.setIsActive(isActive);
 
 		result.setArticleTitle(title);
 		result.setArticleContent(content);
-
-		result.setUser(fkUser);
 		result.setIndustry(fkIndustry);
 
 		return result;
@@ -51,7 +43,6 @@ public class ArticleService extends BaseCoreService<Article> {
 
 	private PojoDataArticle modelToRes(Article data) throws Exception {
 		PojoDataArticle result = new PojoDataArticle();
-		User fkUser = userDao.getById(data.getUser().getId());
 		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
 
 		result.setId(data.getId());
@@ -60,7 +51,7 @@ public class ArticleService extends BaseCoreService<Article> {
 
 		result.setTitle(data.getArticleTitle());
 		result.setContent(data.getArticleContent());
-		result.setIdUser(fkUser.getId());
+		
 		result.setIdIndustry(fkIndustry.getId());
 		result.setNameIndustry(fkIndustry.getIndustryName());
 
@@ -78,7 +69,8 @@ public class ArticleService extends BaseCoreService<Article> {
 	}
 
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage, "articleTitle", "articleContent");
+		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage, "articleTitle",
+				"articleContent");
 
 		List<PojoDataArticle> resultList = new ArrayList<>();
 
@@ -103,8 +95,7 @@ public class ArticleService extends BaseCoreService<Article> {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
 
-			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(),
-					data.getIdUser(), data.getIdIndustry());
+			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(), data.getIdIndustry());
 
 			begin();
 			Article result = save(reqData);
@@ -128,8 +119,7 @@ public class ArticleService extends BaseCoreService<Article> {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Article reqData = articleDao.getById(data.getId());
 
-			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(),
-					data.getIdUser(), data.getIdIndustry());
+			reqData = inputArticleData(reqData, data.getIsActive(), data.getTitle(), data.getContent(), data.getIdIndustry());
 
 			begin();
 			Article result = save(reqData);

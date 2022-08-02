@@ -109,6 +109,18 @@ public class AbstractJpaDao<T extends BaseEntity> {
 
 	}
 	
+	public SearchQuery<T> searchQueryTable(String textQuery, 
+			int startPosition, int limit, 
+			String[] fieldJoins,
+			String[] fieldInfieldJoins,
+			String... fields) throws Exception{
+		if (textQuery != null) {
+			return searchQuery(textQuery, startPosition, limit, fieldJoins, fieldInfieldJoins, fields);
+		} else {
+			return findAll(textQuery, startPosition, limit, fields);
+		}
+	}
+	
 	public SearchQuery<T> searchQuery(
 			String textQuery, 
 			int startPosition, int limit, 

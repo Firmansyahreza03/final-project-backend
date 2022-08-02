@@ -119,4 +119,61 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 		}
 		return results;
 	}
+	
+	public List<ThreadHdr> findThreadByBookmarkAndUserId(String idUser, Integer startPage, Integer maxPage) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT th.id, th.thread_name, th.thread_code, th.thread_content, th.is_premium, th.polling_id, th.category_id, th.created_by, th.created_at, th.updated_at, th.updated_by, th.is_active, th.version, th.file_id ")
+				.append(" FROM comm_thread_hdr th ")
+				.append(" INNER JOIN comm_bookmark b ON b.thread_hdr_id = th.id ")
+				.append(" WHERE b.created_by = :idUser");
+		
+		List<ThreadHdr> results = new ArrayList<>();
+		try {
+			Query q = createNativeQuery(sql.toString())
+					.setParameter("idUser", idUser);
+			
+			if(startPage != null && maxPage != null) {
+				q.setFirstResult(startPage)
+				.setMaxResults(maxPage);
+			}
+			
+			List<?> res = q.getResultList();
+			
+			if(res != null) {
+				res.forEach(obj -> {
+					Object[] objArr = (Object[]) obj;
+					ThreadHdr result = new ThreadHdr();
+					result.setId(objArr[0].toString());
+					result.setThreadName(objArr[1].toString());
+					result.setThreadCode(objArr[2].toString());
+					result.setThreadContent(objArr[3].toString());
+					result.setIsPremium(Boolean.valueOf(objArr[4].toString()));
+					
+					if(objArr[5] != null) {	
+						PollingHdr pollingHdr = new PollingHdr();
+						pollingHdr.setId(objArr[5].toString());
+						result.setPolling(pollingHdr);
+					}
+					
+					ThreadCategory category = new ThreadCategory();
+					category.setId(objArr[6].toString());
+					result.setCategory(category);
+					result.setCreatedBy(objArr[7].toString());
+					result.setCreatedAt(((Timestamp) objArr[8]).toLocalDateTime());
+					result.setIsActive(Boolean.valueOf(objArr[11].toString()));
+					result.setVersion(Integer.valueOf(objArr[12].toString()));
+					if(objArr[13] != null) {	
+						File file = new File();
+						file.setId(objArr[13].toString());
+						result.setFile(file);
+					}
+					
+					results.add(result);
+				});
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return results;
+	}
 }

@@ -11,7 +11,6 @@ public class PojoInsertArticleReq {
 	private String title;
 	@NotBlank(message = "content cannot be empty")
 	private String content;
-	@NotBlank(message = "id user cannot be empty")
 	private String idUser;
 	@NotBlank(message = "id industry cannot be empty")
 	private String idIndustry;

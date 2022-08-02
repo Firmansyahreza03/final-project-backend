@@ -31,7 +31,6 @@ public class PojoDataArticle {
 
 	private String title;
 	private String content;
-	private String idUser;
 	private String idIndustry;
 	private String nameIndustry;
 
@@ -49,14 +48,6 @@ public class PojoDataArticle {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public String getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
 	}
 
 	public String getIdIndustry() {

@@ -24,11 +24,7 @@ public class ArticleDao extends AbstractJpaDao<Article> {
 
 		results.setArticleTitle(objArr[1].toString());
 		results.setArticleContent(objArr[2].toString());
-		
-		User fkUser= new User();
-		fkUser.setId(objArr[3].toString());
-		results.setUser(fkUser);
-		
+
 		Industry fkIndustry = new Industry();
 		fkIndustry.setId(objArr[4].toString());
 		results.setIndustry(fkIndustry);

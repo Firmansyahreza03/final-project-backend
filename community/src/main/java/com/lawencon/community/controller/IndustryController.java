@@ -32,7 +32,7 @@ public class IndustryController {
 	private IndustryService service;
 
 	@GetMapping("{id}")
-	public ResponseEntity<PojoFindByIdIndustryRes> findById(String id) throws Exception {
+	public ResponseEntity<PojoFindByIdIndustryRes> findById(@PathVariable("id") String id) throws Exception {
 		PojoFindByIdIndustryRes res = service.findById(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	} 

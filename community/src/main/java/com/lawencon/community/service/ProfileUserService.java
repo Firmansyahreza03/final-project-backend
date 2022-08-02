@@ -50,23 +50,33 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	private PojoProfileData modelToProfileRes(Profile data) {
+	private PojoProfileData modelToProfileRes(Profile data) throws Exception {
 		PojoProfileData result = new PojoProfileData();
-
-		result.setCompanyName(data.getCompanyName());
-		result.setFullName(data.getFullName());
 		result.setId(data.getId());
-		result.setIndustryId(data.getIndustry().getId());
-		result.setIndustryName(data.getIndustry().getIndustryName());
 		result.setIsActive(data.getIsActive());
-		result.setIsSubscriber(data.getUser().getSubscriptionStatus().getIsSubscriber());
-		result.setPositionName(data.getPositionName());
-		result.setUserEmail(data.getUser().getUserEmail());
-		result.setUserId(data.getUser().getId());
 		result.setVersion(data.getVersion());
 
-		if (data.getUser().getFile() != null) {
-			result.setFileId(data.getUser().getFile().getId());
+		result.setFullName(data.getFullName());
+		result.setCompanyName(data.getCompanyName());
+		result.setPositionName(data.getPositionName());
+
+		SubscriptionStatus fkSubs = statusDao.findByUserId(data.getUser().getId());
+		result.setIsSubscriber(fkSubs.getIsSubscriber());
+
+		Industry fkIndustry = industryDao.getById(data.getIndustry().getId());
+		result.setIndustryId(fkIndustry.getId());
+		result.setIndustryName(fkIndustry.getIndustryName());
+
+		User fkUser = userDao.getById(data.getUser().getId());
+		result.setUserId(fkUser.getId());
+		result.setUserEmail(fkUser.getUserEmail());
+		result.setRoleCode(fkUser.getRole().getRoleCode());
+		result.setRoleName(fkUser.getRole().getRoleName());
+		result.setBalance(fkUser.getBalance().getBalance());
+
+		if (fkUser.getFile() != null) {
+			File fkFile = fileDao.getById(fkUser.getFile().getId());
+			result.setFileId(fkFile.getId());
 		}
 
 		return result;
@@ -93,7 +103,15 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	}
 
 	public SearchQuery<PojoProfileData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Profile> profileList = profileDao.findAll(query, startPage, maxPage);
+		SearchQuery<Profile> profileList = null;
+		if (query != null) {
+			profileList = profileDao.searchQuery(query, startPage, maxPage,
+					new String[] { "industry",  "industry", "user" }, 
+					new String[] { "industryName", "industryCode", "userEmail" },
+					 "fullName", "companyName", "positionName");
+		} else {
+			profileList = profileDao.findAll(query, startPage, maxPage);
+		}
 		List<PojoProfileData> results = new ArrayList<>();
 
 		profileList.getData().forEach(d -> {
@@ -144,7 +162,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 				userData.setFile(file);
 			}
 			Role role = roleDao.findByRoleCode(RoleType.NONADMIN.name());
-			
+
 			SubscriptionStatus statusData = new SubscriptionStatus();
 			statusData.setIsSubscriber(false);
 			statusData.setCreatedBy(creator.getId());

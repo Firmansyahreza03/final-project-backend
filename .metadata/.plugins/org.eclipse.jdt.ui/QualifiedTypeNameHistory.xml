@@ -5,4 +5,6 @@
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
     <fullyQualifiedTypeName name="com.lawencon.base.AbstractJpaDao"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.model.SubscriptionStatus"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.model.User"/>
 </qualifiedTypeNameHistroy>

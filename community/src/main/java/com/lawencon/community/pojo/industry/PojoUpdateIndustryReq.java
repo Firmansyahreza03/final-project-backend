@@ -13,8 +13,6 @@ public class PojoUpdateIndustryReq {
 
 	@NotBlank(message = "name cannot be empty")
 	private String name;
-	@NotBlank(message = "code cannot be empty")
-	private String code;
 
 	public String getId() {
 		return id;
@@ -46,13 +44,5 @@ public class PojoUpdateIndustryReq {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 }

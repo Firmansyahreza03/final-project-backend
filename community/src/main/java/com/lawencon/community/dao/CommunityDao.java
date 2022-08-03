@@ -58,6 +58,47 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		return results;
 	}
 
+	public List<Community> getByCategoryCode(String code, 
+			String query, Integer startPage, Integer maxPage ,
+			String... fields) throws Exception {
+		StringBuilder sql = new StringBuilder()
+		.append("SELECT c.* FROM comm_community c ")
+		.append(" INNER JOIN comm_community_category cc ON cc.id = c.category_id ")
+		.append(" WHERE cc.category_code = :code ")
+		.append(" ORDER BY c.created_at DESC ");
+		
+		List<Community> res = new ArrayList<>();
+		
+
+		if(query != null) {
+			for (int i = 0; i < fields.length; i++) {
+				sql.append(" c."+fields[i]+" LIKE :query");
+			}
+		}
+		
+		Query q = createNativeQuery(sql.toString())
+				.setParameter("code", code)
+				.setParameter("query", query);
+		
+		if(startPage != null && maxPage != null) {
+			q.setFirstResult(startPage)
+			.setMaxResults(maxPage);
+		}
+		
+		List<?> rs = q.getResultList();
+
+		rs.forEach(obj ->{
+			try {
+				Community data = inputData(obj);
+				res.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		return res;
+	}
+
 	public List<Community> getByIdIndustryAndCategoryCode(String id, String code, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT c.* FROM comm_community c ")

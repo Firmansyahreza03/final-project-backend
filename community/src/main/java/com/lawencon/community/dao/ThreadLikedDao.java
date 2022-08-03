@@ -96,4 +96,25 @@ public class ThreadLikedDao extends AbstractJpaDao<ThreadLiked>{
 		}
 		return result;
 	}
+	
+	public Boolean findIslikeByThreadHdrIdAndUserLogged(String idUser, String idThreadHdr) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT tl.is_active FROM comm_thread_liked tl ")
+				.append(" WHERE tl.created_by = :idUser AND tl.hdr_id = :idThreadHdr ");
+		
+		Boolean result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("idUser", idUser)
+					.setParameter("idThreadHdr", idThreadHdr)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = Boolean.valueOf(res.toString());
+			}
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
 }

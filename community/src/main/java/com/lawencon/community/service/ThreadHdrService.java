@@ -30,6 +30,7 @@ import com.lawencon.community.pojo.threadhdr.PojoInsertThreadHdrReq;
 import com.lawencon.community.pojo.threadhdr.PojoThreadHdrData;
 import com.lawencon.community.pojo.threadhdr.PojoUpdateThreadHdrReq;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
@@ -50,6 +51,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	private ProfileDao profileDao;
 	@Autowired
 	private ThreadLikedDao likedDao;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
 
 	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
 			Boolean isActive, Boolean isPremium, String pollingId, String fileName, String fileExt, String idCreator) {
@@ -129,6 +132,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		Long counterLike = likedDao.countThreadLikedId(id);
 		result.setCounterLike(counterLike);
 		result.setCountComment(0l); //NANTI DIGANTI
+		
 		PojoFindByIdThreadHdrRes res = new PojoFindByIdThreadHdrRes();
 		res.setData(result);
 
@@ -139,6 +143,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		SearchQuery<ThreadHdr> threadList = hdrDao.findAll(query, startPage, maxPage);
 		List<PojoThreadHdrData> results = new ArrayList<>();
 
+		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
 		threadList.getData().forEach(d -> {
 			PojoThreadHdrData data;
 			try {
@@ -146,6 +151,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				Long counterLike = likedDao.countThreadLikedId(d.getId());
 				data.setCounterLike(counterLike);
 				data.setCountComment(0l); //NANTI DIGANTI
+				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsLike(isLike);
 				results.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -245,6 +252,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				Long counterLike = likedDao.countThreadLikedId(d.getId());
 				data.setCounterLike(counterLike);
 				data.setCountComment(0l); //NANTI DIGANTI
+				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsLike(isLike);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -273,6 +282,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				Long counterLike = likedDao.countThreadLikedId(d.getId());
 				data.setCounterLike(counterLike);
 				data.setCountComment(0l); //NANTI DIGANTI
+				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsLike(isLike);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -301,6 +312,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				Long counterLike = likedDao.countThreadLikedId(d.getId());
 				data.setCounterLike(counterLike);
 				data.setCountComment(0l); //NANTI DIGANTI
+				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsLike(isLike);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();

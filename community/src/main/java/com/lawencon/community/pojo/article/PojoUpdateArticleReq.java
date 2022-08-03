@@ -34,8 +34,6 @@ public class PojoUpdateArticleReq {
 	private String title;
 	@NotBlank(message = "content cannot be empty")
 	private String content;
-	@NotBlank(message = "id user cannot be empty")
-	private String idUser;
 	@NotBlank(message = "id industry cannot be empty")
 	private String idIndustry;
 	
@@ -50,12 +48,6 @@ public class PojoUpdateArticleReq {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
 	}
 	public String getIdIndustry() {
 		return idIndustry;

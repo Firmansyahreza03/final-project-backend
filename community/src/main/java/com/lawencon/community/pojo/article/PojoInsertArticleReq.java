@@ -11,7 +11,6 @@ public class PojoInsertArticleReq {
 	private String title;
 	@NotBlank(message = "content cannot be empty")
 	private String content;
-	private String idUser;
 	@NotBlank(message = "id industry cannot be empty")
 	private String idIndustry;
 	
@@ -32,12 +31,6 @@ public class PojoInsertArticleReq {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
 	}
 	public String getIdIndustry() {
 		return idIndustry;

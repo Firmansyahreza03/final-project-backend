@@ -20,6 +20,7 @@ import com.lawencon.community.pojo.paymentTransaction.PojoDataPaymentTransaction
 import com.lawencon.community.pojo.paymentTransaction.PojoFindByIdPaymentTransactionRes;
 import com.lawencon.community.pojo.paymentTransaction.PojoInsertPaymentTransactionReq;
 import com.lawencon.community.pojo.paymentTransaction.PojoUpdatePaymentTransactionReq;
+import com.lawencon.community.pojo.paymentTransaction.PojoValidPaymentTransactionReq;
 import com.lawencon.model.SearchQuery;
 
 @Service
@@ -167,6 +168,31 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			else
 				deleteRes.setMessage("Failed Delete PaymentTransaction");
 			return deleteRes;
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+			throw new Exception(e);
+		}
+	}
+	
+
+	public PojoUpdateRes validationPayment(PojoValidPaymentTransactionReq data) throws Exception {
+		try {
+			PojoUpdateRes updateRes = new PojoUpdateRes();
+			PaymentTransaction reqData = paymentDao.getById(data.getId());
+
+			reqData.setIsAcc(true);
+			
+			begin();
+			PaymentTransaction result = paymentDao.save(reqData);
+			commit();
+			PojoUpdateResData resData = new PojoUpdateResData();
+			resData.setVersion(result.getVersion());
+
+			updateRes.setData(resData);
+			updateRes.setMessage("Aprovall succes");
+			return updateRes;
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();

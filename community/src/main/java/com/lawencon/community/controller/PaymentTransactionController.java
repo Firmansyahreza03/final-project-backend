@@ -21,6 +21,7 @@ import com.lawencon.community.pojo.paymentTransaction.PojoDataPaymentTransaction
 import com.lawencon.community.pojo.paymentTransaction.PojoFindByIdPaymentTransactionRes;
 import com.lawencon.community.pojo.paymentTransaction.PojoInsertPaymentTransactionReq;
 import com.lawencon.community.pojo.paymentTransaction.PojoUpdatePaymentTransactionReq;
+import com.lawencon.community.pojo.paymentTransaction.PojoValidPaymentTransactionReq;
 import com.lawencon.community.service.PaymentTransactionService;
 import com.lawencon.model.SearchQuery;
 
@@ -61,4 +62,9 @@ public class PaymentTransactionController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
+	@PutMapping("/valid")
+	public ResponseEntity<PojoUpdateRes> validAbsen(@RequestBody @Valid PojoValidPaymentTransactionReq data) throws Exception {
+		PojoUpdateRes res = service.validationPayment(data);
+		return new ResponseEntity<PojoUpdateRes>(res, HttpStatus.OK);
+	}
 }

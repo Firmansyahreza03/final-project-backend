@@ -2,7 +2,7 @@ package com.lawencon.community.constant;
 
 public enum ConstantPrice {
 
-	BASIC(50000)
+	BASIC(50000);
 	
 	private Integer price;
 	

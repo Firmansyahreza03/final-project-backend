@@ -76,8 +76,6 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 	}
 
 	public PojoInsertRes insert(PojoInsertPollingHdrReq data) throws Exception {
-		try {
-			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
 
 			PollingHdr reqData = inputPollingData(new PollingHdr(), data.getPollingName(), data.getIsActive());
@@ -105,11 +103,6 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 
 			commit();
 			return insertRes;
-		} catch (Exception e) {
-			e.printStackTrace();
-			rollback();
-			throw new Exception(e);
-		}
 	}
 
 	public PojoDeleteRes deleteById(String id) throws Exception {

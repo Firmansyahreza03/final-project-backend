@@ -7,4 +7,8 @@
     <fullyQualifiedTypeName name="com.lawencon.base.AbstractJpaDao"/>
     <fullyQualifiedTypeName name="com.lawencon.community.model.SubscriptionStatus"/>
     <fullyQualifiedTypeName name="com.lawencon.community.model.User"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

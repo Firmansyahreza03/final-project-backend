@@ -1,18 +1,13 @@
 package com.lawencon.community.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.lawencon.community.model.EmailDtl;
 import com.lawencon.community.pojo.code.PojoCodeData;
 
 @Service
 public class CodeService {
-
-	@Autowired
-	private EmailService emailService;
 	
-	public PojoCodeData generateRandomCode(String email) {
+	public PojoCodeData generateRandomCode() {
 
 		String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "1234567890";
 
@@ -22,12 +17,6 @@ public class CodeService {
 			int index = (int) (alphaNumericString.length() * Math.random());
 			sb.append(alphaNumericString.charAt(index));
 		}
-
-		EmailDtl emailDtl = new EmailDtl();
-		emailDtl.setMsgBody("CODE ANDA ADALAH : "+sb.toString());
-		emailDtl.setRecipient(email);
-		emailDtl.setSubject("CODE VERIFICATION");
-		new Thread(() -> emailService.sendSimpleMail(emailDtl)).start();
 		
 		PojoCodeData data = new PojoCodeData();
 		data.setCode(sb.toString());

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
+import com.lawencon.community.constant.RoleType;
 import com.lawencon.community.constant.ThreadCategoryType;
 import com.lawencon.community.dao.BookmarkDao;
 import com.lawencon.community.dao.FileDao;
@@ -138,16 +139,34 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	}
 
 	public PojoFindByIdThreadHdrRes findById(String id) throws Exception {
+		Boolean isAllowed = false;
+		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+		String roleCode = user.getRole().getRoleCode();
 		ThreadHdr data = hdrDao.getById(id);
 
-		PojoThreadHdrData result = modelToRes(data);
-		Long counterLike = likedDao.countThreadLikedId(id);
-		result.setCounterLike(counterLike);
-		result.setCountComment(0l); //NANTI DIGANTI
+		if(ThreadCategoryType.PREMIUM.getCode().equals(data.getCategory().getCategoryCode())) {
+			if(user.getSubscriptionStatus().getIsSubscriber() == true) {
+				isAllowed = true;
+			} else if(data.getCreatedBy().equals(user.getId())) {
+				isAllowed = true;
+			} else if(RoleType.ADMIN.name().equals(roleCode) || RoleType.SYSTEM.name().equals(roleCode)) {
+				isAllowed = true;
+			}
+		} else {
+			isAllowed = true;
+		}
 		
 		PojoFindByIdThreadHdrRes res = new PojoFindByIdThreadHdrRes();
-		res.setData(result);
-
+		if(isAllowed == true) {			
+			PojoThreadHdrData result = modelToRes(data);
+			Long counterLike = likedDao.countThreadLikedId(id);
+			result.setCounterLike(counterLike);
+			result.setCountComment(0l); //NANTI DIGANTI
+			
+			res.setData(result);
+		} else {
+			res.setData(null);
+		}
 		return res;
 	}
 

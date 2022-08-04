@@ -1,5 +1,7 @@
 package com.lawencon.community.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,6 +15,17 @@ public class PollingHdr extends BaseEntity {
 
 	@Column(name = "polling_name", columnDefinition = "TEXT")
 	private String pollingName;
+	
+	@Column(name = "expired_at")
+	private LocalDateTime expiredAt;
+	
+	public LocalDateTime getExpiredAt() {
+		return expiredAt;
+	}
+
+	public void setExpiredAt(LocalDateTime expiredAt) {
+		this.expiredAt = expiredAt;
+	}
 
 	public String getPollingName() {
 		return pollingName;

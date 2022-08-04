@@ -9,8 +9,6 @@ public class PojoInsertThreadHdrReq {
 	private String threadName;
 	@NotBlank(message = "thread content can not be empty")
 	private String threadContent;
-	@NotNull(message = "must be true or false")
-	private Boolean isPremium;
 	private String pollingHdrId;
 	@NotBlank(message = "category can not be empty")
 	private String categoryId;
@@ -51,14 +49,6 @@ public class PojoInsertThreadHdrReq {
 
 	public void setThreadName(String threadName) {
 		this.threadName = threadName;
-	}
-
-	public Boolean getIsPremium() {
-		return isPremium;
-	}
-
-	public void setIsPremium(Boolean isPremium) {
-		this.isPremium = isPremium;
 	}
 
 	public String getPollingHdrId() {

@@ -112,7 +112,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			PaymentTransaction reqData = inputPaymentTransactionData(
 					new PaymentTransaction(), true, false, data.getDesc(), data.getPrice(),
 					data.getFileName(), data.getFileExt());
-			
+			reqData.setCode(codeService.generateRandomCodeAll().getCode());
 			begin();
 			PaymentTransaction result = super.save(reqData);
 			commit();

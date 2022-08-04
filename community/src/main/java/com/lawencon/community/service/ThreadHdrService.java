@@ -27,6 +27,7 @@ import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
 import com.lawencon.community.pojo.PojoUpdateRes;
 import com.lawencon.community.pojo.PojoUpdateResData;
+import com.lawencon.community.pojo.pollinghdr.PojoInsertPollingHdrReq;
 import com.lawencon.community.pojo.threadhdr.PojoFindByIdThreadHdrRes;
 import com.lawencon.community.pojo.threadhdr.PojoInsertThreadHdrReq;
 import com.lawencon.community.pojo.threadhdr.PojoThreadHdrData;
@@ -57,6 +58,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	private BookmarkDao bookmarkDao;
 	@Autowired
 	private PrincipalServiceImpl principalServiceImpl;
+	@Autowired
+	private PollingHdrService pollingService;
 
 	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
 			Boolean isActive, String pollingId, String fileName, String fileExt, String idCreator) {
@@ -177,15 +180,28 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 	public PojoInsertRes insert(PojoInsertThreadHdrReq data) throws Exception {
 		try {
-			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
+			
+			PojoInsertPollingHdrReq dataPoll = new PojoInsertPollingHdrReq();
+			if(data.getPollingName() != null && data.getOptions() != null) {				
+				dataPoll.setIsActive(true);
+				dataPoll.setPollingName(data.getPollingName());
+				dataPoll.setOptions(data.getOptions());
+				dataPoll.setExpiredAt(data.getExpiredAt());
+				begin();
+				PojoInsertRes insertPolling = pollingService.insert(dataPoll);
+				String idPolling = insertPolling.getData().getId();
+				data.setPollingHdrId(idPolling);
+			}
 
+			commit();
 			ThreadHdr reqData = inputThreadData(new ThreadHdr(), data.getThreadName(), data.getThreadContent(),
 					data.getCategoryId(), data.getIsActive(), data.getPollingHdrId(),
 					data.getFileName(), data.getFileExt(), userDao.findByEmail(data.getEmail()).getId());
 
 			reqData.setThreadCode(codeService.generateRandomCodeAll().getCode());
 
+			begin();
 			ThreadHdr result = save(reqData);
 
 			PojoInsertResData resData = new PojoInsertResData();
@@ -193,7 +209,6 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Thread");
-
 			commit();
 			return insertRes;
 		} catch (Exception e) {

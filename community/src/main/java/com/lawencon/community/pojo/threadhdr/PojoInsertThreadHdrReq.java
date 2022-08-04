@@ -27,7 +27,6 @@ public class PojoInsertThreadHdrReq {
 	private String pollingName;
 	private List<String> options;
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
-	@NotNull(message = "start time cannot be empty")
 	private LocalDateTime expiredAt;
 	
 	public LocalDateTime getExpiredAt() {

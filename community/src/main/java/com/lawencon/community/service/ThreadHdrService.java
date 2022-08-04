@@ -180,6 +180,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 	public PojoInsertRes insert(PojoInsertThreadHdrReq data) throws Exception {
 		try {
+			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
 			
 			PojoInsertPollingHdrReq dataPoll = new PojoInsertPollingHdrReq();
@@ -188,7 +189,6 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				dataPoll.setPollingName(data.getPollingName());
 				dataPoll.setOptions(data.getOptions());
 				dataPoll.setExpiredAt(data.getExpiredAt());
-				begin();
 				PojoInsertRes insertPolling = pollingService.insert(dataPoll);
 				String idPolling = insertPolling.getData().getId();
 				data.setPollingHdrId(idPolling);

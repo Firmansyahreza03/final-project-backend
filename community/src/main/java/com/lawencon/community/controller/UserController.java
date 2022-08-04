@@ -15,16 +15,14 @@ import com.lawencon.community.pojo.code.PojoCodeData;
 import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
-import com.lawencon.community.service.CodeService;
+import com.lawencon.community.pojo.user.PojoVerificationUserReq;
+import com.lawencon.community.pojo.user.PojoVerificationUserRes;
 import com.lawencon.community.service.ProfileUserService;
 import com.lawencon.model.SearchQuery;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
-	@Autowired
-	private CodeService codeService;
-
 	@Autowired
 	private ProfileUserService service;
 
@@ -48,10 +46,16 @@ public class UserController {
 
 	}
 	
-	@GetMapping("/generate-valid-code/{mail}")
-	public ResponseEntity<PojoCodeData> generateValidationCode(@PathVariable("mail") String mail) throws Exception {
-		PojoCodeData findRes = codeService.generateRandomCode(mail);
-		return new ResponseEntity<PojoCodeData>(findRes, HttpStatus.OK);
+	@PostMapping("/generate-valid-code")
+	public ResponseEntity<PojoCodeData> generateValidationCode(@RequestBody String email) throws Exception {
+		service.sendCodeVerification(email);
+		return new ResponseEntity<PojoCodeData>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/validate-verification-code")
+	public ResponseEntity<PojoVerificationUserRes> validateCode(@RequestBody PojoVerificationUserReq data) throws Exception {
+		PojoVerificationUserRes res = service.verificationCode(data);
+		return new ResponseEntity<PojoVerificationUserRes>(res, HttpStatus.OK);
 	}
 
 	@PostMapping

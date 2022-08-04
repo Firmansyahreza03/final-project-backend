@@ -67,11 +67,13 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		ThreadCategory category = categoryDao.getById(categoryId);
 		result.setCategory(category);
 		result.setIsActive(isActive);
+		
 		if(ThreadCategoryType.PREMIUM.getCode().equals(category.getCategoryCode())) {			
 			result.setIsPremium(true);
 		} else {
 			result.setIsPremium(false);
 		}
+		
 		result.setThreadContent(content);
 
 		if (fileName != null && fileExt != null) {
@@ -120,7 +122,6 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			Profile profile = profileDao.getByUserMail(user.getUserEmail());
 			result.setCreatorName(profile.getFullName());
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 		result.setCreatedAt(data.getCreatedAt());
@@ -151,7 +152,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	}
 
 	public SearchQuery<PojoThreadHdrData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<ThreadHdr> threadList = hdrDao.findAll(query, startPage, maxPage);
+		SearchQuery<ThreadHdr> threadList = hdrDao.findAll(query, startPage, maxPage, 
+				"threadCode", "threadName", "category.categoryName");
 		List<PojoThreadHdrData> results = new ArrayList<>();
 
 		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());

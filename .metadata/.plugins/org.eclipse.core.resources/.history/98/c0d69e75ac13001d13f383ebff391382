@@ -1,0 +1,80 @@
+package com.lawencon.community.pojo.paymentTransaction;
+
+public class PojoDataPaymentTransaction {
+	private String id;
+	private Boolean isActive;
+	private Integer version;
+	
+	private Boolean isAcc;
+
+	private String transaction_code;
+	private String transaction_desc;
+	private Long transaction_price;
+    
+	private String fileId;
+	private String fileName;
+	private String fileExt;
+
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	public Boolean getIsAcc() {
+		return isAcc;
+	}
+	public void setIsAcc(Boolean isAcc) {
+		this.isAcc = isAcc;
+	}
+	public String getFileId() {
+		return fileId;
+	}
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileExt() {
+		return fileExt;
+	}
+	public void setFileExt(String fileExt) {
+		this.fileExt = fileExt;
+	}
+	public String getTransaction_code() {
+		return transaction_code;
+	}
+	public void setTransaction_code(String transaction_code) {
+		this.transaction_code = transaction_code;
+	}
+	public String getTransaction_desc() {
+		return transaction_desc;
+	}
+	public void setTransaction_desc(String transaction_desc) {
+		this.transaction_desc = transaction_desc;
+	}
+	public Long getTransaction_price() {
+		return transaction_price;
+	}
+	public void setTransaction_price(Long transaction_price) {
+		this.transaction_price = transaction_price;
+	}
+	
+}

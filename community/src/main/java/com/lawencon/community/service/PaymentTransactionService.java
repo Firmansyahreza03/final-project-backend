@@ -28,12 +28,18 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 	private PaymentTransactionDao paymentDao;
 	@Autowired
 	private FileDao fileDao;
+	@Autowired
+	private CodeService codeService;
 
-	private PaymentTransaction inputPaymentTransactionData(PaymentTransaction result, Boolean isActive, 
-			Boolean isAcc, String fileName, String fileExt) throws Exception {
+	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, Long price, String fileName, String fileExt) throws Exception {
+		
 		result.setIsActive(isActive);
 		
 		result.setIsAcc(isAcc);
+		result.setDesc(desc);
+		result.setPrice(price);
+		
+		result.setIsActive(isActive);
 		if(fileName != null) {
 			File fkFile = new File();
 			
@@ -53,6 +59,9 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
 		result.setIsAcc(data.getIsAcc());
+		result.setCode(data.getCode());
+		result.setDesc(data.getDesc());
+		result.setPrice(data.getPrice());
 	
 		if(data.getFile()!=null) {
 			File fkFile = fileDao.getById(data.getFile().getId());
@@ -100,9 +109,10 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
 
-			PaymentTransaction reqData = inputPaymentTransactionData(new PaymentTransaction(), true, data.getIsAcc(),
+			PaymentTransaction reqData = inputPaymentTransactionData(
+					new PaymentTransaction(), true, false, data.getDesc(), data.getPrice(),
 					data.getFileName(), data.getFileExt());
-
+			
 			begin();
 			PaymentTransaction result = super.save(reqData);
 			commit();
@@ -110,7 +120,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			resData.setId(result.getId());
 
 			insertRes.setData(resData);
-			insertRes.setMessage("Successfully Adding Payment");
+			insertRes.setMessage("Please Wait Admin Confirm Your Payment");
 
 			return insertRes;
 		} catch (Exception e) {
@@ -125,8 +135,8 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			PaymentTransaction reqData = paymentDao.getById(data.getId());
 
-			reqData = inputPaymentTransactionData(reqData, reqData.getIsActive(), data.getIsAcc(),
-					data.getFileName(), data.getFileExt());
+			reqData = inputPaymentTransactionData(reqData, reqData.getIsActive(), data.getIsAcc(), data.getDesc(), data.getPrice(),
+			data.getFileName(), data.getFileExt());
 			
 			begin();
 			PaymentTransaction result = paymentDao.save(reqData);

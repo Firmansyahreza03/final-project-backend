@@ -87,4 +87,25 @@ public class BookmarkDao extends AbstractJpaDao<Bookmark>{
 		}
 		return result;
 	}
+	
+	public Boolean findIsBookmarkByThreadHdrIdAndUserLogged(String idUser, String idThreadHdr) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT b.is_active FROM comm_bookmark b ")
+				.append(" WHERE b.created_by = :idUser AND b.thread_hdr_id = :idThreadHdr ");
+		
+		Boolean result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("idUser", idUser)
+					.setParameter("idThreadHdr", idThreadHdr)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = Boolean.valueOf(res.toString());
+			}
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
 }

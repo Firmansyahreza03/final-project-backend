@@ -1,5 +1,6 @@
 package com.lawencon.community.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,10 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 	@Autowired
 	private PollingOptionService optionService;
 
-	private PollingHdr inputPollingData(PollingHdr result, String pollingName, Boolean isActive) {
-		result.setIsActive(isActive);
+	private PollingHdr inputPollingData(PollingHdr result, String pollingName, Boolean isActive, LocalDateTime expiredAt) {
+		result.setIsActive(true);
 		result.setPollingName(pollingName);
+		result.setExpiredAt(expiredAt);
 
 		return result;
 	}
@@ -40,6 +42,7 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 		result.setIsActive(data.getIsActive());
 		result.setPollingName(data.getPollingName());
 		result.setVersion(data.getVersion());
+		result.setExpiredAt(data.getExpiredAt());
 
 		return result;
 	}
@@ -76,11 +79,9 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 	}
 
 	public PojoInsertRes insert(PojoInsertPollingHdrReq data) throws Exception {
-		try {
-			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
 
-			PollingHdr reqData = inputPollingData(new PollingHdr(), data.getPollingName(), data.getIsActive());
+			PollingHdr reqData = inputPollingData(new PollingHdr(), data.getPollingName(), data.getIsActive(), data.getExpiredAt());
 			
 			PollingHdr result = save(reqData);
 			
@@ -105,11 +106,6 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 
 			commit();
 			return insertRes;
-		} catch (Exception e) {
-			e.printStackTrace();
-			rollback();
-			throw new Exception(e);
-		}
 	}
 
 	public PojoDeleteRes deleteById(String id) throws Exception {

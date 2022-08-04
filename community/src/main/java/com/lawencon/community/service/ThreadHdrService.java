@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
+import com.lawencon.community.constant.ThreadCategoryType;
+import com.lawencon.community.dao.BookmarkDao;
 import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.PollingHdrDao;
 import com.lawencon.community.dao.ProfileDao;
@@ -25,6 +27,7 @@ import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
 import com.lawencon.community.pojo.PojoUpdateRes;
 import com.lawencon.community.pojo.PojoUpdateResData;
+import com.lawencon.community.pojo.pollinghdr.PojoInsertPollingHdrReq;
 import com.lawencon.community.pojo.threadhdr.PojoFindByIdThreadHdrRes;
 import com.lawencon.community.pojo.threadhdr.PojoInsertThreadHdrReq;
 import com.lawencon.community.pojo.threadhdr.PojoThreadHdrData;
@@ -52,15 +55,23 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	@Autowired
 	private ThreadLikedDao likedDao;
 	@Autowired
+	private BookmarkDao bookmarkDao;
+	@Autowired
 	private PrincipalServiceImpl principalServiceImpl;
+	@Autowired
+	private PollingHdrService pollingService;
 
 	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
-			Boolean isActive, Boolean isPremium, String pollingId, String fileName, String fileExt, String idCreator) {
+			Boolean isActive, String pollingId, String fileName, String fileExt, String idCreator) {
 		result.setThreadName(name);
 		ThreadCategory category = categoryDao.getById(categoryId);
 		result.setCategory(category);
 		result.setIsActive(isActive);
-		result.setIsPremium(isPremium);
+		if(ThreadCategoryType.PREMIUM.getCode().equals(category.getCategoryCode())) {			
+			result.setIsPremium(true);
+		} else {
+			result.setIsPremium(false);
+		}
 		result.setThreadContent(content);
 
 		if (fileName != null && fileExt != null) {
@@ -153,6 +164,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				data.setCountComment(0l); //NANTI DIGANTI
 				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
 				data.setIsLike(isLike);
+				Boolean isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsBookmark(isBookmark);
 				results.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -167,15 +180,28 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 	public PojoInsertRes insert(PojoInsertThreadHdrReq data) throws Exception {
 		try {
-			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
+			
+			PojoInsertPollingHdrReq dataPoll = new PojoInsertPollingHdrReq();
+			if(data.getPollingName() != null && data.getOptions() != null) {				
+				dataPoll.setIsActive(true);
+				dataPoll.setPollingName(data.getPollingName());
+				dataPoll.setOptions(data.getOptions());
+				dataPoll.setExpiredAt(data.getExpiredAt());
+				begin();
+				PojoInsertRes insertPolling = pollingService.insert(dataPoll);
+				String idPolling = insertPolling.getData().getId();
+				data.setPollingHdrId(idPolling);
+			}
 
+			commit();
 			ThreadHdr reqData = inputThreadData(new ThreadHdr(), data.getThreadName(), data.getThreadContent(),
-					data.getCategoryId(), data.getIsActive(), data.getIsPremium(), data.getPollingHdrId(),
+					data.getCategoryId(), data.getIsActive(), data.getPollingHdrId(),
 					data.getFileName(), data.getFileExt(), userDao.findByEmail(data.getEmail()).getId());
 
 			reqData.setThreadCode(codeService.generateRandomCodeAll().getCode());
 
+			begin();
 			ThreadHdr result = save(reqData);
 
 			PojoInsertResData resData = new PojoInsertResData();
@@ -183,7 +209,6 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Thread");
-
 			commit();
 			return insertRes;
 		} catch (Exception e) {
@@ -198,7 +223,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			begin();
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			ThreadHdr reqData = inputThreadData(hdrDao.getById(data.getId()), data.getThreadName(),
-					data.getThreadContent(), data.getCategoryId(), data.getIsActive(), data.getIsPremium(),
+					data.getThreadContent(), data.getCategoryId(), data.getIsActive(),
 					data.getPollingHdrsId(), data.getFileName(), data.getFileExt(),
 					userDao.findByEmail(data.getEmail()).getId());
 
@@ -254,6 +279,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				data.setCountComment(0l); //NANTI DIGANTI
 				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
 				data.setIsLike(isLike);
+				Boolean isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsBookmark(isBookmark);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -284,6 +311,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				data.setCountComment(0l); //NANTI DIGANTI
 				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
 				data.setIsLike(isLike);
+				Boolean isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsBookmark(isBookmark);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -314,6 +343,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				data.setCountComment(0l); //NANTI DIGANTI
 				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
 				data.setIsLike(isLike);
+				Boolean isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				data.setIsBookmark(isBookmark);
 				resultList.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();

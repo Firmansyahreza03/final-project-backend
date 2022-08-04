@@ -1,7 +1,9 @@
 package com.lawencon.community.pojo.pollinghdr;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.lawencon.community.pojo.pollingoption.PojoPollingOptionData;
 
 public class PojoPollingHdrData {
@@ -11,6 +13,16 @@ public class PojoPollingHdrData {
 	private Boolean isActive;
 	private Integer version;
 	private List<PojoPollingOptionData> option;
+	@JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime expiredAt;
+
+	public LocalDateTime getExpiredAt() {
+		return expiredAt;
+	}
+
+	public void setExpiredAt(LocalDateTime expiredAt) {
+		this.expiredAt = expiredAt;
+	}
 
 	public List<PojoPollingOptionData> getOption() {
 		return option;

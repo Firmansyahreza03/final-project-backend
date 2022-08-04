@@ -106,9 +106,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		SearchQuery<Profile> profileList = null;
 		if (query != null) {
 			profileList = profileDao.searchQuery(query, startPage, maxPage,
-					new String[] { "industry",  "industry", "user" }, 
-					new String[] { "industryName", "industryCode", "userEmail" },
-					 "fullName", "companyName", "positionName");
+					 "fullName", "companyName", "positionName", "user.userEmail", "industry.industryName" );
 		} else {
 			profileList = profileDao.findAll(query, startPage, maxPage);
 		}

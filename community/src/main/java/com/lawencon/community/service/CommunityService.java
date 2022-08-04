@@ -109,7 +109,8 @@ public class CommunityService extends BaseCoreService<Community>{
 	}
 	
 	public SearchQuery<PojoDataCommunity> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Community> communityList= communityDao.findAll(query, startPage, maxPage);
+		SearchQuery<Community> communityList= communityDao.searchQueryTable(query, startPage, maxPage,
+								 "communityCode", "communityTitle", "communityProvider", "industry.industryName");
 		List<PojoDataCommunity> resultList = new ArrayList<>();
 		
 		communityList.getData().forEach(d -> {
@@ -235,6 +236,32 @@ public class CommunityService extends BaseCoreService<Community>{
 		Profile profile = profileDao.getByUserMail(email);
 		
 		List<Community> communities = communityDao.getByIdIndustryAndCategoryCode(profile.getIndustry().getId(), code, startPage, maxPage);
+		
+		SearchQuery<Community> communityList = findAll(()->communities);
+		
+		List<PojoDataCommunity> resultList = new ArrayList<>();
+		
+		communityList.getData().forEach(d -> {
+			PojoDataCommunity data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		});
+		
+		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
+		result.setData(resultList);
+		result.setCount(communityList.getData().size());
+		return result;
+	}
+	
+	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, String query, Integer startPage, Integer maxPage) throws Exception {
+			
+		List<Community> communities = communityDao.getByCategoryCode(code, query, startPage, maxPage,
+				"code", "title", "nameIndustry", "provider");
 		
 		SearchQuery<Community> communityList = findAll(()->communities);
 		

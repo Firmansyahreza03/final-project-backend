@@ -6,15 +6,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.community.pojo.PojoInsertRes;
+import com.lawencon.community.pojo.PojoUpdateRes;
 import com.lawencon.community.pojo.code.PojoCodeData;
 import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
+import com.lawencon.community.pojo.profile.PojoUpdateProfileReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserRes;
 import com.lawencon.community.service.ProfileUserService;
@@ -29,6 +32,12 @@ public class UserController {
 	@GetMapping("{id}")
 	public ResponseEntity<PojoFindByIdProfileRes> findById(@PathVariable("id") String id) throws Exception {
 		PojoFindByIdProfileRes res = service.findById(id);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@GetMapping("/profiles")
+	public ResponseEntity<PojoFindByIdProfileRes> findByUserLogged() throws Exception {
+		PojoFindByIdProfileRes res = service.findByUserLogged();
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
@@ -64,5 +73,11 @@ public class UserController {
 		PojoInsertRes insertRes = service.regist(data);
 
 		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/profiles")
+	public ResponseEntity<PojoUpdateRes> update(@RequestBody PojoUpdateProfileReq data) throws Exception{
+		PojoUpdateRes res = service.updateProfile(data);
+		return new ResponseEntity<PojoUpdateRes>(res, HttpStatus.OK);
 	}
 }

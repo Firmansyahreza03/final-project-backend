@@ -65,4 +65,25 @@ public class ProfileDao extends AbstractJpaDao<Profile> {
 		return res;
 	}
 	
+	public Profile getByUserId(String id) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append("SELECT p.* FROM comm_user u ")
+				.append(" INNER JOIN comm_profile p ON u.id = p.user_id ")
+				.append(" WHERE u.id = :id ");
+		
+		Profile res = null;
+		try {			
+			Object rs = createNativeQuery(sql.toString())
+					.setParameter("id", id)
+					.getSingleResult();
+			
+			if(rs != null) {
+				res = inputData(rs);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+	
 }

@@ -20,7 +20,6 @@ public class WebIgnoringConfig {
 		matchers.add(new AntPathRequestMatcher("/files/**", HttpMethod.POST.name()));
 		matchers.add(new AntPathRequestMatcher("/files/**", HttpMethod.PUT.name()));
 
-		matchers.add(new AntPathRequestMatcher("/users/**", HttpMethod.GET.name()));
 		matchers.add(new AntPathRequestMatcher("/users/**", HttpMethod.POST.name()));
 		
 		matchers.add(new AntPathRequestMatcher("/swagger-ui/**", HttpMethod.GET.name()));

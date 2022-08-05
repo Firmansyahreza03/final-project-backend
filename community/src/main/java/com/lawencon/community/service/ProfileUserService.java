@@ -26,13 +26,17 @@ import com.lawencon.community.model.SubscriptionStatus;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
+import com.lawencon.community.pojo.PojoUpdateRes;
+import com.lawencon.community.pojo.PojoUpdateResData;
 import com.lawencon.community.pojo.code.PojoCodeData;
 import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
+import com.lawencon.community.pojo.profile.PojoUpdateProfileReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserRes;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 import com.lawencon.util.VerificationCodeUtil;
 
 @Service
@@ -60,6 +64,8 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	private CodeService codeService;
 	@Autowired
 	private VerificationCodeUtil verificationCodeUtil;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
 
 	private PojoProfileData modelToProfileRes(Profile data) throws Exception {
 		PojoProfileData result = new PojoProfileData();
@@ -95,6 +101,16 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 	public PojoFindByIdProfileRes findById(String id) throws Exception {
 		Profile data = profileDao.getById(id);
+
+		PojoProfileData result = modelToProfileRes(data);
+		PojoFindByIdProfileRes res = new PojoFindByIdProfileRes();
+		res.setData(result);
+
+		return res;
+	}
+	
+	public PojoFindByIdProfileRes findByUserLogged() throws Exception{
+		Profile data = profileDao.getByUserId(principalServiceImpl.getAuthPrincipal());
 
 		PojoProfileData result = modelToProfileRes(data);
 		PojoFindByIdProfileRes res = new PojoFindByIdProfileRes();
@@ -227,4 +243,46 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		res.setResult(true);
 		return res;
 	}
+	
+	public PojoUpdateRes updateProfile(PojoUpdateProfileReq data) throws Exception {
+		begin();
+		PojoUpdateRes res = new PojoUpdateRes();
+		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+		File file = null;
+		
+		try {			
+			file = fileDao.getById(user.getFile().getId());
+			file.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
+		} catch (Exception e) {
+			file = new File();
+			file.setCreatedBy(principalServiceImpl.getAuthPrincipal());
+		}
+		if(data.getFileName() != null && data.getFileExt() != null && (data.getFileExt().equals("jpg") || data.getFileExt().equals("jpeg") || data.getFileExt().equals("png") || data.getFileExt().equals("jfif"))) {
+			file.setFileName(data.getFileName());
+			file.setFileExtension(data.getFileExt());
+			file.setIsActive(true);
+		}
+		File resFile = fileDao.save(file);
+		
+		user.setFile(resFile);
+		user.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
+		User userRes = userDao.save(user);
+		
+		Profile profile = profileDao.getByUserId(principalServiceImpl.getAuthPrincipal());
+		profile.setCompanyName(data.getCompanyName());
+		profile.setFullName(data.getFullName());
+		Industry industry = industryDao.getById(data.getIndustryId());
+		profile.setIndustry(industry);
+		profile.setPositionName(data.getPositionName());
+		profile.setVersion(data.getVersion());
+		profile.setUser(userRes);
+		Profile result = save(profile);
+		PojoUpdateResData resData = new PojoUpdateResData();
+		resData.setVersion(result.getVersion());
+		res.setData(resData);
+		res.setMessage("Update profile successfully");
+		commit();
+		return res;
+	}
+	
 }

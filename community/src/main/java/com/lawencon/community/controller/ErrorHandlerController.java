@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,6 +51,15 @@ public class ErrorHandlerController {
 		respond.setMessage(NestedExceptionUtils.getMostSpecificCause(e).getMessage());
 		
 		return new ResponseEntity<>(respond, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<?> handlerAccessDeniedException(AccessDeniedException e){
+		PojoErrorRes<String> respond = new PojoErrorRes<>();
+		
+		respond.setMessage(NestedExceptionUtils.getMostSpecificCause(e).getMessage());
+		
+		return new ResponseEntity<>(respond, HttpStatus.UNAUTHORIZED);
 	}
 	
 }

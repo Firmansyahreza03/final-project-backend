@@ -21,6 +21,14 @@ public class PaymentTransaction extends BaseEntity {
 	@Column(name = "is_acc")
 	private Boolean isAcc;
 
+	@Column(name = "transaction_code ")
+	private String code;
+	@Column(name = "transaction_desc")
+	private String desc;
+	@Column(name = "transaction_price")
+	private Long price;
+    
+
 	public File getFile() {
 		return file;
 	}
@@ -37,4 +45,27 @@ public class PaymentTransaction extends BaseEntity {
 		this.isAcc = isAcc;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
 }

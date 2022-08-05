@@ -1,0 +1,43 @@
+package com.lawencon.community.pojo.paymentTransaction;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class PojoInsertPaymentTransactionReq {
+	@NotNull(message = "isActive must be true or false")
+	private Boolean isActive;
+	
+	@NotBlank(message = "Description can't be empty")
+	private String desc;
+	@NotNull(message = "Price can't be empty")
+	private Long price;
+
+	private String fileId;
+	private String fileName;
+	private String fileExt;
+
+	public Boolean getIsAcc() {
+		return isAcc;
+	}
+	public void setIsAcc(Boolean isAcc) {
+		this.isAcc = isAcc;
+	}
+	public String getFileId() {
+		return fileId;
+	}
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileExt() {
+		return fileExt;
+	}
+	public void setFileExt(String fileExt) {
+		this.fileExt = fileExt;
+	}
+}

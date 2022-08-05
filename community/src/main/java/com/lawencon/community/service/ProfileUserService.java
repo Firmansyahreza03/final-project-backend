@@ -17,6 +17,7 @@ import com.lawencon.community.dao.RoleDao;
 import com.lawencon.community.dao.SubscriptionStatusDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Balance;
+import com.lawencon.community.model.EmailDtl;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.Industry;
 import com.lawencon.community.model.Profile;
@@ -25,10 +26,14 @@ import com.lawencon.community.model.SubscriptionStatus;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
+import com.lawencon.community.pojo.code.PojoCodeData;
 import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
+import com.lawencon.community.pojo.user.PojoVerificationUserReq;
+import com.lawencon.community.pojo.user.PojoVerificationUserRes;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.util.VerificationCodeUtil;
 
 @Service
 public class ProfileUserService extends BaseCoreService<Profile> {
@@ -49,6 +54,12 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	private FileDao fileDao;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private EmailService emailService;
+	@Autowired
+	private CodeService codeService;
+	@Autowired
+	private VerificationCodeUtil verificationCodeUtil;
 
 	private PojoProfileData modelToProfileRes(Profile data) throws Exception {
 		PojoProfileData result = new PojoProfileData();
@@ -196,5 +207,24 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 			rollback();
 			throw new Exception(e);
 		}
+	}
+	
+	public void sendCodeVerification (String email) {
+		EmailDtl emailDtl = new EmailDtl();
+		PojoCodeData code = codeService.generateRandomCode();
+		verificationCodeUtil.addVerificationCode(email, code.getCode());
+		
+		emailDtl.setMsgBody("CODE ANDA ADALAH : "+code.getCode());
+		emailDtl.setRecipient(email);
+		emailDtl.setSubject("CODE VERIFICATION");
+		new Thread(() -> emailService.sendSimpleMail(emailDtl)).start();
+		
+	}
+	
+	public PojoVerificationUserRes verificationCode(PojoVerificationUserReq data) {
+		verificationCodeUtil.validateVerificationCode(data.getEmail(), data.getCodeVerification());
+		PojoVerificationUserRes res = new PojoVerificationUserRes();
+		res.setResult(true);
+		return res;
 	}
 }

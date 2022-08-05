@@ -7,6 +7,10 @@ public class PojoDataPaymentTransaction {
 	
 	private Boolean isAcc;
 
+	private String code;
+	private String desc;
+	private Long price;
+    
 	private String fileId;
 	private String fileName;
 	private String fileExt;
@@ -54,4 +58,23 @@ public class PojoDataPaymentTransaction {
 	public void setFileExt(String fileExt) {
 		this.fileExt = fileExt;
 	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	public Long getPrice() {
+		return price;
+	}
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+	
 }

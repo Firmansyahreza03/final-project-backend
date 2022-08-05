@@ -11,4 +11,7 @@
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="javax.validation.constraints.NotBlank"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.service.CodeService"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.paymentTransaction.PojoValidPaymentTransactionReq"/>
 </qualifiedTypeNameHistroy>

@@ -10,12 +10,19 @@ public class PojoDataPaymentTransaction {
 	private String code;
 	private String desc;
 	private Long price;
+	private String type;
     
 	private String fileId;
 	private String fileName;
 	private String fileExt;
 
 	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getId() {
 		return id;
 	}

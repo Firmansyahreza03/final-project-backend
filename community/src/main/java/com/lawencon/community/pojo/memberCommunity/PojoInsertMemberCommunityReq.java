@@ -6,36 +6,32 @@ import javax.validation.constraints.NotNull;
 public class PojoInsertMemberCommunityReq {
 	@NotNull(message = "must be true or false")
 	private Boolean isActive;
-	
+
 	public Boolean getIsActive() {
 		return isActive;
 	}
+
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;
 	}
 
-	@NotBlank(message = "id user cannot be empty")
-	private String idUser;
 	@NotBlank(message = "id comunity cannot be empty")
 	private String idCommunity;
 	@NotBlank(message = "id payment cannot be empty")
 	private String idPayment;
 
-	public String getIdUser() {
-		return idUser;
-	}
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
-	}
 	public String getIdCommunity() {
 		return idCommunity;
 	}
+
 	public void setIdCommunity(String idCommunity) {
 		this.idCommunity = idCommunity;
 	}
+
 	public String getIdPayment() {
 		return idPayment;
 	}
+
 	public void setIdPayment(String idPayment) {
 		this.idPayment = idPayment;
 	}

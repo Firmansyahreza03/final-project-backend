@@ -39,13 +39,13 @@ public class CommunityController {
 
 	@GetMapping
 	public ResponseEntity<SearchQuery<PojoDataCommunity>> findAll
-	(String query, Integer startPage, Integer maxPage, String email, String code)
+	(String code, String query, Integer startPage, Integer maxPage, String email)
 	throws Exception {
 		SearchQuery<PojoDataCommunity> res;
 		if(email != null && code != null)
 			res = service.getByIdIndustryAndCategoryCode(email, code, startPage, maxPage);
 		else if(code != null)
-			res = service.getByCategoryCode(code, query, startPage, maxPage);
+			res = service.getByCategoryCode(code, startPage, maxPage);
 		else
 			res = service.getAll(query, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);

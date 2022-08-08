@@ -1,5 +1,6 @@
 package com.lawencon.community.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -182,7 +183,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 			User userData = new User();
 			Balance balanceData = new Balance();
-			balanceData.setBalance(0l);
+			balanceData.setBalance(new BigDecimal(0));
 			balanceData.setIsActive(true);
 			balanceData.setCreatedBy(creator.getId());
 			begin();

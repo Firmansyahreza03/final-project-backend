@@ -11,7 +11,9 @@ import com.lawencon.base.BaseEntity;
 import com.lawencon.security.RefreshTokenEntity;
 
 @Entity
-@Table(name = "comm_user", uniqueConstraints = { @UniqueConstraint(name = "email_bk", columnNames = { "user_email" }) })
+@Table(name = "comm_user", uniqueConstraints = { 
+		@UniqueConstraint(name = "email_bk", columnNames = { "user_email" })
+		})
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = -5365616900976826931L;

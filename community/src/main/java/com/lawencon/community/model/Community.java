@@ -1,5 +1,6 @@
 package com.lawencon.community.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ public class Community extends BaseEntity {
 	private String communityCode;
 
 	@Column(name = "community_price")
-	private Long communityPrice;
+	private BigDecimal communityPrice;
 
 	@OneToOne
 	@JoinColumn(name = "file_id")
@@ -122,11 +123,11 @@ public class Community extends BaseEntity {
 		this.communityCode = communityCode;
 	}
 
-	public Long getCommunityPrice() {
+	public BigDecimal getCommunityPrice() {
 		return communityPrice;
 	}
 
-	public void setCommunityPrice(Long communityPrice) {
+	public void setCommunityPrice(BigDecimal communityPrice) {
 		this.communityPrice = communityPrice;
 	}
 

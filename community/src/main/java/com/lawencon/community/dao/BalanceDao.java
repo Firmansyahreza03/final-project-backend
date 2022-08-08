@@ -1,5 +1,6 @@
 package com.lawencon.community.dao;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,7 @@ public class BalanceDao extends AbstractJpaDao<Balance> {
 		results.setId(objArr[0].toString());
 		
 
-		results.setBalance(Long.valueOf(objArr[1].toString()));
+		results.setBalance(new BigDecimal(objArr[1].toString()));
 		
 		results.setCreatedBy(objArr[2].toString());
 		results.setCreatedAt(((Timestamp) objArr[3]).toLocalDateTime());

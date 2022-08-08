@@ -1,5 +1,6 @@
 package com.lawencon.community.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
+import com.lawencon.community.constant.ConstantPrice;
+import com.lawencon.community.constant.RoleType;
 import com.lawencon.community.constant.TransactionType;
+import com.lawencon.community.dao.BalanceDao;
+import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.PaymentTransactionDao;
 import com.lawencon.community.dao.SubscriptionStatusDao;
+import com.lawencon.community.dao.UserDao;
+import com.lawencon.community.model.Balance;
+import com.lawencon.community.model.Community;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.SubscriptionStatus;
+import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
@@ -40,6 +49,12 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 	private SubscriptionStatusDao statusDao;
 	@Autowired
 	private PrincipalServiceImpl principalServiceImpl;
+	@Autowired
+	private BalanceDao balanceDao;
+	@Autowired
+	private UserDao userDao;
+	@Autowired
+	private CommunityDao communityDao;
 
 	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, Long price, String fileName, String fileExt) throws Exception {
 		
@@ -217,6 +232,25 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 				status.setIsSubscriber(true);
 				status.setExpiredAt(LocalDateTime.now().plusMonths(1));
 				statusDao.save(status);
+				
+				User system = userDao.findByRoleCode(RoleType.SYSTEM.name());
+				Balance balance = balanceDao.findbyUserId(system.getId());
+				BigDecimal balanceResult = balance.getBalance().add(new BigDecimal(ConstantPrice.BASIC.getPrice()));
+				balance.setBalance(balanceResult);
+				balanceDao.save(balance);
+			} else if(TransactionType.COMMUNITY.name().equals(result.getType())){
+				PaymentTransaction payment = paymentDao.getById(data.getId());
+				Community comm = communityDao.getByName(payment.getDesc());
+				Balance balance = balanceDao.findbyUserId(comm.getCreatedBy());
+				BigDecimal balanceResult = balance.getBalance().add(comm.getCommunityPrice().multiply(new BigDecimal(0.9d)));
+				balance.setBalance(balanceResult);
+				balanceDao.save(balance);
+				
+				User system = userDao.findByRoleCode(RoleType.SYSTEM.name());
+				Balance balanceSystem = balanceDao.findbyUserId(system.getId());
+				BigDecimal balanceSystemResult = balanceSystem.getBalance().add(comm.getCommunityPrice().multiply(new BigDecimal(0.1d)));
+				balanceSystem.setBalance(balanceSystemResult);
+				balanceDao.save(balanceSystem);
 			}
 			
 			commit();

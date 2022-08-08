@@ -1,5 +1,6 @@
 package com.lawencon.community.dao;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		results.setCommunityEndAt(((Timestamp) objArr[5]).toLocalDateTime());
 		results.setCommunityDesc(objArr[6].toString());
 		results.setCommunityCode(objArr[7].toString());
-		results.setCommunityPrice(Long.valueOf(objArr[8].toString()));
+		results.setCommunityPrice(new BigDecimal(objArr[8].toString()));
 		if(objArr[9]!=null) {
 			File fkFile = new File();
 			fkFile.setId(objArr[9].toString());
@@ -56,6 +57,27 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		results.setVersion(Integer.valueOf(objArr[17].toString()));
 		
 		return results;
+	}
+	
+	public Community getByName(String name) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT c.* FROM comm_community c ")
+				.append(" WHERE c.community_title = :name ");
+		
+		Community res = null;
+		try {			
+			Object result = createNativeQuery(sql.toString())
+					.setParameter("name", name)
+					.getSingleResult();
+			
+			if(result != null) {
+				Object[] objArr = (Object[]) result;
+				res = inputData(objArr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
 	}
 
 	public List<Community> getByCategoryCode(String code, 

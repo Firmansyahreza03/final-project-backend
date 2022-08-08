@@ -1,5 +1,6 @@
 package com.lawencon.community.pojo.community;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,7 +19,7 @@ public class PojoDataCommunity {
 	private LocalDateTime endAt;
 	private String desc;
 	private String code;
-	private Long price;
+	private BigDecimal price;
 	private String idCategory;
 	private String nameCategory;
 	private String idIndustry;
@@ -89,10 +90,10 @@ public class PojoDataCommunity {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public String getIdCategory() {

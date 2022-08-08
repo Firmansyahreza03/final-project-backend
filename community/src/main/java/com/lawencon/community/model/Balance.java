@@ -1,5 +1,7 @@
 package com.lawencon.community.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,13 +15,15 @@ public class Balance extends BaseEntity {
 	private static final long serialVersionUID = -5301284539103168282L;
 
 	@Column(name = "balance")
-	private Long balance;
+	private BigDecimal balance;
 
-	public Long getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Long balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
+
+	
 }

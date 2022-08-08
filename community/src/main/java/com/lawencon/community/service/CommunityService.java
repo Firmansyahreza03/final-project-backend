@@ -259,10 +259,9 @@ public class CommunityService extends BaseCoreService<Community>{
 		return result;
 	}
 	
-	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, String query, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, Integer startPage, Integer maxPage) throws Exception {
 			
-		List<Community> communities = communityDao.getByCategoryCode(code, query, startPage, maxPage,
-				"code", "title", "nameIndustry", "provider");
+		List<Community> communities = communityDao.getByCategoryCode(code, startPage, maxPage);
 		
 		SearchQuery<Community> communityList = findAll(()->communities);
 		

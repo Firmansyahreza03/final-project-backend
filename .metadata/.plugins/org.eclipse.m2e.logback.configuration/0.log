@@ -5780,3 +5780,77 @@ java.io.FileNotFoundException: D:\Kerjaan\github\final-project-backend\.metadata
 2022-08-04 16:18:01,676 [Worker-105: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
 2022-08-04 16:18:01,913 [Worker-105: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
 2022-08-04 16:18:02,161 [Worker-105: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-04 17:58:11,749 [Worker-155: http://download.eclipse.org/modeling/emf/emf/builds/release/2.30/plugins/org.eclipse.emf.codegen.ecore.ui_2.30.0.v20220313-0955.jar.pack.gz] INFO  o.a.h.c.h.i.c.HttpRequestRetryExec - Recoverable I/O exception (java.net.SocketException) caught when processing request to {s}->https://download.eclipse.org:443
+2022-08-04 17:58:11,749 [Worker-145: http://download.eclipse.org/modeling/emf/emf/builds/release/2.30/plugins/org.eclipse.emf.codegen.ecore_2.30.0.v20220426-0617.jar.pack.gz] INFO  o.a.h.c.h.i.c.HttpRequestRetryExec - Recoverable I/O exception (java.net.SocketException) caught when processing request to {s}->https://download.eclipse.org:443
+2022-08-04 17:58:11,749 [Worker-146: http://download.eclipse.org/modeling/emf/emf/builds/release/2.30/plugins/org.eclipse.emf.databinding_1.6.0.v20220516-1117.jar.pack.gz] INFO  o.a.h.c.h.i.c.HttpRequestRetryExec - Recoverable I/O exception (java.net.SocketException) caught when processing request to {s}->https://download.eclipse.org:443
+2022-08-04 17:58:11,749 [Worker-147: http://download.eclipse.org/modeling/emf/emf/builds/release/2.30/plugins/org.eclipse.emf.common_2.25.0.v20220325-0806.jar.pack.gz] INFO  o.a.h.c.h.i.c.HttpRequestRetryExec - Recoverable I/O exception (java.net.SocketException) caught when processing request to {s}->https://download.eclipse.org:443
+2022-08-05 09:03:49,604 [Worker-1: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-08-05 10:20:18,117 [Worker-32: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update started
+2022-08-05 10:20:23,996 [Worker-32: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.lawencon:core:0.0.1-SNAPSHOT @ D:\Kerjaan\github\final-project-backend\core\pom.xml.
+2022-08-05 10:20:26,555 [Worker-32: Updating Maven Project] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.lawencon:community:0.0.1-SNAPSHOT @ D:\Kerjaan\github\final-project-backend\community\pom.xml.
+2022-08-05 10:20:27,829 [Worker-32: Updating Maven Project] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier  to /core/target/classes
+2022-08-05 10:20:33,223 [Worker-32: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /community/src/main/java
+2022-08-05 10:20:33,224 [Worker-32: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /community/src/main/resources
+2022-08-05 10:20:33,224 [Worker-32: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /community/src/main/resources
+2022-08-05 10:20:33,225 [Worker-32: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /community/src/test/java
+2022-08-05 10:20:33,785 [Worker-32: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /core/src/main/java
+2022-08-05 10:20:33,791 [Worker-32: Updating Maven Project] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /core/src/test/java
+2022-08-05 10:20:35,462 [Worker-32: Updating Maven Project] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Update completed: 17 sec
+2022-08-05 10:20:37,690 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 10:20:37,690 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 10:20:37,690 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\core\src\main\resources
+2022-08-05 10:20:37,690 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\core\src\main\resources
+2022-08-05 10:20:37,694 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 10:20:37,694 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 10:20:37,694 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\core\src\test\resources
+2022-08-05 10:20:42,196 [Worker-38: Building] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier  to /core/target/classes
+2022-08-05 10:20:42,251 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 10:20:42,251 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 10:20:42,285 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-08-05 10:20:42,320 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-08-05 10:20:42,321 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - The encoding used to copy filtered properties files have not been set. This means that the same encoding will be used to copy filtered properties files as when copying other filtered resources. This might not be what you want! Run your build with --debug to see which files might be affected. Read more at https://maven.apache.org/plugins/maven-resources-plugin/examples/filtering-properties-files.html
+2022-08-05 10:20:42,324 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 10:20:42,324 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 10:20:42,324 [Worker-38: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\community\src\test\resources
+2022-08-05 10:48:21,811 [Worker-0: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-08-05 10:50:57,149 [Worker-19: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier  to /core/target/classes
+2022-08-05 10:50:57,590 [Worker-19: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-05 10:50:57,847 [Worker-19: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-05 10:50:58,090 [Worker-19: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-05 13:41:58,932 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2022-08-05 14:25:28,413 [Worker-26: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier  to /core/target/classes
+2022-08-05 14:25:29,007 [Worker-26: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-05 14:25:29,269 [Worker-26: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-05 14:25:29,544 [Worker-26: Launching App] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/core: com.lawencon:core:0.0.1-SNAPSHOT with classifier null to /core/target/classes
+2022-08-05 14:26:22,493 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 14:26:22,493 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 14:26:22,502 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-08-05 14:26:22,547 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-08-05 14:26:22,548 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - The encoding used to copy filtered properties files have not been set. This means that the same encoding will be used to copy filtered properties files as when copying other filtered resources. This might not be what you want! Run your build with --debug to see which files might be affected. Read more at https://maven.apache.org/plugins/maven-resources-plugin/examples/filtering-properties-files.html
+2022-08-05 14:26:22,554 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 14:26:22,554 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 14:26:22,554 [Worker-25: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\community\src\test\resources
+2022-08-05 15:56:10,510 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 15:56:10,533 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 15:56:10,539 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-08-05 15:56:10,569 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-08-05 15:56:10,570 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - The encoding used to copy filtered properties files have not been set. This means that the same encoding will be used to copy filtered properties files as when copying other filtered resources. This might not be what you want! Run your build with --debug to see which files might be affected. Read more at https://maven.apache.org/plugins/maven-resources-plugin/examples/filtering-properties-files.html
+2022-08-05 15:56:10,572 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 15:56:10,572 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 15:56:10,572 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\community\src\test\resources
+2022-08-05 15:57:01,368 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 15:57:01,368 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 15:57:01,369 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-08-05 15:57:01,424 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-08-05 15:57:01,424 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - The encoding used to copy filtered properties files have not been set. This means that the same encoding will be used to copy filtered properties files as when copying other filtered resources. This might not be what you want! Run your build with --debug to see which files might be affected. Read more at https://maven.apache.org/plugins/maven-resources-plugin/examples/filtering-properties-files.html
+2022-08-05 15:57:01,427 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 15:57:01,427 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 15:57:01,428 [Worker-49: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\community\src\test\resources
+2022-08-05 15:57:44,753 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 15:57:44,754 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 15:57:44,755 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
+2022-08-05 15:57:44,785 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
+2022-08-05 15:57:44,785 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - The encoding used to copy filtered properties files have not been set. This means that the same encoding will be used to copy filtered properties files as when copying other filtered resources. This might not be what you want! Run your build with --debug to see which files might be affected. Read more at https://maven.apache.org/plugins/maven-resources-plugin/examples/filtering-properties-files.html
+2022-08-05 15:57:44,790 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-08-05 15:57:44,791 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-08-05 15:57:44,791 [Worker-42: Building] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory D:\Kerjaan\github\final-project-backend\community\src\test\resources

@@ -1,5 +1,6 @@
 package com.lawencon.community.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class BalanceService extends BaseCoreService<Balance> {
 	@Autowired
 	private BalanceDao balanceDao;
 
-	private Balance inputBalanceData(Balance result, Boolean isActive, Long balance) throws Exception {
+	private Balance inputBalanceData(Balance result, Boolean isActive, BigDecimal balance) throws Exception {
 		result.setIsActive(isActive);
 
 		result.setBalance(balance);

@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.balance;
 
+import java.math.BigDecimal;
+
 public class PojoDataBalance {
 	private String id;
 	private Boolean isActive;
@@ -24,12 +26,12 @@ public class PojoDataBalance {
 		this.version = version;
 	}
 
-	private Long balance;
+	private BigDecimal balance;
 
-	public Long getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
-	public void setBalance(Long balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 }

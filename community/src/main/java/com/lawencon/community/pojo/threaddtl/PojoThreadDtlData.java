@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.threaddtl;
 
+import java.time.LocalDateTime;
+
 public class PojoThreadDtlData {
 
 	private String id;
@@ -9,6 +11,7 @@ public class PojoThreadDtlData {
 	private String threadComment;
 	private Boolean isActive;
 	private Integer version;
+	private LocalDateTime createdAt;
 
 	public String getId() {
 		return id;
@@ -64,6 +67,14 @@ public class PojoThreadDtlData {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 
 }

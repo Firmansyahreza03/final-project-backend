@@ -1,5 +1,6 @@
 package com.lawencon.community.dao;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		results.setCommunityEndAt(((Timestamp) objArr[5]).toLocalDateTime());
 		results.setCommunityDesc(objArr[6].toString());
 		results.setCommunityCode(objArr[7].toString());
-		results.setCommunityPrice(Long.valueOf(objArr[8].toString()));
+		results.setCommunityPrice(new BigDecimal(objArr[8].toString()));
 		if(objArr[9]!=null) {
 			File fkFile = new File();
 			fkFile.setId(objArr[9].toString());
@@ -57,10 +58,30 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		
 		return results;
 	}
+	
+	public Community getByName(String name) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT c.* FROM comm_community c ")
+				.append(" WHERE c.community_title = :name ");
+		
+		Community res = null;
+		try {			
+			Object result = createNativeQuery(sql.toString())
+					.setParameter("name", name)
+					.getSingleResult();
+			
+			if(result != null) {
+				Object[] objArr = (Object[]) result;
+				res = inputData(objArr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
 
 	public List<Community> getByCategoryCode(String code, 
-			String query, Integer startPage, Integer maxPage ,
-			String... fields) throws Exception {
+			Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
 		.append("SELECT c.* FROM comm_community c ")
 		.append(" INNER JOIN comm_community_category cc ON cc.id = c.category_id ")
@@ -70,15 +91,8 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 		List<Community> res = new ArrayList<>();
 		
 
-		if(query != null) {
-			for (int i = 0; i < fields.length; i++) {
-				sql.append(" c."+fields[i]+" LIKE :query");
-			}
-		}
-		
 		Query q = createNativeQuery(sql.toString())
-				.setParameter("code", code)
-				.setParameter("query", query);
+				.setParameter("code", code);
 		
 		if(startPage != null && maxPage != null) {
 			q.setFirstResult(startPage)

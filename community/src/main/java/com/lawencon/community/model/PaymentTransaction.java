@@ -21,13 +21,22 @@ public class PaymentTransaction extends BaseEntity {
 	@Column(name = "is_acc")
 	private Boolean isAcc;
 
+	@Column(name = "transaction_type")
+	private String type;
 	@Column(name = "transaction_code ")
 	private String code;
 	@Column(name = "transaction_desc")
 	private String desc;
 	@Column(name = "transaction_price")
 	private Long price;
-    
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public File getFile() {
 		return file;

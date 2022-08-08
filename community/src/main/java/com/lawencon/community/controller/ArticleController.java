@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +43,8 @@ public class ArticleController {
 		SearchQuery<PojoDataArticle> res = articleService.getAll(query, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasAuthority('SYSTEM')")
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody @Valid PojoInsertArticleReq req) throws Exception {
 		PojoInsertRes res = articleService.insert(req);

@@ -63,7 +63,7 @@ public class PaymentTransactionController {
 	}
 
 	@PutMapping("/valid")
-	public ResponseEntity<PojoUpdateRes> validAbsen(@RequestBody @Valid PojoValidPaymentTransactionReq data) throws Exception {
+	public ResponseEntity<PojoUpdateRes> validTransaction(@RequestBody @Valid PojoValidPaymentTransactionReq data) throws Exception {
 		PojoUpdateRes res = service.validationPayment(data);
 		return new ResponseEntity<PojoUpdateRes>(res, HttpStatus.OK);
 	}

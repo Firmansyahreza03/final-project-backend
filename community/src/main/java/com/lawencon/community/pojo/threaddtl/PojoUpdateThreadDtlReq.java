@@ -9,8 +9,6 @@ public class PojoUpdateThreadDtlReq {
 	private String id;
 	@NotBlank(message = "comment can not be empty")
 	private String threadComment;
-	@NotBlank(message = "user can not be empty")
-	private String userId;
 	@NotBlank(message = "thread can not be empty")
 	private String hdrId;
 	@NotNull(message = "must be true or false")
@@ -40,14 +38,6 @@ public class PojoUpdateThreadDtlReq {
 
 	public void setThreadComment(String threadComment) {
 		this.threadComment = threadComment;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
 	}
 
 	public String getHdrId() {

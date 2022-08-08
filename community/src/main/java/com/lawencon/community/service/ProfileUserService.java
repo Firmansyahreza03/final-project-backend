@@ -110,7 +110,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		return res;
 	}
 	
-	public PojoFindByIdProfileRes findByUserLogged() throws Exception{
+	public PojoFindByIdProfileRes findByUserId() throws Exception{
 		Profile data = profileDao.getByUserId(principalServiceImpl.getAuthPrincipal());
 
 		PojoProfileData result = modelToProfileRes(data);
@@ -120,6 +120,16 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		return res;
 	}
 
+	public PojoFindByIdProfileRes findByUserId(String id) throws Exception{
+		Profile data = profileDao.getByUserId(id);
+
+		PojoProfileData result = modelToProfileRes(data);
+		PojoFindByIdProfileRes res = new PojoFindByIdProfileRes();
+		res.setData(result);
+
+		return res;
+	}
+	
 	public PojoFindByIdProfileRes findByMail(String mail) throws Exception {
 		Profile data = profileDao.getByUserMail(mail);
 

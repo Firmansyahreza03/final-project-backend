@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.profile;
 
+import java.math.BigDecimal;
+
 public class PojoProfileData {
 
 	private String id;
@@ -15,7 +17,7 @@ public class PojoProfileData {
 	private String userEmail;
 	private String roleCode;
 	private String roleName;
-	private Long balance;
+	private BigDecimal balance;
 	private String fileId;
 	private Boolean isSubscriber;
 
@@ -131,11 +133,11 @@ public class PojoProfileData {
 		this.roleName = roleName;
 	}
 
-	public Long getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Long balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 

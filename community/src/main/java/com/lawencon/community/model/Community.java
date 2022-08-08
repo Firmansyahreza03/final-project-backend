@@ -16,7 +16,10 @@ import com.lawencon.base.BaseEntity;
 @Table(name = "comm_community", uniqueConstraints = {
 		@UniqueConstraint(
 				name = "community_code_bk", columnNames = { "community_code" }
-				) 
+				),
+		@UniqueConstraint(
+				name = "community_title_bk", columnNames = { "community_title" }
+				)
 		}
 )
 public class Community extends BaseEntity {

@@ -24,6 +24,7 @@ import com.lawencon.community.pojo.threaddtl.PojoInsertThreadDtlReq;
 import com.lawencon.community.pojo.threaddtl.PojoThreadDtlData;
 import com.lawencon.community.pojo.threaddtl.PojoUpdateThreadDtlReq;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
@@ -36,6 +37,8 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 	private UserDao userDao;
 	@Autowired
 	private ProfileDao profileDao;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
 
 	private ThreadDtl inputThreadData(ThreadDtl result, String hdrId, Boolean isActive, String comment, String userId) {
 		ThreadHdr hdr = hdrDao.getById(hdrId);
@@ -48,14 +51,17 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 		return result;
 	}
 
-	private PojoThreadDtlData modelToRes(ThreadDtl data) {
+	private PojoThreadDtlData modelToRes(ThreadDtl data) throws Exception {
 		PojoThreadDtlData res = new PojoThreadDtlData();
 		res.setHdrId(data.getHdr().getId());
 		res.setId(data.getId());
 		res.setIsActive(data.getIsActive());
 		res.setThreadComment(data.getThreadComment());
 		res.setUserId(data.getUser().getId());
+		Profile FkProfile = profileDao.getByUserId(data.getUser().getId());
+		res.setUserFullName(FkProfile.getFullName());
 		res.setVersion(data.getVersion());
+		res.setCreatedAt(data.getCreatedAt());
 
 		return res;
 	}
@@ -65,8 +71,6 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 
 		PojoThreadDtlData result = modelToRes(data);
 
-		Profile profile = profileDao.getByUserMail(data.getUser().getUserEmail());
-		result.setUserFullName(profile.getFullName());
 
 		PojoFindByIdThreadDtlRes res = new PojoFindByIdThreadDtlRes();
 		res.setData(result);
@@ -81,8 +85,6 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 			PojoThreadDtlData data;
 			try {
 				data = modelToRes(d);
-				Profile profile = profileDao.getByUserMail(d.getUser().getUserEmail());
-				data.setUserFullName(profile.getFullName());
 				results.add(data);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -99,9 +101,8 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 		try {
 			begin();
 			PojoInsertRes insertRes = new PojoInsertRes();
-
 			ThreadDtl reqData = inputThreadData(new ThreadDtl(), req.getHdrId(), req.getIsActive(),
-					req.getThreadComment(), req.getUserId());
+					req.getThreadComment(), principalServiceImpl.getAuthPrincipal());
 			ThreadDtl result = save(reqData);
 
 			PojoInsertResData resData = new PojoInsertResData();
@@ -125,7 +126,7 @@ public class ThreadDtlService extends BaseCoreService<ThreadDtl> {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 
 			ThreadDtl reqData = inputThreadData(dtlDao.getById(req.getId()), req.getHdrId(), req.getIsActive(),
-					req.getThreadComment(), req.getUserId());
+					req.getThreadComment(), principalServiceImpl.getAuthPrincipal());
 
 			reqData.setVersion(req.getVersion());
 			ThreadDtl result = save(reqData);

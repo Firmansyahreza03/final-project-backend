@@ -1,5 +1,6 @@
 package com.lawencon.community.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
+import com.lawencon.community.constant.TransactionType;
 import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.PaymentTransactionDao;
+import com.lawencon.community.dao.SubscriptionStatusDao;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.PaymentTransaction;
+import com.lawencon.community.model.SubscriptionStatus;
 import com.lawencon.community.pojo.PojoDeleteRes;
 import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
@@ -22,6 +26,7 @@ import com.lawencon.community.pojo.paymentTransaction.PojoInsertPaymentTransacti
 import com.lawencon.community.pojo.paymentTransaction.PojoUpdatePaymentTransactionReq;
 import com.lawencon.community.pojo.paymentTransaction.PojoValidPaymentTransactionReq;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class PaymentTransactionService extends BaseCoreService<PaymentTransaction> {
@@ -31,6 +36,10 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 	private FileDao fileDao;
 	@Autowired
 	private CodeService codeService;
+	@Autowired
+	private SubscriptionStatusDao statusDao;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
 
 	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, Long price, String fileName, String fileExt) throws Exception {
 		
@@ -46,7 +55,8 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			
 			fkFile.setFileName(fileName);
 			fkFile.setFileExtension(fileExt);
-			
+			fkFile.setCreatedBy(principalServiceImpl.getAuthPrincipal());
+			fileDao.save(fkFile);
 			result.setFile(fkFile);
 		}
 		
@@ -114,8 +124,17 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 					new PaymentTransaction(), true, false, data.getDesc(), data.getPrice(),
 					data.getFileName(), data.getFileExt());
 			reqData.setCode(codeService.generateRandomCodeAll().getCode());
+			reqData.setType(data.getType());
 			begin();
-			PaymentTransaction result = super.save(reqData);
+			PaymentTransaction result = save(reqData);
+			
+			if(TransactionType.SUBSCRIPTION.name().equals(data.getType())) {
+				SubscriptionStatus status = statusDao.findByUserId(principalServiceImpl.getAuthPrincipal());
+				status.setPayment(result);
+				status.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
+				statusDao.save(status);
+			} 
+			
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
@@ -141,6 +160,13 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			
 			begin();
 			PaymentTransaction result = paymentDao.save(reqData);
+			
+			if(TransactionType.SUBSCRIPTION.name().equals(result.getType())) {
+				SubscriptionStatus status = statusDao.findByUserId(principalServiceImpl.getAuthPrincipal());
+				status.setIsSubscriber(true);
+				statusDao.save(status);
+			}
+			
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
@@ -185,6 +211,14 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			
 			begin();
 			PaymentTransaction result = paymentDao.save(reqData);
+			
+			if(TransactionType.SUBSCRIPTION.name().equals(result.getType())) {
+				SubscriptionStatus status = statusDao.findByUserId(result.getCreatedBy());
+				status.setIsSubscriber(true);
+				status.setExpiredAt(LocalDateTime.now().plusMonths(1));
+				statusDao.save(status);
+			}
+			
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());

@@ -48,6 +48,7 @@ public class ArticleService extends BaseCoreService<Article> {
 		result.setId(data.getId());
 		result.setIsActive(data.getIsActive());
 		result.setVersion(data.getVersion());
+		result.setCreatedAt(data.getCreatedAt());
 
 		result.setTitle(data.getArticleTitle());
 		result.setContent(data.getArticleContent());

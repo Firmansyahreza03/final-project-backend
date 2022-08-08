@@ -1,9 +1,14 @@
 package com.lawencon.community.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +30,16 @@ import com.lawencon.community.pojo.paymentTransaction.PojoValidPaymentTransactio
 import com.lawencon.community.service.PaymentTransactionService;
 import com.lawencon.model.SearchQuery;
 
+import com.lawencon.util.JasperUtil;
+
 @RestController
 @RequestMapping("payment-transactions")
 public class PaymentTransactionController {
 
 	@Autowired
 	private PaymentTransactionService service;
+	@Autowired
+	private JasperUtil jasperUtil;
 	
 	@GetMapping("{id}")
 	public ResponseEntity<PojoFindByIdPaymentTransactionRes> findById(@PathVariable("id") String id) throws Exception{
@@ -67,4 +76,24 @@ public class PaymentTransactionController {
 		PojoUpdateRes res = service.validationPayment(data);
 		return new ResponseEntity<PojoUpdateRes>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("report")
+	public ResponseEntity<?> reportSample() throws Exception {
+		SearchQuery<PojoDataPaymentTransaction> listData = service.getAll(null, null, null);
+		
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("company", "PT. Company Internasional");
+
+		byte[] out = jasperUtil.responseToByteArray(listData.getData(), map, "paymentReport");
+		
+		String fileName = "paymentReport.pdf";
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_PDF)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName+ "\"")
+				.body(out);
+	}
+
+	
 }

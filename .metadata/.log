@@ -6515,3 +6515,709 @@ java.lang.RuntimeException: Could not instantiate serializer com.sun.org.apache.
 	at com.jaspersoft.studio.data.HttpBuiltInParameterProvider.init(HttpBuiltInParameterProvider.java:85)
 	at com.jaspersoft.studio.data.Activator$1.run(Activator.java:78)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.ui.ide 4 4 2022-08-08 16:11:39.303
+!MESSAGE Not properly disposed SWT resource
+!STACK 0
+java.lang.Error: SWT Resource was not properly disposed
+	at org.eclipse.swt.graphics.Resource.initNonDisposeTracking(Resource.java:172)
+	at org.eclipse.swt.graphics.Resource.<init>(Resource.java:120)
+	at org.eclipse.swt.graphics.Image.<init>(Image.java:683)
+	at org.eclipse.jface.resource.URLImageDescriptor.createImage(URLImageDescriptor.java:275)
+	at org.eclipse.jface.resource.ImageDescriptor.createImage(ImageDescriptor.java:290)
+	at org.eclipse.jface.resource.ImageDescriptor.createImage(ImageDescriptor.java:268)
+	at org.eclipse.mylyn.internal.tasks.ui.views.TaskListFilteredTree.createAdditionalControls(TaskListFilteredTree.java:619)
+	at org.eclipse.mylyn.commons.workbench.AbstractFilteredTree.createFilterControls(AbstractFilteredTree.java:189)
+	at org.eclipse.ui.dialogs.FilteredTree.createControl(FilteredTree.java:362)
+	at org.eclipse.mylyn.commons.workbench.EnhancedFilteredTree.createControl(EnhancedFilteredTree.java:61)
+	at org.eclipse.mylyn.commons.workbench.AbstractFilteredTree.createControl(AbstractFilteredTree.java:91)
+	at org.eclipse.ui.dialogs.FilteredTree.init(FilteredTree.java:331)
+	at org.eclipse.ui.dialogs.FilteredTree.<init>(FilteredTree.java:289)
+	at org.eclipse.mylyn.commons.workbench.EnhancedFilteredTree.<init>(EnhancedFilteredTree.java:48)
+	at org.eclipse.mylyn.commons.workbench.AbstractFilteredTree.<init>(AbstractFilteredTree.java:71)
+	at org.eclipse.mylyn.internal.tasks.ui.views.TaskListFilteredTree.<init>(TaskListFilteredTree.java:134)
+	at org.eclipse.mylyn.internal.tasks.ui.views.TaskListView.createPartControl(TaskListView.java:590)
+	at org.eclipse.ui.internal.e4.compatibility.CompatibilityPart.createPartControl(CompatibilityPart.java:158)
+	at org.eclipse.ui.internal.e4.compatibility.CompatibilityView.createPartControl(CompatibilityView.java:155)
+	at org.eclipse.ui.internal.e4.compatibility.CompatibilityPart.create(CompatibilityPart.java:365)
+	at jdk.internal.reflect.GeneratedMethodAccessor93.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:995)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.processAnnotated(InjectorImpl.java:960)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalInject(InjectorImpl.java:140)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.internalMake(InjectorImpl.java:403)
+	at org.eclipse.e4.core.internal.di.InjectorImpl.make(InjectorImpl.java:330)
+	at org.eclipse.e4.core.contexts.ContextInjectionFactory.make(ContextInjectionFactory.java:202)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.createFromBundle(ReflectionContributionFactory.java:91)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.doCreate(ReflectionContributionFactory.java:60)
+	at org.eclipse.e4.ui.internal.workbench.ReflectionContributionFactory.create(ReflectionContributionFactory.java:42)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ContributedPartRenderer.createWidget(ContributedPartRenderer.java:132)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:995)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:659)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$1.run(PartRenderingEngine.java:544)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:528)
+	at org.eclipse.e4.ui.workbench.renderers.swt.ElementReferenceRenderer.createWidget(ElementReferenceRenderer.java:73)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createWidget(PartRenderingEngine.java:995)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:659)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.safeCreateGui(PartRenderingEngine.java:763)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$2.run(PartRenderingEngine.java:728)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.createGui(PartRenderingEngine.java:712)
+	at org.eclipse.e4.ui.internal.workbench.PartServiceImpl.lambda$0(PartServiceImpl.java:110)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.lambda$0(UIEventHandler.java:38)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:236)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:133)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:4779)
+	at org.eclipse.e4.ui.workbench.swt.DisplayUISynchronize.syncExec(DisplayUISynchronize.java:34)
+	at org.eclipse.e4.ui.services.internal.events.UIEventHandler.handleEvent(UIEventHandler.java:38)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:205)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:203)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:151)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:133)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:75)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:44)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:55)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:63)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:424)
+	at org.eclipse.e4.ui.model.application.ui.impl.ElementContainerImpl.setSelectedElementGen(ElementContainerImpl.java:170)
+	at org.eclipse.e4.ui.model.application.ui.impl.ElementContainerImpl.setSelectedElement(ElementContainerImpl.java:188)
+	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer.lambda$4(StackRenderer.java:975)
+	at org.eclipse.swt.events.SelectionListener$1.widgetSelected(SelectionListener.java:84)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1087)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1072)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:775)
+	at org.eclipse.swt.custom.CTabFolder.setSelection(CTabFolder.java:3248)
+	at org.eclipse.swt.custom.CTabFolder.destroyItem(CTabFolder.java:812)
+	at org.eclipse.swt.custom.CTabItem.dispose(CTabItem.java:132)
+	at org.eclipse.e4.ui.workbench.renderers.swt.StackRenderer.hideChild(StackRenderer.java:908)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.subscribeChildrenHandler(PartRenderingEngine.java:359)
+	at jdk.internal.reflect.GeneratedMethodAccessor13.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.e4.core.di.internal.extensions.EventObjectSupplier$DIEventHandler.handleEvent(EventObjectSupplier.java:92)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:205)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:203)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:151)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:133)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:75)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:44)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:55)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:63)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:424)
+	at org.eclipse.emf.common.notify.impl.NotificationImpl.dispatch(NotificationImpl.java:1027)
+	at org.eclipse.emf.common.notify.impl.NotifyingListImpl.addUnique(NotifyingListImpl.java:313)
+	at org.eclipse.emf.common.util.AbstractEList.add(AbstractEList.java:304)
+	at org.eclipse.e4.ui.workbench.addons.dndaddon.SplitDropAgent2.drop(SplitDropAgent2.java:303)
+	at org.eclipse.e4.ui.workbench.addons.dndaddon.DragAgent.dragFinished(DragAgent.java:172)
+	at org.eclipse.e4.ui.workbench.addons.dndaddon.PartDragAgent.dragFinished(PartDragAgent.java:111)
+	at org.eclipse.e4.ui.workbench.addons.dndaddon.DnDManager.finishDrag(DnDManager.java:271)
+	at org.eclipse.e4.ui.workbench.addons.dndaddon.DnDManager.startDrag(DnDManager.java:238)
+	at org.eclipse.e4.ui.workbench.addons.dndaddon.DnDManager.lambda$0(DnDManager.java:84)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:131)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4060)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3632)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:33:05.033
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:37:25.905
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:37:27.799
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:37:29.700
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:37:45.758
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:37:46.072
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:38:13.736
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:46:58.553
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:48:09.481
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:48:09.731
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:49:24.918
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:49:25.073
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:50:33.327
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:50:33.538
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:51:19.350
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:51:19.788
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:51:25.347
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:51:25.533
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:53:22.129
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:53:22.560
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 16:53:37.473
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY org.eclipse.ui 4 0 2022-08-08 17:03:11.137
+!MESSAGE Unhandled event loop exception
+!STACK 0
+org.eclipse.core.runtime.OperationCanceledException
+	at org.eclipse.xtext.service.OperationCanceledManager.getPlatformSpecificOperationCanceledException(OperationCanceledManager.java:82)
+	at org.eclipse.xtext.service.OperationCanceledManager.throwOperationCanceledException(OperationCanceledManager.java:78)
+	at org.eclipse.xtext.service.OperationCanceledManager.checkCanceled(OperationCanceledManager.java:87)
+	at org.eclipse.xtext.linking.lazy.LazyLinkingResource.resolveLazyCrossReferences(LazyLinkingResource.java:142)
+	at org.eclipse.xtext.EcoreUtil2.resolveLazyCrossReferences(EcoreUtil2.java:505)
+	at org.eclipse.xtext.validation.ResourceValidatorImpl.resolveProxies(ResourceValidatorImpl.java:162)
+	at org.eclipse.xtext.validation.ResourceValidatorImpl.validate(ResourceValidatorImpl.java:75)
+	at org.eclipse.xtext.ui.editor.validation.ValidationJob$1.exec(ValidationJob.java:92)
+	at org.eclipse.xtext.ui.editor.validation.ValidationJob$1.exec(ValidationJob.java:1)
+	at org.eclipse.xtext.util.concurrent.CancelableUnitOfWork.exec(CancelableUnitOfWork.java:27)
+	at org.eclipse.xtext.util.concurrent.WrappingCancelableUnitOfWork.exec(WrappingCancelableUnitOfWork.java:58)
+	at org.eclipse.xtext.util.concurrent.CancelableUnitOfWork.exec(CancelableUnitOfWork.java:27)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:50)
+	at org.eclipse.xtext.ui.editor.validation.ValidationJob.createIssues(ValidationJob.java:87)
+	at de.itemis.xtext.utils.jface.viewers.StyledTextXtextAdapter.getXtextValidationIssues(StyledTextXtextAdapter.java:318)
+	at com.jaspersoft.studio.editor.jrexpressions.ui.support.java.JavaExpressionEditorComposite.updateExpressionStatus(JavaExpressionEditorComposite.java:678)
+	at com.jaspersoft.studio.editor.jrexpressions.ui.support.java.JavaExpressionEditorComposite.performUpdate(JavaExpressionEditorComposite.java:704)
+	at com.jaspersoft.studio.editor.jrexpressions.ui.support.java.JavaExpressionEditorComposite.lambda$4(JavaExpressionEditorComposite.java:260)
+	at org.eclipse.swt.custom.StyledTextListener.handleEvent(StyledTextListener.java:101)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1087)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1072)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:775)
+	at org.eclipse.swt.custom.StyledText.setCaretOffsets(StyledText.java:9107)
+	at org.eclipse.swt.custom.StyledText.reset(StyledText.java:8297)
+	at org.eclipse.swt.custom.StyledText.handleTextSet(StyledText.java:6659)
+	at org.eclipse.swt.custom.StyledText$5.textSet(StyledText.java:5916)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.fireTextSet(DefaultDocumentAdapter.java:332)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.documentChanged(DefaultDocumentAdapter.java:254)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged2(AbstractDocument.java:740)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:717)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:701)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:775)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.access$9(XtextDocument.java:1)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$3.run(XtextDocument.java:729)
+	at org.eclipse.xtext.ui.util.DisplayRunnable.syncExec(DisplayRunnable.java:36)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.fireDocumentChanged(XtextDocument.java:731)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1100)
+	at org.eclipse.jface.text.AbstractDocument.replace(AbstractDocument.java:1118)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.replaceTextRange(DefaultDocumentAdapter.java:223)
+	at org.eclipse.swt.custom.StyledText.modifyContent(StyledText.java:7639)
+	at org.eclipse.swt.custom.StyledText.replaceTextRange(StyledText.java:8288)
+	at org.eclipse.swt.custom.StyledText.insert(StyledText.java:5765)
+	at com.jaspersoft.studio.editor.jrexpressions.ui.support.java.EditingAreaHelper.insertAtCurrentLocation(EditingAreaHelper.java:372)
+	at com.jaspersoft.studio.editor.jrexpressions.ui.support.java.ObjectCategoryDetailsPanel$2.doubleClick(ObjectCategoryDetailsPanel.java:162)
+	at org.eclipse.jface.viewers.StructuredViewer$1.run(StructuredViewer.java:780)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.jface.util.SafeRunnable.run(SafeRunnable.java:174)
+	at org.eclipse.jface.viewers.StructuredViewer.fireDoubleClick(StructuredViewer.java:777)
+	at org.eclipse.jface.viewers.AbstractTreeViewer.handleDoubleSelect(AbstractTreeViewer.java:1542)
+	at org.eclipse.jface.viewers.StructuredViewer$4.widgetDefaultSelected(StructuredViewer.java:1211)
+	at org.eclipse.jface.util.OpenStrategy.fireDefaultSelectionEvent(OpenStrategy.java:272)
+	at org.eclipse.jface.util.OpenStrategy$1.handleEvent(OpenStrategy.java:329)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4060)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3632)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:823)
+	at org.eclipse.jface.window.Window.open(Window.java:799)
+	at com.jaspersoft.studio.swt.widgets.WTextExpression$4.widgetSelected(WTextExpression.java:273)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4060)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3632)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:40.239
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:40.561
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:40.895
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:41.032
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:41.807
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:42.042
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:42.727
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:03:43.036
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:06:50.585
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:12:09.292
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:12:11.163
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:12:14.468
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:15:42.465
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:15:44.739
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:15:47.590
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:15:54.351
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:15:57.792
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:16:00.186
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY org.eclipse.ui 4 0 2022-08-08 17:24:06.433
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.ClassCastException: class java.lang.Integer cannot be cast to class net.sf.jasperreports.engine.type.LineStyleEnum (java.lang.Integer is in module java.base of loader 'bootstrap'; net.sf.jasperreports.engine.type.LineStyleEnum is in unnamed module of loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @789e9b0c)
+	at com.jaspersoft.studio.property.section.graphic.borders.BordersSection$12.widgetSelected(BordersSection.java:586)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4060)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3632)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+
+!ENTRY org.eclipse.ui 4 0 2022-08-08 17:24:09.039
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.lang.ClassCastException: class java.lang.Integer cannot be cast to class net.sf.jasperreports.engine.type.LineStyleEnum (java.lang.Integer is in module java.base of loader 'bootstrap'; net.sf.jasperreports.engine.type.LineStyleEnum is in unnamed module of loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @789e9b0c)
+	at com.jaspersoft.studio.property.section.graphic.borders.BordersSection$10.widgetSelected(BordersSection.java:528)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:252)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4243)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1063)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4060)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3632)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+
+!ENTRY org.eclipse.text 4 2 2022-08-08 17:27:52.938
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at org.eclipse.swt.custom.StyledText.getLinePixel(StyledText.java:4377)
+	at org.eclipse.swt.custom.StyledText.handleTextChanging(StyledText.java:6622)
+	at org.eclipse.swt.custom.StyledText$5.textChanging(StyledText.java:5908)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.fireTextChanging(DefaultDocumentAdapter.java:360)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.documentAboutToBeChanged(DefaultDocumentAdapter.java:277)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentAboutToBeChanged(AbstractDocument.java:637)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1131)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1123)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.model2xml(AbstractJRXMLEditor.java:999)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.doSave(AbstractJRXMLEditor.java:660)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:98)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.text 4 2 2022-08-08 17:27:52.942
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at org.eclipse.swt.widgets.Scrollable.getVerticalBar(Scrollable.java:291)
+	at org.eclipse.swt.custom.StyledText.reset(StyledText.java:8295)
+	at org.eclipse.swt.custom.StyledText.handleTextSet(StyledText.java:6659)
+	at org.eclipse.swt.custom.StyledText$5.textSet(StyledText.java:5916)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.fireTextSet(DefaultDocumentAdapter.java:332)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.documentChanged(DefaultDocumentAdapter.java:254)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged2(AbstractDocument.java:740)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:717)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:701)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:775)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1140)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1123)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.model2xml(AbstractJRXMLEditor.java:999)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.doSave(AbstractJRXMLEditor.java:660)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:98)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.text 4 2 2022-08-08 17:27:52.961
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at org.eclipse.swt.custom.StyledText.getLineCount(StyledText.java:4171)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$1.textChanged(AnnotationRulerColumn.java:194)
+	at org.eclipse.jface.text.TextViewer.updateTextListeners(TextViewer.java:2785)
+	at org.eclipse.jface.text.TextViewer$VisibleDocumentListener.documentChanged(TextViewer.java:396)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged2(AbstractDocument.java:748)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:717)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:701)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:775)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1140)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1123)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.model2xml(AbstractJRXMLEditor.java:999)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.doSave(AbstractJRXMLEditor.java:660)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:98)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:27:53.934
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:00.700
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:05.613
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:11.729
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:16.126
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:20.488
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:28.236
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:33.640
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:38.083
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:43.266
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:48.039
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:52.807
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:28:57.993
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:02.909
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:07.551
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:12.571
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:17.303
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:20.617
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:23.888
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:27.647
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:31.077
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:34.535
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:38.349
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:43.236
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:47.610
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:51.166
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:55.075
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY org.eclipse.text 4 2 2022-08-08 17:29:58.883
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at org.eclipse.swt.custom.StyledText.getLinePixel(StyledText.java:4377)
+	at org.eclipse.swt.custom.StyledText.handleTextChanging(StyledText.java:6622)
+	at org.eclipse.swt.custom.StyledText$5.textChanging(StyledText.java:5908)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.fireTextChanging(DefaultDocumentAdapter.java:360)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.documentAboutToBeChanged(DefaultDocumentAdapter.java:277)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentAboutToBeChanged(AbstractDocument.java:637)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1131)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1123)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.model2xml(AbstractJRXMLEditor.java:999)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.doSave(AbstractJRXMLEditor.java:660)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:98)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.text 4 2 2022-08-08 17:29:58.886
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at org.eclipse.swt.widgets.Scrollable.getVerticalBar(Scrollable.java:291)
+	at org.eclipse.swt.custom.StyledText.reset(StyledText.java:8295)
+	at org.eclipse.swt.custom.StyledText.handleTextSet(StyledText.java:6659)
+	at org.eclipse.swt.custom.StyledText$5.textSet(StyledText.java:5916)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.fireTextSet(DefaultDocumentAdapter.java:332)
+	at org.eclipse.jface.text.DefaultDocumentAdapter.documentChanged(DefaultDocumentAdapter.java:254)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged2(AbstractDocument.java:740)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:717)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:701)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:775)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1140)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1123)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.model2xml(AbstractJRXMLEditor.java:999)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.doSave(AbstractJRXMLEditor.java:660)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:98)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.text 4 2 2022-08-08 17:29:58.887
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.text".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at org.eclipse.swt.custom.StyledText.getLineCount(StyledText.java:4171)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$1.textChanged(AnnotationRulerColumn.java:194)
+	at org.eclipse.jface.text.TextViewer.updateTextListeners(TextViewer.java:2785)
+	at org.eclipse.jface.text.TextViewer$VisibleDocumentListener.documentChanged(TextViewer.java:396)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged2(AbstractDocument.java:748)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:717)
+	at org.eclipse.jface.text.AbstractDocument.doFireDocumentChanged(AbstractDocument.java:701)
+	at org.eclipse.jface.text.AbstractDocument.fireDocumentChanged(AbstractDocument.java:775)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1140)
+	at org.eclipse.jface.text.AbstractDocument.set(AbstractDocument.java:1123)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.model2xml(AbstractJRXMLEditor.java:999)
+	at com.jaspersoft.studio.editor.AbstractJRXMLEditor.doSave(AbstractJRXMLEditor.java:660)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:98)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:29:59.649
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY org.eclipse.core.jobs 4 2 2022-08-08 17:30:00.137
+!MESSAGE An internal error occurred during: "Building report".
+!STACK 0
+java.lang.LinkageError: loader constraint violation: loader org.eclipse.osgi.internal.loader.EquinoxClassLoader @384569ec wants to load class org.slf4j.helpers.SubstituteLogger. A different class with the same name was previously loaded by java.net.FactoryURLClassLoader @75ea694f. (org.slf4j.helpers.SubstituteLogger is in unnamed module of loader java.net.FactoryURLClassLoader @75ea694f, parent loader org.eclipse.osgi.internal.framework.ContextFinder @1752e45c)
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1012)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.defineClass(ModuleClassLoader.java:283)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.defineClass(ClasspathManager.java:716)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findClassImpl(ClasspathManager.java:639)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClassImpl(ClasspathManager.java:607)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClassImpl(ClasspathManager.java:587)
+	at org.eclipse.osgi.internal.loader.classpath.ClasspathManager.findLocalClass(ClasspathManager.java:566)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.findLocalClass(ModuleClassLoader.java:335)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findLocalClass(BundleLoader.java:397)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass0(BundleLoader.java:488)
+	at org.eclipse.osgi.internal.loader.BundleLoader.findClass(BundleLoader.java:416)
+	at org.eclipse.osgi.internal.loader.ModuleClassLoader.loadClass(ModuleClassLoader.java:168)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	at org.slf4j.event.EventRecodingLogger.<init>(EventRecodingLogger.java:31)
+	at org.slf4j.helpers.SubstituteLogger.getEventRecordingLogger(SubstituteLogger.java:345)
+	at org.slf4j.helpers.SubstituteLogger.delegate(SubstituteLogger.java:339)
+	at org.slf4j.helpers.SubstituteLogger.isDebugEnabled(SubstituteLogger.java:117)
+	at org.apache.commons.logging.LogAdapter$Slf4jLog.isDebugEnabled(LogAdapter.java:310)
+	at org.apache.commons.digester.Digester.setDocumentLocator(Digester.java:1467)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.startDocument(AbstractSAXParser.java:292)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.xs.XMLSchemaValidator.startDocument(XMLSchemaValidator.java:764)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator.startDocument(XMLDTDValidator.java:622)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.startEntity(XMLDocumentScannerImpl.java:545)
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.startDocumentParsing(XMLVersionDetector.java:136)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:875)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:825)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:141)
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1224)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:637)
+	at org.apache.commons.digester.Digester.parse(Digester.java:1892)
+	at net.sf.jasperreports.engine.xml.JRXmlLoader.loadXML(JRXmlLoader.java:269)
+	at net.sf.jasperreports.engine.xml.JRXmlLoader.loadXML(JRXmlLoader.java:256)
+	at net.sf.jasperreports.eclipse.builder.JasperReportCompiler.loadJasperDesign(JasperReportCompiler.java:384)
+	at net.sf.jasperreports.eclipse.builder.JasperReportCompiler.compileReport(JasperReportCompiler.java:154)
+	at net.sf.jasperreports.eclipse.builder.JasperReportsBuilder.compileJRXML(JasperReportsBuilder.java:220)
+	at com.jaspersoft.studio.editor.action.CompileAction.actionCompile(CompileAction.java:159)
+	at com.jaspersoft.studio.editor.action.CompileAction$1.run(CompileAction.java:101)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:30:03.782
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:30:07.696
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:30:12.025
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:30:16.464
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-08 17:30:20.558
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1799289210/jasperreports_extension.properties

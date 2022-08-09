@@ -16,9 +16,11 @@ import com.lawencon.community.model.PollingOption;
 public class PollingOptionDao extends AbstractJpaDao<PollingOption> {
 
 	public List<PollingOption> findByThreadId(String id, Integer startPage, Integer maxPage) throws Exception {
-		StringBuilder sql = new StringBuilder().append(" SELECT po.* ").append(" FROM comm_polling_option po ")
+		StringBuilder sql = new StringBuilder().append(" SELECT po.* ")
+				.append(" FROM comm_polling_option po ")
 				.append(" INNER JOIN comm_polling_hdr ph ON ph.id = po.polling_hdr ")
-				.append(" INNER JOIN comm_thread_hdr th ON th.polling_id = ph.id ").append(" WHERE th.id = :id ");
+				.append(" INNER JOIN comm_thread_hdr th ON th.polling_id = ph.id ")
+				.append(" WHERE th.id = :id ");
 
 		List<PollingOption> options = new ArrayList<>();
 		try {

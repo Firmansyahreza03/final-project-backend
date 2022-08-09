@@ -18,11 +18,13 @@ import com.lawencon.community.model.ThreadHdr;
 public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 
 	public List<ThreadHdr> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception {
-		StringBuilder sql = new StringBuilder().append(
-				" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id, th.created_at ")
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id, th.created_at, th.polling_id, ph.polling_name ")
 				.append(" FROM comm_thread_hdr th ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
-				.append(" WHERE th.created_by = :id ").append(" ORDER BY th.created_at DESC ");
+				.append(" LEFT JOIN comm_polling_hdr ph ON ph.id = th.polling_id ")
+				.append(" WHERE th.created_by = :id ")
+				.append(" ORDER BY th.created_at DESC ");
 
 		List<ThreadHdr> hdrs = new ArrayList<>();
 		try {
@@ -53,7 +55,14 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 					hdr.setFile(file);
 				}
 				
+				
 				hdr.setCreatedAt(((Timestamp) objArr[8]).toLocalDateTime());
+				if(objArr[9] != null) {
+					PollingHdr pollingHdr = new PollingHdr();
+					pollingHdr.setId(objArr[9].toString());
+					pollingHdr.setPollingName(objArr[10].toString());
+					hdr.setPolling(pollingHdr);
+				}
 
 				hdrs.add(hdr);
 			});

@@ -13,7 +13,7 @@ public class PojoPollingHdrData {
 	private Boolean isActive;
 	private Integer version;
 	private List<PojoPollingOptionData> option;
-	@JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime expiredAt;
 
 	public LocalDateTime getExpiredAt() {

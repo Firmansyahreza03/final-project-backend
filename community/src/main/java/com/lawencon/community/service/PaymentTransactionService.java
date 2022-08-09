@@ -87,7 +87,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 		result.setIsAcc(data.getIsAcc());
 		result.setCode(data.getCode());
 		result.setDesc(data.getDesc());
-		result.setPrice(data.getPrice());
+		result.setPrice(new BigDecimal(data.getPrice()));
 	
 		if(data.getFile()!=null) {
 			File fkFile = fileDao.getById(data.getFile().getId());

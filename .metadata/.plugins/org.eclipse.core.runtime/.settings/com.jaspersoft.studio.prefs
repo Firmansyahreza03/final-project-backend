@@ -1,0 +1,9 @@
+com.jaspersoft.studio.theme.ui.dark=pageBackground\=0,0,0\ncontainerMarginColor\=0,255,0\ngridColor\=255,255,255\nelementDesignBorderColor\=255,255,0\npageMarginColor\=255,0,0\n
+com.jaspersoft.studio.theme.ui.light=pageBackground\=255,255,255\ncontainerMarginColor\=170,168,255\ngridColor\=192,192,192\nelementDesignBorderColor\=0,0,0\npageMarginColor\=170,168,255\n
+defaultValues=<defaultReports></defaultReports>
+eclipse.preferences.version=1
+jssbranding_product_mainbundle=com.jaspersoft.studio
+jssbranding_product_name=Jaspersoft Studio plug-in
+jssbranding_product_version=6.20.0.final
+net.sf.jasperreports.JRPROPERTIES=com.jaspersoft.jasperreports.components.customvisualization.phantomjs.executable.path\=phantomjs\nnet.sf.jasperreports.web.resource.pattern.customvisualization.scripts\=com/jaspersoft/jasperreports/customvisualization/resources/require/.*\nnet.sf.jasperreports.compiler.temp.dir\=D\\\:\\\\Kerjaan\\\\Lawencon\\\\bootcamp\\\\eclipse\nnet.sf.jasperreports.chrome.enabled\=true\nnet.sf.jasperreports.compiler.classpath\=D\\\:\\\\Kerjaan\\\\Lawencon\\\\bootcamp\\\\eclipse\\\\\\\\plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar\n
+net.sf.jasperreports.chrome.enabled=true

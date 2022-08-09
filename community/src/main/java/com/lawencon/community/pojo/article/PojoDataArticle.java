@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.article;
 
+import java.time.LocalDateTime;
+
 public class PojoDataArticle {
 	private String id;
 	private Boolean isActive;
@@ -33,6 +35,7 @@ public class PojoDataArticle {
 	private String content;
 	private String idIndustry;
 	private String nameIndustry;
+	private LocalDateTime createdAt;
 
 	public String getTitle() {
 		return title;
@@ -64,5 +67,13 @@ public class PojoDataArticle {
 
 	public void setNameIndustry(String nameIndustry) {
 		this.nameIndustry = nameIndustry;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
 	}
 }

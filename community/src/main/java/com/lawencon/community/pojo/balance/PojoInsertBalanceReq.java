@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.balance;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotNull;
 
 public class PojoInsertBalanceReq {
@@ -13,12 +15,12 @@ public class PojoInsertBalanceReq {
 		this.isActive = isActive;
 	}
 	@NotNull(message = "balance cannot be empty")
-	private Long balance;
+	private BigDecimal balance;
 
-	public Long getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
-	public void setBalance(Long balance) {
+	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
 	}
 }

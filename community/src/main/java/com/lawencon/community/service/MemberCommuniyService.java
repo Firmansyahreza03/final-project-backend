@@ -29,6 +29,7 @@ import com.lawencon.community.pojo.memberCommunity.PojoFindByIdMemberCommunityRe
 import com.lawencon.community.pojo.memberCommunity.PojoInsertMemberCommunityReq;
 import com.lawencon.community.pojo.memberCommunity.PojoUpdateMemberCommunityReq;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
@@ -44,15 +45,16 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 	private PaymentTransactionDao paymentDao;
 	@Autowired
 	private FileDao fileDao;
-
-	private MemberCommunity inputMemberCommunityData(MemberCommunity result, Boolean isActive, String idUser,
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
+	
+	private MemberCommunity inputMemberCommunityData(MemberCommunity result, Boolean isActive, User user,
 			String idCommunity, String idPayment) throws Exception {
 		result.setIsActive(isActive);
-		User fkUser = userDao.getById(idUser);
 		Community fkCommunity = communityDao.getById(idCommunity);
 		PaymentTransaction fkPayment = paymentDao.getById(idPayment);
 
-		result.setUser(fkUser);
+		result.setUser(user);
 		result.setPayment(fkPayment);
 		result.setCommunity(fkCommunity);
 
@@ -123,19 +125,21 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 	public PojoInsertRes insert(PojoInsertMemberCommunityReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
+			begin();
 
-			MemberCommunity reqData = inputMemberCommunityData(new MemberCommunity(), true, data.getIdUser(),
+			User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+			
+			MemberCommunity reqData = inputMemberCommunityData(new MemberCommunity(), true, user,
 					data.getIdCommunity(), data.getIdPayment());
 
-			begin();
-			MemberCommunity result = super.save(reqData);
-			commit();
+			MemberCommunity result = save(reqData);
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
 
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding MemberCommunity");
 
+			commit();
 			return insertRes;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,7 +153,8 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			MemberCommunity reqData = memberCommunityDao.getById(data.getId());
 
-			reqData = inputMemberCommunityData(reqData, reqData.getIsActive(), data.getIdUser(),
+			User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+			reqData = inputMemberCommunityData(reqData, reqData.getIsActive(), user,
 					data.getIdCommunity(), data.getIdPayment());
 			begin();
 			MemberCommunity result = memberCommunityDao.save(reqData);

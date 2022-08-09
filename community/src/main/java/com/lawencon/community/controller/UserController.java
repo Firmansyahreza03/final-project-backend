@@ -35,9 +35,16 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	
+	@GetMapping("/user-id/{id}")
+	public ResponseEntity<PojoFindByIdProfileRes> findByUserLogged(@PathVariable("id") String id) throws Exception {
+		PojoFindByIdProfileRes res = service.findByUserId(id);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping("/profiles")
 	public ResponseEntity<PojoFindByIdProfileRes> findByUserLogged() throws Exception {
-		PojoFindByIdProfileRes res = service.findByUserLogged();
+		PojoFindByIdProfileRes res = service.findByUserId();
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 	

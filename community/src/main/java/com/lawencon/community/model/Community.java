@@ -1,5 +1,6 @@
 package com.lawencon.community.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -15,7 +16,10 @@ import com.lawencon.base.BaseEntity;
 @Table(name = "comm_community", uniqueConstraints = {
 		@UniqueConstraint(
 				name = "community_code_bk", columnNames = { "community_code" }
-				) 
+				),
+		@UniqueConstraint(
+				name = "community_title_bk", columnNames = { "community_title" }
+				)
 		}
 )
 public class Community extends BaseEntity {
@@ -44,7 +48,7 @@ public class Community extends BaseEntity {
 	private String communityCode;
 
 	@Column(name = "community_price")
-	private Long communityPrice;
+	private BigDecimal communityPrice;
 
 	@OneToOne
 	@JoinColumn(name = "file_id")
@@ -122,11 +126,11 @@ public class Community extends BaseEntity {
 		this.communityCode = communityCode;
 	}
 
-	public Long getCommunityPrice() {
+	public BigDecimal getCommunityPrice() {
 		return communityPrice;
 	}
 
-	public void setCommunityPrice(Long communityPrice) {
+	public void setCommunityPrice(BigDecimal communityPrice) {
 		this.communityPrice = communityPrice;
 	}
 

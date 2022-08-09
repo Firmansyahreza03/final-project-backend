@@ -1,5 +1,6 @@
 package com.lawencon.community.pojo.community;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
@@ -26,7 +27,7 @@ public class PojoInsertCommunityReq {
 	@NotBlank(message = "description cannot be empty")
 	private String desc;
 	@NotNull(message = "price cannot be empty")
-	private Long price;
+	private BigDecimal price;
 	@NotBlank(message = "id category cannot be empty")
 	private String idCategory;
 	@NotBlank(message = "id industry cannot be empty")
@@ -81,10 +82,10 @@ public class PojoInsertCommunityReq {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public Long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public String getIdCategory() {

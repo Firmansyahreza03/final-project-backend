@@ -119,4 +119,14 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 			throw new Exception(e);
 		}
 	}
+	
+	public Integer countPollingAnswer(String id) throws Exception{
+		Integer result = 0;
+		try {
+			result = pollingAnswerDao.countPollingAnswer(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

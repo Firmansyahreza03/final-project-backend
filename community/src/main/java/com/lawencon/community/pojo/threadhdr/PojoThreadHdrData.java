@@ -2,6 +2,8 @@ package com.lawencon.community.pojo.threadhdr;
 
 import java.time.LocalDateTime;
 
+import com.lawencon.community.pojo.pollinghdr.PojoPollingHdrData;
+
 public class PojoThreadHdrData {
 
 	private String id;
@@ -9,8 +11,6 @@ public class PojoThreadHdrData {
 	private String threadCode;
 	private String threadContent;
 	private Boolean isPremium;
-	private String pollingHdrsId;
-	private String pollingName;
 	private String categoryid;
 	private String categoryName;
 	private Boolean isActive;
@@ -25,6 +25,15 @@ public class PojoThreadHdrData {
 	private Long countComment;
 	private Boolean isLike;
 	private Boolean isBookmark;
+	private PojoPollingHdrData pollingHdr;
+
+	public PojoPollingHdrData getPollingHdr() {
+		return pollingHdr;
+	}
+
+	public void setPollingHdr(PojoPollingHdrData pollingHdr) {
+		this.pollingHdr = pollingHdr;
+	}
 
 	public Boolean getIsLike() {
 		return isLike;
@@ -160,22 +169,6 @@ public class PojoThreadHdrData {
 
 	public void setIsPremium(Boolean isPremium) {
 		this.isPremium = isPremium;
-	}
-
-	public String getPollingHdrsId() {
-		return pollingHdrsId;
-	}
-
-	public void setPollingHdrsId(String pollingHdrsId) {
-		this.pollingHdrsId = pollingHdrsId;
-	}
-
-	public String getPollingName() {
-		return pollingName;
-	}
-
-	public void setPollingName(String pollingName) {
-		this.pollingName = pollingName;
 	}
 
 	public String getCategoryid() {

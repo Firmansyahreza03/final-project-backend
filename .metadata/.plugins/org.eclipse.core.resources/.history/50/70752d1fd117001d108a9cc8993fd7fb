@@ -1,0 +1,71 @@
+package com.lawencon.community.pojo.report;
+
+public class PojoReportUser {
+	private String id;
+	private Boolean isActive;
+	private Integer version;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+	private String idUser;
+	private String nameUser;
+
+	private String idCommunity;
+	private String nameCommunity;
+
+	private String idPayment;
+	private Boolean isAccPayment;
+
+	public String getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
+	public String getNameUser() {
+		return nameUser;
+	}
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
+	}
+	public String getIdCommunity() {
+		return idCommunity;
+	}
+	public void setIdCommunity(String idCommunity) {
+		this.idCommunity = idCommunity;
+	}
+	public String getNameCommunity() {
+		return nameCommunity;
+	}
+	public void setNameCommunity(String nameCommunity) {
+		this.nameCommunity = nameCommunity;
+	}
+	public String getIdPayment() {
+		return idPayment;
+	}
+	public void setIdPayment(String idPayment) {
+		this.idPayment = idPayment;
+	}
+	public Boolean getIsAccPayment() {
+		return isAccPayment;
+	}
+	public void setIsAccPayment(Boolean isAccPayment) {
+		this.isAccPayment = isAccPayment;
+	}
+}

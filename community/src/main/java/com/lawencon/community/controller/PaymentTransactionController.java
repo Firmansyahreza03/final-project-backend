@@ -77,7 +77,7 @@ public class PaymentTransactionController {
 		return new ResponseEntity<PojoUpdateRes>(res, HttpStatus.OK);
 	}
 	
-	@GetMapping("report")
+	@GetMapping("/report")
 	public ResponseEntity<?> reportSample() throws Exception {
 		SearchQuery<PojoDataPaymentTransaction> listData = service.getAll(null, null, null);
 		

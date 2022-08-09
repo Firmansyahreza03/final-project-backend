@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="Table"/>
+		<item key="selection" value="UserFullName"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="userFullName"/>
+			<item value="createdAt"/>
+			<item value="created"/>
 			<item value="table"/>
 			<item value="fields"/>
 			<item value="setFirstResult"/>
@@ -20,9 +23,6 @@
 			<item value="File"/>
 			<item value="Article"/>
 			<item value="articleContent"/>
-			<item value="articleTitle"/>
-			<item value="file"/>
-			<item value="Bookmark"/>
 		</list>
 		<list key="replacehistory">
 			<item value="PojoDataPaymentTransaction"/>

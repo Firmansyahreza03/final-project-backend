@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.paymentTransaction;
 
+import java.math.BigDecimal;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +12,7 @@ public class PojoInsertPaymentTransactionReq {
 	@NotBlank(message = "Description can't be empty")
 	private String desc;
 	@NotNull(message = "Price can't be empty")
-	private Long price;
+	private BigDecimal price;
 
 	private String fileId;
 	private String fileName;
@@ -32,11 +34,11 @@ public class PojoInsertPaymentTransactionReq {
 		this.desc = desc;
 	}
 
-	public Long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

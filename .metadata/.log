@@ -6580,3 +6580,412 @@ java.lang.RuntimeException: Could not instantiate serializer com.sun.org.apache.
 
 !ENTRY org.eclipse.m2e.logback.appender 4 0 2022-08-09 18:06:02.836
 !MESSAGE Unexpected URLConnection defaultUseCaches enabled
+!SESSION 2022-08-10 09:17:37.648 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=17.0.2
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.jface 2 0 2022-08-10 09:17:57.809
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-08-10 09:17:57.809
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@467625e3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@513cd96f,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-08-10 09:17:57.809
+!MESSAGE A conflict occurred for ALT+SHIFT+R:
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@12e04531,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6114902c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.jaspersoft.studio 1 0 2022-08-10 09:18:11.931
+!MESSAGE Starting JaspersoftStudio bundle - Version: 6.20.0.final
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-10 09:18:20.304
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-10 09:18:20.306
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-08-10 09:18:20.876
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\deadr'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.jaspersoft.studio.server 4 0 2022-08-10 09:18:21.708
+!MESSAGE An error occurred
+!STACK 0
+java.lang.RuntimeException: Could not instantiate serializer com.sun.org.apache.xml.internal.serialize.XMLSerializer: java.lang.IllegalAccessException: class org.exolab.castor.xml.BaseXercesJDK5Serializer cannot access class com.sun.org.apache.xml.internal.serialize.XMLSerializer (in module java.xml) because module java.xml does not export com.sun.org.apache.xml.internal.serialize to unnamed module @6e879a78
+	at org.exolab.castor.xml.BaseXercesJDK5Serializer.<init>(BaseXercesJDK5Serializer.java:53)
+	at org.exolab.castor.xml.XercesJDK5Serializer.<init>(XercesJDK5Serializer.java:27)
+	at org.exolab.castor.xml.XercesJDK5XMLSerializerFactory.getSerializer(XercesJDK5XMLSerializerFactory.java:29)
+	at org.exolab.castor.xml.util.XMLParserUtils.getSerializer(XMLParserUtils.java:261)
+	at org.castor.xml.AbstractInternalContext.getSerializer(AbstractInternalContext.java:321)
+	at org.exolab.castor.xml.Marshaller.configureSerializer(Marshaller.java:457)
+	at org.exolab.castor.xml.Marshaller.setWriter(Marshaller.java:404)
+	at org.exolab.castor.xml.Marshaller.<init>(Marshaller.java:358)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:164)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:223)
+	at com.jaspersoft.studio.prm.ParameterSetProvider.storeParameterSet(ParameterSetProvider.java:70)
+	at com.jaspersoft.studio.server.JRSBuiltInParameterProvider.init(JRSBuiltInParameterProvider.java:132)
+	at com.jaspersoft.studio.server.Activator$5.run(Activator.java:121)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio.data 4 0 2022-08-10 09:18:21.711
+!MESSAGE An error occurred
+!STACK 0
+java.lang.RuntimeException: Could not instantiate serializer com.sun.org.apache.xml.internal.serialize.XMLSerializer: java.lang.IllegalAccessException: class org.exolab.castor.xml.BaseXercesJDK5Serializer cannot access class com.sun.org.apache.xml.internal.serialize.XMLSerializer (in module java.xml) because module java.xml does not export com.sun.org.apache.xml.internal.serialize to unnamed module @6e879a78
+	at org.exolab.castor.xml.BaseXercesJDK5Serializer.<init>(BaseXercesJDK5Serializer.java:53)
+	at org.exolab.castor.xml.XercesJDK5Serializer.<init>(XercesJDK5Serializer.java:27)
+	at org.exolab.castor.xml.XercesJDK5XMLSerializerFactory.getSerializer(XercesJDK5XMLSerializerFactory.java:29)
+	at org.exolab.castor.xml.util.XMLParserUtils.getSerializer(XMLParserUtils.java:261)
+	at org.castor.xml.AbstractInternalContext.getSerializer(AbstractInternalContext.java:321)
+	at org.exolab.castor.xml.Marshaller.configureSerializer(Marshaller.java:457)
+	at org.exolab.castor.xml.Marshaller.setWriter(Marshaller.java:404)
+	at org.exolab.castor.xml.Marshaller.<init>(Marshaller.java:358)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:164)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:223)
+	at com.jaspersoft.studio.prm.ParameterSetProvider.storeParameterSet(ParameterSetProvider.java:70)
+	at com.jaspersoft.studio.data.HttpBuiltInParameterProvider.init(HttpBuiltInParameterProvider.java:85)
+	at com.jaspersoft.studio.data.Activator$1.run(Activator.java:78)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 09:51:51.428
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 09:58:05.144
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:04:14.626
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY com.jaspersoft.studio.book 4 0 2022-08-10 10:10:29.098
+!MESSAGE An error occurred
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 9; columnNumber: 3; Element type "field" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:262)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:122)
+	at com.jaspersoft.studio.utils.XMLUtils.parseNoValidation(XMLUtils.java:31)
+	at com.jaspersoft.studio.book.BookUtils.validateBook(BookUtils.java:138)
+	at com.jaspersoft.studio.book.JasperBookContentDescriber.describe(JasperBookContentDescriber.java:28)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.describe(ContentTypeCatalog.java:255)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.collectMatchingByContents(ContentTypeCatalog.java:226)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:440)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:499)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:381)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:395)
+	at org.eclipse.core.internal.content.ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:82)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.readDescription(ContentDescriptionManager.java:455)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:364)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:263)
+	at org.eclipse.ui.ide.IDE.getContentType(IDE.java:1632)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1570)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1538)
+	at org.eclipse.ui.internal.ide.ContentTypeDecorator.decorate(ContentTypeDecorator.java:56)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:105)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:360)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:346)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.queue(DecorationScheduler.java:419)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:397)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio 4 0 2022-08-10 10:10:29.100
+!MESSAGE An error occurred
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 9; columnNumber: 3; Element type "field" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:262)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:122)
+	at com.jaspersoft.studio.utils.XMLUtils.parseNoValidation(XMLUtils.java:31)
+	at com.jaspersoft.studio.JrxmlContentDescriber.validateStandardJRXML(JrxmlContentDescriber.java:121)
+	at com.jaspersoft.studio.JrxmlContentDescriber.describe(JrxmlContentDescriber.java:38)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.describe(ContentTypeCatalog.java:255)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.collectMatchingByContents(ContentTypeCatalog.java:226)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:440)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:499)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:381)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:395)
+	at org.eclipse.core.internal.content.ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:82)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.readDescription(ContentDescriptionManager.java:455)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:364)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:263)
+	at org.eclipse.ui.ide.IDE.getContentType(IDE.java:1632)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1570)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1538)
+	at org.eclipse.ui.internal.ide.ContentTypeDecorator.decorate(ContentTypeDecorator.java:56)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:105)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:360)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:346)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.queue(DecorationScheduler.java:419)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:397)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio.book 4 0 2022-08-10 10:10:29.164
+!MESSAGE An error occurred
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 9; columnNumber: 3; Element type "field" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:262)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:122)
+	at com.jaspersoft.studio.utils.XMLUtils.parseNoValidation(XMLUtils.java:31)
+	at com.jaspersoft.studio.book.BookUtils.validateBook(BookUtils.java:138)
+	at com.jaspersoft.studio.book.JasperBookContentDescriber.describe(JasperBookContentDescriber.java:28)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.describe(ContentTypeCatalog.java:255)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.collectMatchingByContents(ContentTypeCatalog.java:226)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:440)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:499)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:381)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:395)
+	at org.eclipse.core.internal.content.ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:82)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.readDescription(ContentDescriptionManager.java:455)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:364)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:263)
+	at org.eclipse.ui.internal.editors.quickdiff.LastSaveReferenceProvider.isUTF8BOM(LastSaveReferenceProvider.java:425)
+	at org.eclipse.ui.internal.editors.quickdiff.LastSaveReferenceProvider.readDocument(LastSaveReferenceProvider.java:244)
+	at org.eclipse.ui.internal.editors.quickdiff.LastSaveReferenceProvider$ReadJob.run(LastSaveReferenceProvider.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio 4 0 2022-08-10 10:10:29.166
+!MESSAGE An error occurred
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 9; columnNumber: 3; Element type "field" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:262)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:122)
+	at com.jaspersoft.studio.utils.XMLUtils.parseNoValidation(XMLUtils.java:31)
+	at com.jaspersoft.studio.JrxmlContentDescriber.validateStandardJRXML(JrxmlContentDescriber.java:121)
+	at com.jaspersoft.studio.JrxmlContentDescriber.describe(JrxmlContentDescriber.java:38)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.describe(ContentTypeCatalog.java:255)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.collectMatchingByContents(ContentTypeCatalog.java:226)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:440)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:499)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:381)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:395)
+	at org.eclipse.core.internal.content.ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:82)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.readDescription(ContentDescriptionManager.java:455)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:364)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:263)
+	at org.eclipse.ui.internal.editors.quickdiff.LastSaveReferenceProvider.isUTF8BOM(LastSaveReferenceProvider.java:425)
+	at org.eclipse.ui.internal.editors.quickdiff.LastSaveReferenceProvider.readDocument(LastSaveReferenceProvider.java:244)
+	at org.eclipse.ui.internal.editors.quickdiff.LastSaveReferenceProvider$ReadJob.run(LastSaveReferenceProvider.java:119)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio.book 4 0 2022-08-10 10:10:29.196
+!MESSAGE An error occurred
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 9; columnNumber: 3; Element type "field" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:262)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:122)
+	at com.jaspersoft.studio.utils.XMLUtils.parseNoValidation(XMLUtils.java:31)
+	at com.jaspersoft.studio.book.BookUtils.validateBook(BookUtils.java:138)
+	at com.jaspersoft.studio.book.JasperBookContentDescriber.describe(JasperBookContentDescriber.java:28)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.describe(ContentTypeCatalog.java:255)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.collectMatchingByContents(ContentTypeCatalog.java:226)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:440)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:499)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:381)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:395)
+	at org.eclipse.core.internal.content.ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:82)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.readDescription(ContentDescriptionManager.java:455)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:364)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:263)
+	at org.eclipse.ui.ide.IDE.getContentType(IDE.java:1632)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1570)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1538)
+	at org.eclipse.ui.internal.ide.ContentTypeDecorator.decorate(ContentTypeDecorator.java:56)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:105)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:360)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:346)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.queue(DecorationScheduler.java:419)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:397)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio 4 0 2022-08-10 10:10:29.198
+!MESSAGE An error occurred
+!STACK 0
+org.xml.sax.SAXParseException; lineNumber: 9; columnNumber: 3; Element type "field" must be followed by either attribute specifications, ">" or "/>".
+	at java.xml/com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:262)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:342)
+	at java.xml/javax.xml.parsers.DocumentBuilder.parse(DocumentBuilder.java:122)
+	at com.jaspersoft.studio.utils.XMLUtils.parseNoValidation(XMLUtils.java:31)
+	at com.jaspersoft.studio.JrxmlContentDescriber.validateStandardJRXML(JrxmlContentDescriber.java:121)
+	at com.jaspersoft.studio.JrxmlContentDescriber.describe(JrxmlContentDescriber.java:38)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.describe(ContentTypeCatalog.java:255)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.collectMatchingByContents(ContentTypeCatalog.java:226)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:440)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.internalFindContentTypesFor(ContentTypeCatalog.java:499)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:381)
+	at org.eclipse.core.internal.content.ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:395)
+	at org.eclipse.core.internal.content.ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:82)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.readDescription(ContentDescriptionManager.java:455)
+	at org.eclipse.core.internal.resources.ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:364)
+	at org.eclipse.core.internal.resources.File.getContentDescription(File.java:263)
+	at org.eclipse.ui.ide.IDE.getContentType(IDE.java:1632)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1570)
+	at org.eclipse.ui.ide.IDE.getDefaultEditor(IDE.java:1538)
+	at org.eclipse.ui.internal.ide.ContentTypeDecorator.decorate(ContentTypeDecorator.java:56)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:254)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:105)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:360)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:346)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.queue(DecorationScheduler.java:419)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:397)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:10:43.577
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:10:46.335
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:10:50.941
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:10:53.801
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:10:56.182
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY com.jaspersoft.studio 4 0 2022-08-10 10:11:43.162
+!MESSAGE Error while performing the new object creation.
+!STACK 0
+com.jaspersoft.studio.model.command.CancelledOperationException: cancelled
+	at com.jaspersoft.studio.model.command.Tag.createVariable(Tag.java:186)
+	at com.jaspersoft.studio.model.command.CreateE4ObjectCommand.createObject(CreateE4ObjectCommand.java:114)
+	at com.jaspersoft.studio.model.command.CreateElementCommand.execute(CreateElementCommand.java:395)
+	at com.jaspersoft.studio.model.command.CreateE4ObjectCommand.execute(CreateE4ObjectCommand.java:164)
+	at com.jaspersoft.studio.model.command.CreateFieldInEditorCommand.execute(CreateFieldInEditorCommand.java:177)
+	at com.jaspersoft.studio.editor.dnd.JSSTemplateTransferDropTargetListener$1.execute(JSSTemplateTransferDropTargetListener.java:572)
+	at org.eclipse.gef.commands.CommandStack.execute(CommandStack.java:228)
+	at com.jaspersoft.studio.editor.dnd.JSSTemplateTransferDropTargetListener.executeCompoundCommand(JSSTemplateTransferDropTargetListener.java:585)
+	at com.jaspersoft.studio.editor.dnd.JSSTemplateTransferDropTargetListener.access$0(JSSTemplateTransferDropTargetListener.java:560)
+	at com.jaspersoft.studio.editor.dnd.JSSTemplateTransferDropTargetListener$CommandRunnable.run(JSSTemplateTransferDropTargetListener.java:144)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:185)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4035)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3635)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:644)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:551)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:156)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:401)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:659)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:596)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1467)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:15:22.614
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:15:28.587
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:15:37.534
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY org.eclipse.core.resources 4 2 2022-08-10 10:15:41.536
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4918)
+	at org.eclipse.swt.SWT.error(SWT.java:4833)
+	at org.eclipse.swt.SWT.error(SWT.java:4804)
+	at org.eclipse.swt.widgets.Widget.error(Widget.java:447)
+	at org.eclipse.swt.widgets.Widget.checkWidget(Widget.java:367)
+	at net.sf.jasperreports.eclipse.ui.JSSTableCombo.indexOf(JSSTableCombo.java:1439)
+	at net.sf.jasperreports.eclipse.ui.JSSTableCombo.setText(JSSTableCombo.java:745)
+	at com.jaspersoft.studio.property.combomenu.WritableComboTableViewer.setText(WritableComboTableViewer.java:407)
+	at com.jaspersoft.studio.toolbars.text.TextualFontNameContributionItem.setFontNameText(TextualFontNameContributionItem.java:351)
+	at com.jaspersoft.studio.toolbars.text.TextualFontNameContributionItem$2.propertyChange(TextualFontNameContributionItem.java:161)
+	at java.desktop/java.beans.PropertyChangeSupport.fire(PropertyChangeSupport.java:343)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:335)
+	at com.jaspersoft.studio.model.ANode.firePropertyChange(ANode.java:421)
+	at com.jaspersoft.studio.model.ANode.propertyChange(ANode.java:417)
+	at com.jaspersoft.studio.model.MGraphicElement.propertyChange(MGraphicElement.java:997)
+	at java.desktop/java.beans.PropertyChangeSupport.fire(PropertyChangeSupport.java:343)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:335)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:268)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:310)
+	at com.jaspersoft.studio.editor.context.JSSClasspathListener.propertyChange(JSSClasspathListener.java:34)
+	at java.desktop/java.beans.PropertyChangeSupport.fire(PropertyChangeSupport.java:343)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:335)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:268)
+	at java.desktop/java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:310)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkInPaths(JavaProjectClassLoader.java:141)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:158)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.checkResource(JavaProjectClassLoader.java:157)
+	at net.sf.jasperreports.eclipse.classpath.JavaProjectClassLoader$1.resourceChanged(JavaProjectClassLoader.java:166)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:305)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:45)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:295)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:158)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:381)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1505)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:176)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:255)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:18:02.534
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:18:12.739
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties

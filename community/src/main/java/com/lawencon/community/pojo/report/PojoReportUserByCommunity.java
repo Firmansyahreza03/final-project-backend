@@ -3,6 +3,7 @@ import java.time.LocalDateTime;
 
 public class PojoReportUserByCommunity {
 	private String nameUser;
+	
 	private String nameCommunity;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;

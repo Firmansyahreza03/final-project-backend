@@ -1,5 +1,6 @@
 com.jaspersoft.studio.theme.ui.dark=pageBackground\=0,0,0\ncontainerMarginColor\=0,255,0\ngridColor\=255,255,255\nelementDesignBorderColor\=255,255,0\npageMarginColor\=255,0,0\n
 com.jaspersoft.studio.theme.ui.light=pageBackground\=255,255,255\ncontainerMarginColor\=170,168,255\ngridColor\=192,192,192\nelementDesignBorderColor\=0,0,0\npageMarginColor\=170,168,255\n
+defaultValues=<defaultReports></defaultReports>
 eclipse.preferences.version=1
 jssbranding_product_mainbundle=com.jaspersoft.studio
 jssbranding_product_name=Jaspersoft Studio plug-in

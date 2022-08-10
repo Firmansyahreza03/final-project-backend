@@ -33,7 +33,7 @@ public class PollingController {
 		PojoInsertRes res = service.insert(req);
 		return new ResponseEntity<>(res, HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("/answer")
 	public ResponseEntity<PojoInsertRes> insertAnswer(@RequestBody @Valid PojoInsertPollingAnswerReq req) throws Exception{
 		PojoInsertRes res = answerService.insert(req);

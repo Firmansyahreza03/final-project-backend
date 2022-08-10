@@ -56,7 +56,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 	@Autowired
 	private CommunityDao communityDao;
 
-	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, Long price, String fileName, String fileExt) throws Exception {
+	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, BigDecimal price, String fileName, String fileExt) throws Exception {
 		
 		result.setIsActive(isActive);
 		
@@ -87,7 +87,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 		result.setIsAcc(data.getIsAcc());
 		result.setCode(data.getCode());
 		result.setDesc(data.getDesc());
-		result.setPrice(new BigDecimal(data.getPrice()));
+		result.setPrice(data.getPrice());
 	
 		if(data.getFile()!=null) {
 			File fkFile = fileDao.getById(data.getFile().getId());

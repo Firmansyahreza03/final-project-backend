@@ -169,17 +169,21 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 
 	public PojoFindByIdThreadHdrRes findById(String id) throws Exception {
 		Boolean isAllowed = false;
-		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
-		String roleCode = user.getRole().getRoleCode();
 		ThreadHdr data = hdrDao.getById(id);
 
 		if (ThreadCategoryType.PREMIUM.getCode().equals(data.getCategory().getCategoryCode())) {
-			if (user.getSubscriptionStatus().getIsSubscriber() == true) {
-				isAllowed = true;
-			} else if (data.getCreatedBy().equals(user.getId())) {
-				isAllowed = true;
-			} else if (RoleType.ADMIN.name().equals(roleCode) || RoleType.SYSTEM.name().equals(roleCode)) {
-				isAllowed = true;
+			try {
+				User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+				String roleCode = user.getRole().getRoleCode();
+				if (user.getSubscriptionStatus().getIsSubscriber() == true) {
+					isAllowed = true;
+				} else if (data.getCreatedBy().equals(principalServiceImpl.getAuthPrincipal())) {
+					isAllowed = true;
+				} else if (RoleType.ADMIN.name().equals(roleCode) || RoleType.SYSTEM.name().equals(roleCode)) {
+					isAllowed = true;
+				}
+			} catch (Exception e) {
+				isAllowed = false;
 			}
 		} else {
 			isAllowed = true;
@@ -204,7 +208,6 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				"category.categoryName");
 		List<PojoThreadHdrData> results = new ArrayList<>();
 
-		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
 		threadList.getData().forEach(d -> {
 			PojoThreadHdrData data;
 			try {
@@ -212,9 +215,20 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				Long counterLike = likedDao.countThreadLikedId(d.getId());
 				data.setCounterLike(counterLike);
 				data.setCountComment(0l); // NANTI DIGANTI
-				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				Boolean isLike = false;
+				Boolean isBookmark = false;
+
+				try {
+					isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(principalServiceImpl.getAuthPrincipal(),
+							d.getId());
+					isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(
+							principalServiceImpl.getAuthPrincipal(), d.getId());
+				} catch (Exception e) {
+					isLike = false;
+					isBookmark = false;
+				}
+
 				data.setIsLike(isLike);
-				Boolean isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(user.getId(), d.getId());
 				data.setIsBookmark(isBookmark);
 				results.add(data);
 			} catch (Exception e) {
@@ -273,8 +287,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 			begin();
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			ThreadHdr reqData = inputThreadData(hdrDao.getById(data.getId()), data.getThreadName(),
-					data.getThreadContent(), data.getCategoryId(), true, data.getPollingHdrsId(),
-					data.getFileName(), data.getFileExt(), userDao.findByEmail(data.getEmail()).getId());
+					data.getThreadContent(), data.getCategoryId(), true, data.getPollingHdrsId(), data.getFileName(),
+					data.getFileExt(), userDao.findByEmail(data.getEmail()).getId());
 
 			reqData.setVersion(data.getVersion());
 			ThreadHdr result = save(reqData);
@@ -326,9 +340,16 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				Long counterLike = likedDao.countThreadLikedId(d.getId());
 				data.setCounterLike(counterLike);
 				data.setCountComment(0l); // NANTI DIGANTI
-				Boolean isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(user.getId(), d.getId());
+				Boolean isLike = false;
+				Boolean isBookmark = false;
+				try {					
+					isLike = likedDao.findIslikeByThreadHdrIdAndUserLogged(principalServiceImpl.getAuthPrincipal(), d.getId());
+					isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(principalServiceImpl.getAuthPrincipal(), d.getId());
+				} catch (Exception e) {
+					isLike = false;
+					isBookmark = false;
+				}
 				data.setIsLike(isLike);
-				Boolean isBookmark = bookmarkDao.findIsBookmarkByThreadHdrIdAndUserLogged(user.getId(), d.getId());
 				data.setIsBookmark(isBookmark);
 				resultList.add(data);
 			} catch (Exception e) {

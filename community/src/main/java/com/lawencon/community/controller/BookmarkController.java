@@ -46,7 +46,7 @@ public class BookmarkController {
 		PojoInsertRes res = service.insert(req);
 		return new ResponseEntity<>(res, HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping("{id}")
 	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception{
 		PojoDeleteRes res = service.deleteById(id);

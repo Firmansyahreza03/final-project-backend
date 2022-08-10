@@ -14,8 +14,6 @@ public class PojoUpdateThreadHdrReq {
 	private String pollingHdrsId;
 	@NotBlank(message = "category can not be empty")
 	private String categoryId;
-	@NotNull(message = "must be true or false")
-	private Boolean isActive;
 	@NotNull(message = "version can not be empty")
 	private Integer version;
 	private String fileName;
@@ -93,14 +91,6 @@ public class PojoUpdateThreadHdrReq {
 
 	public void setCategoryId(String categoryId) {
 		this.categoryId = categoryId;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
 	}
 
 }

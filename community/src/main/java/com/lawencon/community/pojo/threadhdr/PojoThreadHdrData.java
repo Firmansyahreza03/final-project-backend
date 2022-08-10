@@ -26,6 +26,15 @@ public class PojoThreadHdrData {
 	private Boolean isLike;
 	private Boolean isBookmark;
 	private PojoPollingHdrData pollingHdr;
+	private Boolean isVoted;
+
+	public Boolean getIsVoted() {
+		return isVoted;
+	}
+
+	public void setIsVoted(Boolean isVoted) {
+		this.isVoted = isVoted;
+	}
 
 	public PojoPollingHdrData getPollingHdr() {
 		return pollingHdr;

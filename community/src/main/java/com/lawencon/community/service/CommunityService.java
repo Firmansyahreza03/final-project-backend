@@ -2,6 +2,7 @@ package com.lawencon.community.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +30,9 @@ import com.lawencon.community.pojo.community.PojoFindByIdCommunityRes;
 import com.lawencon.community.pojo.community.PojoInsertCommunityReq;
 import com.lawencon.community.pojo.community.PojoUpdateCommunityReq;
 import com.lawencon.model.SearchQuery;
+
 @Service
-public class CommunityService extends BaseCoreService<Community>{
+public class CommunityService extends BaseCoreService<Community> {
 	@Autowired
 	private CommunityDao communityDao;
 	@Autowired
@@ -43,21 +45,26 @@ public class CommunityService extends BaseCoreService<Community>{
 	private ProfileDao profileDao;
 	@Autowired
 	private CodeService codeService;
-	
-	private Community inputCommunityData(Community result, Boolean isActive, String title, 
-			String provider, String location, LocalDateTime startAt, LocalDateTime endAt, String desc,
-			BigDecimal price, String idCategory, String idIndustry) throws Exception {
+
+	public LocalDateTime stringToLocalDateTime(String dateTimeStr) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        return LocalDateTime.parse(dateTimeStr, formatter);
+    }
+
+	private Community inputCommunityData(Community result, Boolean isActive, String title, String provider,
+			String location, String startAt, String endAt, String desc, BigDecimal price, String idCategory,
+			String idIndustry) throws Exception {
 
 		CommunityCategory fkCategory = communityCategoryDao.getById(idCategory);
 		Industry fkIndustry = industryDao.getById(idIndustry);
-	
+
 		result.setIsActive(isActive);
 
 		result.setCommunityTitle(title);
 		result.setCommunityProvider(provider);
 		result.setCommunityLocation(location);
-		result.setCommunityStartAt(startAt);
-		result.setCommunityEndAt(endAt);
+		result.setCommunityStartAt(stringToLocalDateTime(startAt));
+		result.setCommunityEndAt(stringToLocalDateTime(endAt));
 		result.setCommunityDesc(desc);
 		result.setCommunityPrice(price);
 		result.setCategory(fkCategory);
@@ -83,37 +90,37 @@ public class CommunityService extends BaseCoreService<Community>{
 		result.setDesc(data.getCommunityDesc());
 		result.setCode(data.getCommunityCode());
 		result.setPrice(data.getCommunityPrice());
-		
+
 		result.setIdCategory(fkCategory.getId());
 		result.setNameCategory(fkCategory.getCategoryName());
 		result.setIdIndustry(fkIndustry.getId());
 		result.setNameIndustry(fkIndustry.getIndustryName());
-		
-		if(data.getFile()!=null) {
+
+		if (data.getFile() != null) {
 			File fkFile = fileDao.getById(data.getFile().getId());
 			result.setIdFile(fkFile.getId());
 			result.setNameFile(fkFile.getFileName());
 			result.setExtFile(fkFile.getFileExtension());
 		}
-		
+
 		return result;
 	}
-	
+
 	public PojoFindByIdCommunityRes findById(String id) throws Exception {
 		Community data = communityDao.getById(id);
-				
+
 		PojoDataCommunity result = modelToRes(data);
 		PojoFindByIdCommunityRes resultData = new PojoFindByIdCommunityRes();
 		resultData.setData(result);
-		
+
 		return resultData;
 	}
-	
+
 	public SearchQuery<PojoDataCommunity> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Community> communityList= communityDao.searchQueryTable(query, startPage, maxPage,
-								 "communityCode", "communityTitle", "communityProvider", "industry.industryName");
+		SearchQuery<Community> communityList = communityDao.searchQueryTable(query, startPage, maxPage, "communityCode",
+				"communityTitle", "communityProvider", "industry.industryName");
 		List<PojoDataCommunity> resultList = new ArrayList<>();
-		
+
 		communityList.getData().forEach(d -> {
 			PojoDataCommunity data;
 			try {
@@ -124,7 +131,7 @@ public class CommunityService extends BaseCoreService<Community>{
 				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
 		result.setCount(communityList.getCount());
@@ -134,15 +141,14 @@ public class CommunityService extends BaseCoreService<Community>{
 	public PojoInsertRes insert(PojoInsertCommunityReq data) throws Exception {
 		try {
 			PojoInsertRes insertRes = new PojoInsertRes();
-			
-			Community reqData = inputCommunityData(new Community(), true,  
-					data.getTitle(), data.getProvider(), data.getLocation(), data.getStartAt(), 
-					data.getEndAt(), data.getDesc(), data.getPrice(), 
+
+			Community reqData = inputCommunityData(new Community(), true, data.getTitle(), data.getProvider(),
+					data.getLocation(), data.getStartAt(), data.getEndAt(), data.getDesc(), data.getPrice(),
 					data.getIdCategory(), data.getIdIndustry());
-			
+
 			reqData.setCommunityCode(codeService.generateRandomCodeAll().getCode());
-			
-			if(data.getNameFile()!=null) {
+
+			if (data.getNameFile() != null) {
 				File fkFile = new File();
 				fkFile.setFileName(data.getNameFile());
 				fkFile.setFileExtension(data.getExtFile());
@@ -150,13 +156,13 @@ public class CommunityService extends BaseCoreService<Community>{
 				fileDao.save(fkFile);
 				reqData.setFile(fkFile);
 			}
-			
+
 			begin();
 			Community result = super.save(reqData);
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
-			
+
 			insertRes.setData(resData);
 			insertRes.setMessage("Successfully Adding Community");
 
@@ -173,20 +179,18 @@ public class CommunityService extends BaseCoreService<Community>{
 			PojoUpdateRes updateRes = new PojoUpdateRes();
 			Community reqData = communityDao.getById(data.getId());
 
-			reqData = inputCommunityData(reqData, data.getIsActive(),
-					data.getTitle(), data.getProvider(), data.getLocation(), data.getStartAt(), 
-					data.getEndAt(), data.getDesc(), data.getPrice(), 
+			reqData = inputCommunityData(reqData, data.getIsActive(), data.getTitle(), data.getProvider(),
+					data.getLocation(), data.getStartAt(), data.getEndAt(), data.getDesc(), data.getPrice(),
 					data.getIdCategory(), data.getIdIndustry());
-			
+
 			File fkFile;
-			if(reqData.getFile() == null) {
+			if (reqData.getFile() == null) {
 				fkFile = new File();
-			}
-			else {
+			} else {
 				fkFile = fileDao.getById(reqData.getFile().getId());
 			}
-			
-			if(data.getNameFile()!=null) {
+
+			if (data.getNameFile() != null) {
 				fkFile.setFileName(data.getNameFile());
 				fkFile.setFileExtension(data.getExtFile());
 				if (fkFile.getId() != null) {
@@ -197,17 +201,17 @@ public class CommunityService extends BaseCoreService<Community>{
 				fileDao.save(fkFile);
 				reqData.setFile(fkFile);
 			}
-			
+
 			begin();
 			Community result = communityDao.save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
-			
+
 			updateRes.setData(resData);
 			updateRes.setMessage("Successfully Editing Community");
 			return updateRes;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
@@ -221,9 +225,9 @@ public class CommunityService extends BaseCoreService<Community>{
 			boolean result = communityDao.deleteById(id);
 			commit();
 			PojoDeleteRes deleteRes = new PojoDeleteRes();
-			if(result)
+			if (result)
 				deleteRes.setMessage("Successfully Delete Community");
-			else 
+			else
 				deleteRes.setMessage("Failed Delete Community");
 			return deleteRes;
 		} catch (Exception e) {
@@ -233,15 +237,17 @@ public class CommunityService extends BaseCoreService<Community>{
 		}
 	}
 
-	public SearchQuery<PojoDataCommunity> getByIdIndustryAndCategoryCode(String email, String code, Integer startPage, Integer maxPage) throws Exception {
+	public SearchQuery<PojoDataCommunity> getByIdIndustryAndCategoryCode(String email, String code, Integer startPage,
+			Integer maxPage) throws Exception {
 		Profile profile = profileDao.getByUserMail(email);
-		
-		List<Community> communities = communityDao.getByIdIndustryAndCategoryCode(profile.getIndustry().getId(), code, startPage, maxPage);
-		
-		SearchQuery<Community> communityList = findAll(()->communities);
-		
+
+		List<Community> communities = communityDao.getByIdIndustryAndCategoryCode(profile.getIndustry().getId(), code,
+				startPage, maxPage);
+
+		SearchQuery<Community> communityList = findAll(() -> communities);
+
 		List<PojoDataCommunity> resultList = new ArrayList<>();
-		
+
 		communityList.getData().forEach(d -> {
 			PojoDataCommunity data;
 			try {
@@ -252,21 +258,22 @@ public class CommunityService extends BaseCoreService<Community>{
 				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
 		result.setCount(communityList.getData().size());
 		return result;
 	}
-	
-	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, Integer startPage, Integer maxPage) throws Exception {
-			
+
+	public SearchQuery<PojoDataCommunity> getByCategoryCode(String code, Integer startPage, Integer maxPage)
+			throws Exception {
+
 		List<Community> communities = communityDao.getByCategoryCode(code, startPage, maxPage);
-		
-		SearchQuery<Community> communityList = findAll(()->communities);
-		
+
+		SearchQuery<Community> communityList = findAll(() -> communities);
+
 		List<PojoDataCommunity> resultList = new ArrayList<>();
-		
+
 		communityList.getData().forEach(d -> {
 			PojoDataCommunity data;
 			try {
@@ -277,7 +284,7 @@ public class CommunityService extends BaseCoreService<Community>{
 				throw new RuntimeException(e);
 			}
 		});
-		
+
 		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
 		result.setData(resultList);
 		result.setCount(communityList.getData().size());

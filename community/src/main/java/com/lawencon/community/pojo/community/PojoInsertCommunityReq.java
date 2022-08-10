@@ -1,7 +1,6 @@
 package com.lawencon.community.pojo.community;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,12 +17,12 @@ public class PojoInsertCommunityReq {
 	private String provider;
 	@NotBlank(message = "location cannot be empty")
 	private String location;
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
-	@NotNull(message = "start time cannot be empty")
-	private LocalDateTime startAt;
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
-	@NotNull(message = "end time cannot be empty")
-	private LocalDateTime endAt;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX'Z'")
+	@NotBlank(message = "start time cannot be empty")
+	private String startAt;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX'Z'")
+	@NotBlank(message = "end time cannot be empty")
+	private String endAt;
 	@NotBlank(message = "description cannot be empty")
 	private String desc;
 	@NotNull(message = "price cannot be empty")
@@ -64,16 +63,16 @@ public class PojoInsertCommunityReq {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public LocalDateTime getStartAt() {
+	public String getStartAt() {
 		return startAt;
 	}
-	public void setStartAt(LocalDateTime startAt) {
+	public void setStartAt(String startAt) {
 		this.startAt = startAt;
 	}
-	public LocalDateTime getEndAt() {
+	public String getEndAt() {
 		return endAt;
 	}
-	public void setEndAt(LocalDateTime endAt) {
+	public void setEndAt(String endAt) {
 		this.endAt = endAt;
 	}
 	public String getDesc() {

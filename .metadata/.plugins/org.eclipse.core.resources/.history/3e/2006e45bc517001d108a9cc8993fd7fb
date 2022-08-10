@@ -1,0 +1,11 @@
+package com.lawencon.community.pojo.memberCommunity;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+public class PojoFindWithTImeLimitRes {
+	@NotNull("start date can't null")
+	public String startAt;
+	@NotNull("end date can't null")
+	public String endAt;
+}

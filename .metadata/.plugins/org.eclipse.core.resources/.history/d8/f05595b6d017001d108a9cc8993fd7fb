@@ -1,0 +1,15 @@
+package com.lawencon.community.pojo.report;
+
+public class PojoFindByIdUserRes {
+
+	private PojoUserData data;
+
+	public PojoUserData getData() {
+		return data;
+	}
+
+	public void setData(PojoUserData data) {
+		this.data = data;
+	}
+
+}

@@ -21,11 +21,11 @@ public class WebIgnoringConfig {
 		matchers.add(new AntPathRequestMatcher("/files/**", HttpMethod.PUT.name()));
 
 		matchers.add(new AntPathRequestMatcher("/users/**", HttpMethod.POST.name()));
-		
+        matchers.add(new AntPathRequestMatcher("/industries", HttpMethod.GET.name()));
+		matchers.add(new AntPathRequestMatcher("/report/**", HttpMethod.GET.name()));
 		matchers.add(new AntPathRequestMatcher("/swagger-ui/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/v3/api-docs/**", HttpMethod.GET.name()));
         
-        matchers.add(new AntPathRequestMatcher("/industries", HttpMethod.GET.name()));
 
         matchers.add(new AntPathRequestMatcher("/articles/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/communities/**", HttpMethod.GET.name()));

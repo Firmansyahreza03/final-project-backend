@@ -1,0 +1,49 @@
+package com.lawencon.community.pojo.report;
+
+public class PojoReportUserByCommunity {
+	private String idUser;
+	private String nameUser;
+
+	private String idCommunity;
+	private String nameCommunity;
+
+	private String idPayment;
+	private Boolean isAccPayment;
+
+	public String getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
+	public String getNameUser() {
+		return nameUser;
+	}
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
+	}
+	public String getIdCommunity() {
+		return idCommunity;
+	}
+	public void setIdCommunity(String idCommunity) {
+		this.idCommunity = idCommunity;
+	}
+	public String getNameCommunity() {
+		return nameCommunity;
+	}
+	public void setNameCommunity(String nameCommunity) {
+		this.nameCommunity = nameCommunity;
+	}
+	public String getIdPayment() {
+		return idPayment;
+	}
+	public void setIdPayment(String idPayment) {
+		this.idPayment = idPayment;
+	}
+	public Boolean getIsAccPayment() {
+		return isAccPayment;
+	}
+	public void setIsAccPayment(Boolean isAccPayment) {
+		this.isAccPayment = isAccPayment;
+	}
+}

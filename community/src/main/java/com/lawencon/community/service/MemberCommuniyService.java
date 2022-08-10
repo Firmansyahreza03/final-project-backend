@@ -8,13 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.CommunityDao;
-import com.lawencon.community.dao.FileDao;
 import com.lawencon.community.dao.MemberCommunityDao;
 import com.lawencon.community.dao.PaymentTransactionDao;
 import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Community;
-import com.lawencon.community.model.File;
 import com.lawencon.community.model.MemberCommunity;
 import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.Profile;
@@ -43,8 +41,6 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 	private CommunityDao communityDao;
 	@Autowired
 	private PaymentTransactionDao paymentDao;
-	@Autowired
-	private FileDao fileDao;
 	@Autowired
 	private PrincipalServiceImpl principalServiceImpl;
 	
@@ -79,13 +75,6 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 
 		result.setIdPayment(fkPayment.getId());
 		result.setIsAccPayment(fkPayment.getIsAcc());
-	
-		if(fkPayment.getFile()!=null) {
-			File fkFile = fileDao.getById(fkPayment.getFile().getId());
-			result.setIdPayment(fkFile.getId());
-			result.setFileNamePayment(fkFile.getFileName());
-			result.setFileExtPayment(fkFile.getFileExtension());
-		}
 
 		return result;
 	}

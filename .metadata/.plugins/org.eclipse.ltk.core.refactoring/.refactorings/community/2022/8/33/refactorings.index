@@ -6,3 +6,23 @@
 1660018547336	Copy file
 1660018560423	Rename resource 'payment'
 1660023374608	Delete elements
+1660028713191	Copy compilation unit
+1660036779983	Copy compilation unit
+1660038997412	Rename type 'PojoFindWithTImeLimitRes'
+1660039078453	Rename type 'PojoFindWithTimeLimitRes'
+1660042058222	Copy package
+1660042070239	Delete elements
+1660042085636	Copy compilation unit
+1660042140542	Rename compilation unit 'PojoDataMemberCommunity.java'
+1660042329665	Copy compilation unit
+1660098566749	Rename type 'PojoFindWithTimeLimitReq'
+1660099959825	Copy file
+1660100808999	Rename resource 'paymentReport.jrxml'
+1660100905611	Copy file
+1660101358246	Delete element
+1660101995072	Rename type 'PojoFindMemberCommunityWithTimeLimitReq'
+1660102012736	Move compilation unit
+1660102787693	Rename type 'PojoReportPaymentByCommunity'
+1660102796127	Rename type 'PojoReportUserByCommunity'
+1660124197981	Delete element
+1660124204634	Delete elements

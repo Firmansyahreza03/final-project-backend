@@ -17,10 +17,21 @@
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="com.lawencon.community.model.PaymentTransaction"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="com.lawencon.util.JasperUtil"/>
     <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpHeaders"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.model.Community"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.memberCommunity.PojoFindWithTImeLimitRes"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.memberCommunity.PojoFindWithTimeLimitRes"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.memberCommunity.PojoFindWithTimeLimitReq"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.paymentTransaction.PojoDataPaymentTransaction"/>
+    <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+    <fullyQualifiedTypeName name="java.lang.Boolean"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.model.PaymentTransaction"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.report.PojoReportUserByCommunity"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.service.ReportService"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.report.PojoReportPaymentByCommunity"/>
 </qualifiedTypeNameHistroy>

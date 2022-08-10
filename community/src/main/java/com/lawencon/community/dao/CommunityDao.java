@@ -1,4 +1,4 @@
-package com.lawencon.community.dao;
+					package com.lawencon.community.dao;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -142,6 +142,32 @@ public class CommunityDao extends AbstractJpaDao<Community> {
 			}
 		});
 		
+		return res;
+	}
+	
+
+	public Community getByNameAndDate(String name, String startAt, String endAt) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT c.* FROM comm_community c ")
+				.append(" WHERE c.community_title = :name ")
+				.append(" AND c.community_start_at <= :startAt ")
+				.append(" AND c.community_end_at >= :endAt ");
+		
+		Community res = null;
+		try {			
+			Object result = createNativeQuery(sql.toString())
+					.setParameter("name", name)
+					.setParameter("startAt", startAt)
+					.setParameter("endAt", endAt)
+					.getSingleResult();
+			
+			if(result != null) {
+				Object[] objArr = (Object[]) result;
+				res = inputData(objArr);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return res;
 	}
 }

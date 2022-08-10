@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="inputData"/>
+		<item key="selection" value="map.put(&quot;company&quot;, &quot;Filos Community&quot;);"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="map.put(&quot;company&quot;, &quot;PT. Company Internasional&quot;);"/>
 			<item value="inputMemberCommunityData"/>
 			<item value="byname"/>
 			<item value="name"/>
@@ -22,9 +23,9 @@
 			<item value="bool"/>
 			<item value="boll"/>
 			<item value="field"/>
-			<item value="regist"/>
 		</list>
 		<list key="replacehistory">
+			<item value="map.put(&quot;company&quot;, &quot;Filos Community&quot;);"/>
 			<item value="inputData"/>
 			<item value="markup=&quot;none&quot;"/>
 			<item value="PojoDataPaymentTransaction"/>

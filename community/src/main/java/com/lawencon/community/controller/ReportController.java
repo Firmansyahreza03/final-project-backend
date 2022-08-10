@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lawencon.community.pojo.memberCommunity.PojoFindMemberCommunityWithTimeLimitReq;
 import com.lawencon.community.pojo.paymentTransaction.PojoDataPaymentTransaction;
-import com.lawencon.community.pojo.report.PojoReportPaymentByCommunity;
-import com.lawencon.community.pojo.report.PojoReportUserByCommunity;
+import com.lawencon.community.pojo.report.PojoLimitTimeReq;
+import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
+import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
 import com.lawencon.community.service.PaymentTransactionService;
 import com.lawencon.community.service.ReportService;
 import com.lawencon.model.SearchQuery;
@@ -53,8 +53,8 @@ public class ReportController {
 
 //	Menampilkan report informasi member yang mengikuti event ataupun course pada periode tertentu 
 	@GetMapping("/user")
-	public ResponseEntity<?> reportUserComm(@RequestBody @Valid PojoFindMemberCommunityWithTimeLimitReq req) throws Exception {
-		SearchQuery<PojoReportUserByCommunity> listData = service.userReport(req);
+	public ResponseEntity<?> reportUserComm(@RequestBody @Valid PojoLimitTimeReq req) throws Exception {
+		SearchQuery<PojoReportUserByCommunityRes> listData = service.userReport(req);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("company", "Filos Community");
@@ -71,8 +71,8 @@ public class ReportController {
 	
 //	Menampilkan report informasi penghasilan dari event ataupun course pada periode tertentu 
 	@GetMapping("/income")
-	public ResponseEntity<?> reportIncomeComm(@RequestBody @Valid PojoFindMemberCommunityWithTimeLimitReq req) throws Exception {
-		SearchQuery<PojoReportPaymentByCommunity> listData = service.paymentReport(req);
+	public ResponseEntity<?> reportIncomeComm(@RequestBody @Valid PojoLimitTimeReq req) throws Exception {
+		SearchQuery<PojoReportPaymentByCommunityRes> listData = service.paymentReport(req);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("company", "Filos Community");

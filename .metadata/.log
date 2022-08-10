@@ -6989,3 +6989,124 @@ org.eclipse.swt.SWTException: Invalid thread access
 
 !ENTRY net.sf.jasperreports 2 0 2022-08-10 10:18:12.739
 !MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:30:42.947
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:38:31.492
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:38:41.906
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:39:00.740
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:39:07.487
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:39:48.610
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+
+!ENTRY net.sf.jasperreports 2 0 2022-08-10 10:39:56.714
+!MESSAGE Extension resource jar:file:/C:/Users/deadr/.m2/repository/net/sf/jasperreports/jasperreports/6.19.1/jasperreports-6.19.1.jar!/jasperreports_extension.properties was found to be a duplicate of bundleresource://995.fwk1871323215/jasperreports_extension.properties
+!SESSION 2022-08-10 11:02:44.856 -----------------------------------------------
+eclipse.buildId=4.23.0.I20220308-0310
+java.version=17.0.2
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.jface 2 0 2022-08-10 11:03:01.121
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-08-10 11:03:01.121
+!MESSAGE A conflict occurred for CTRL+SHIFT+T:
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
+		Open a type in a Java editor,
+		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@513cd96f,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(CTRL+SHIFT+T,
+	ParameterizedCommand(Command(org.eclipse.lsp4e.symbolinworkspace,Go to Symbol in Workspace,
+		,
+		Category(org.eclipse.lsp4e.category,Language Servers,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@12e04531,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SUBENTRY 1 org.eclipse.jface 2 0 2022-08-10 11:03:01.121
+!MESSAGE A conflict occurred for ALT+SHIFT+R:
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.jdt.ui.edit.text.java.rename.element,Rename - Refactoring ,
+		Rename the selected element,
+		Category(org.eclipse.jdt.ui.category.refactoring,Refactor - Java,Java Refactoring Actions,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6114902c,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+SHIFT+R,
+	ParameterizedCommand(Command(org.eclipse.ui.edit.rename,Rename,
+		Rename the selected item,
+		Category(org.eclipse.ui.category.file,File,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@16baf8d0,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY com.jaspersoft.studio 1 0 2022-08-10 11:03:12.871
+!MESSAGE Starting JaspersoftStudio bundle - Version: 6.20.0.final
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-10 11:03:19.235
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.ui.navigator 2 0 2022-08-10 11:03:19.238
+!MESSAGE Can't find Navigator Content Descriptor with id: org.eclipse.jst.servlet.ui.EnhancedJavaRendering
+
+!ENTRY org.eclipse.egit.ui 2 0 2022-08-10 11:03:19.596
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\deadr'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.jaspersoft.studio.data 4 0 2022-08-10 11:03:20.909
+!MESSAGE An error occurred
+!STACK 0
+java.lang.RuntimeException: Could not instantiate serializer com.sun.org.apache.xml.internal.serialize.XMLSerializer: java.lang.IllegalAccessException: class org.exolab.castor.xml.BaseXercesJDK5Serializer cannot access class com.sun.org.apache.xml.internal.serialize.XMLSerializer (in module java.xml) because module java.xml does not export com.sun.org.apache.xml.internal.serialize to unnamed module @4631ecf5
+	at org.exolab.castor.xml.BaseXercesJDK5Serializer.<init>(BaseXercesJDK5Serializer.java:53)
+	at org.exolab.castor.xml.XercesJDK5Serializer.<init>(XercesJDK5Serializer.java:27)
+	at org.exolab.castor.xml.XercesJDK5XMLSerializerFactory.getSerializer(XercesJDK5XMLSerializerFactory.java:29)
+	at org.exolab.castor.xml.util.XMLParserUtils.getSerializer(XMLParserUtils.java:261)
+	at org.castor.xml.AbstractInternalContext.getSerializer(AbstractInternalContext.java:321)
+	at org.exolab.castor.xml.Marshaller.configureSerializer(Marshaller.java:457)
+	at org.exolab.castor.xml.Marshaller.setWriter(Marshaller.java:404)
+	at org.exolab.castor.xml.Marshaller.<init>(Marshaller.java:358)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:164)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:223)
+	at com.jaspersoft.studio.prm.ParameterSetProvider.storeParameterSet(ParameterSetProvider.java:70)
+	at com.jaspersoft.studio.data.HttpBuiltInParameterProvider.init(HttpBuiltInParameterProvider.java:85)
+	at com.jaspersoft.studio.data.Activator$1.run(Activator.java:78)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.jaspersoft.studio.server 4 0 2022-08-10 11:03:20.910
+!MESSAGE An error occurred
+!STACK 0
+java.lang.RuntimeException: Could not instantiate serializer com.sun.org.apache.xml.internal.serialize.XMLSerializer: java.lang.IllegalAccessException: class org.exolab.castor.xml.BaseXercesJDK5Serializer cannot access class com.sun.org.apache.xml.internal.serialize.XMLSerializer (in module java.xml) because module java.xml does not export com.sun.org.apache.xml.internal.serialize to unnamed module @4631ecf5
+	at org.exolab.castor.xml.BaseXercesJDK5Serializer.<init>(BaseXercesJDK5Serializer.java:53)
+	at org.exolab.castor.xml.XercesJDK5Serializer.<init>(XercesJDK5Serializer.java:27)
+	at org.exolab.castor.xml.XercesJDK5XMLSerializerFactory.getSerializer(XercesJDK5XMLSerializerFactory.java:29)
+	at org.exolab.castor.xml.util.XMLParserUtils.getSerializer(XMLParserUtils.java:261)
+	at org.castor.xml.AbstractInternalContext.getSerializer(AbstractInternalContext.java:321)
+	at org.exolab.castor.xml.Marshaller.configureSerializer(Marshaller.java:457)
+	at org.exolab.castor.xml.Marshaller.setWriter(Marshaller.java:404)
+	at org.exolab.castor.xml.Marshaller.<init>(Marshaller.java:358)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:164)
+	at net.sf.jasperreports.eclipse.util.CastorHelper.write(CastorHelper.java:223)
+	at com.jaspersoft.studio.prm.ParameterSetProvider.storeParameterSet(ParameterSetProvider.java:70)
+	at com.jaspersoft.studio.server.JRSBuiltInParameterProvider.init(JRSBuiltInParameterProvider.java:132)
+	at com.jaspersoft.studio.server.Activator$5.run(Activator.java:121)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

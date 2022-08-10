@@ -23,13 +23,15 @@
     <fullyQualifiedTypeName name="org.springframework.http.MediaType"/>
     <fullyQualifiedTypeName name="org.springframework.http.HttpHeaders"/>
     <fullyQualifiedTypeName name="com.lawencon.community.model.Community"/>
-    <fullyQualifiedTypeName name="com.lawencon.community.model.PaymentTransaction"/>
     <fullyQualifiedTypeName name="com.lawencon.community.pojo.memberCommunity.PojoFindWithTImeLimitRes"/>
     <fullyQualifiedTypeName name="com.lawencon.community.pojo.memberCommunity.PojoFindWithTimeLimitRes"/>
     <fullyQualifiedTypeName name="com.lawencon.community.pojo.memberCommunity.PojoFindWithTimeLimitReq"/>
     <fullyQualifiedTypeName name="com.lawencon.community.pojo.paymentTransaction.PojoDataPaymentTransaction"/>
     <fullyQualifiedTypeName name="java.math.BigDecimal"/>
     <fullyQualifiedTypeName name="java.lang.Boolean"/>
-    <fullyQualifiedTypeName name="com.lawencon.community.pojo.report.PojoReportUserByCommunity"/>
     <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.model.PaymentTransaction"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.report.PojoReportUserByCommunity"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.service.ReportService"/>
+    <fullyQualifiedTypeName name="com.lawencon.community.pojo.report.PojoReportPaymentByCommunity"/>
 </qualifiedTypeNameHistroy>

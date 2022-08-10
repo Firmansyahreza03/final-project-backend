@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lawencon.community.dao.CommunityCategoryDao;
 import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.MemberCommunityDao;
 import com.lawencon.community.dao.PaymentTransactionDao;
 import com.lawencon.community.dao.ProfileDao;
 import com.lawencon.community.model.Community;
+import com.lawencon.community.model.CommunityCategory;
 import com.lawencon.community.model.MemberCommunity;
 import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.Profile;
@@ -28,6 +30,8 @@ public class ReportService {
 	@Autowired
 	private CommunityDao communityDao;
 	@Autowired
+	private CommunityCategoryDao communityCategoryDao;
+	@Autowired
 	private PaymentTransactionDao paymentDao;
 
 	public SearchQuery<PojoReportUserByCommunityRes> userReport(PojoLimitTimeReq dataReq) throws Exception {
@@ -38,9 +42,11 @@ public class ReportService {
 			PojoReportUserByCommunityRes data = new PojoReportUserByCommunityRes();
 			Profile fkProfile = profileDao.getByUserId(d.getUser().getId());
 			Community fkCommunity = communityDao.getById(d.getCommunity().getId());
-
+			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+			
 			data.setNameUser(fkProfile.getFullName());
 			data.setNameCommunity(fkCommunity.getCommunityTitle());
+			data.setType(fkCategory.getCategoryName());
 
 			data.setStartDate(fkCommunity.getCommunityStartAt());
 			data.setEndDate(fkCommunity.getCommunityEndAt());
@@ -53,6 +59,7 @@ public class ReportService {
 		result.setCount(resultList.size());
 		return result;
 	}
+
 	public SearchQuery<PojoReportPaymentByCommunityRes> paymentReport(PojoLimitTimeReq dataReq) throws Exception {
 		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
 		List<PojoReportPaymentByCommunityRes> resultList = new ArrayList<>();
@@ -61,15 +68,16 @@ public class ReportService {
 			PojoReportPaymentByCommunityRes data = new PojoReportPaymentByCommunityRes();
 			PaymentTransaction fkPayment = paymentDao.getById(d.getPayment().getId());
 			Community fkCommunity = communityDao.getById(d.getCommunity().getId());
-
+			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+			
 			data.setIsAcc(fkPayment.getIsAcc());
 
 			data.setCode(fkPayment.getCode());
 			data.setDesc(fkPayment.getDesc());
 			data.setPrice(fkPayment.getPrice());
-			data.setType(fkPayment.getType());
 
 			data.setNameCommunity(fkCommunity.getCommunityTitle());
+			data.setType(fkCategory.getCategoryName());
 			data.setStartDate(fkCommunity.getCommunityStartAt());
 			data.setEndDate(fkCommunity.getCommunityEndAt());
 

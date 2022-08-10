@@ -9,9 +9,9 @@ public class PojoReportPaymentByCommunityRes {
 	private String code;
 	private String desc;
 	private BigDecimal price;
-	private String type;
 	
 	private String nameCommunity;
+	private String type;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	

@@ -31,6 +31,8 @@ public class PaymentTransaction extends BaseEntity {
 	private String desc;
 	@Column(name = "transaction_price")
 	private BigDecimal price;
+	@Column(name = "transaction_admin_fee")
+	private BigDecimal adminFee;
 
 	public String getType() {
 		return type;

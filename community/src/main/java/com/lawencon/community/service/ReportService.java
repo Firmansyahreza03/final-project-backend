@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.MemberCommunityDao;
@@ -13,11 +14,12 @@ import com.lawencon.community.model.Community;
 import com.lawencon.community.model.MemberCommunity;
 import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.Profile;
-import com.lawencon.community.pojo.memberCommunity.PojoFindMemberCommunityWithTimeLimitReq;
-import com.lawencon.community.pojo.report.PojoReportPaymentByCommunity;
-import com.lawencon.community.pojo.report.PojoReportUserByCommunity;
+import com.lawencon.community.pojo.report.PojoLimitTimeReq;
+import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
+import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
 import com.lawencon.model.SearchQuery;
 
+@Service
 public class ReportService {
 	@Autowired
 	private MemberCommunityDao memberCommunityDao;
@@ -28,12 +30,12 @@ public class ReportService {
 	@Autowired
 	private PaymentTransactionDao paymentDao;
 
-	public SearchQuery<PojoReportUserByCommunity> userReport(PojoFindMemberCommunityWithTimeLimitReq dataReq) throws Exception {
+	public SearchQuery<PojoReportUserByCommunityRes> userReport(PojoLimitTimeReq dataReq) throws Exception {
 		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
-		List<PojoReportUserByCommunity> resultList = new ArrayList<>();
+		List<PojoReportUserByCommunityRes> resultList = new ArrayList<>();
 
 		res.forEach(d -> {
-			PojoReportUserByCommunity data = new PojoReportUserByCommunity();
+			PojoReportUserByCommunityRes data = new PojoReportUserByCommunityRes();
 			Profile fkProfile = profileDao.getByUserId(d.getUser().getId());
 			Community fkCommunity = communityDao.getById(d.getCommunity().getId());
 
@@ -46,17 +48,17 @@ public class ReportService {
 			resultList.add(data);
 		});
 
-		SearchQuery<PojoReportUserByCommunity> result = new SearchQuery<PojoReportUserByCommunity>();
+		SearchQuery<PojoReportUserByCommunityRes> result = new SearchQuery<PojoReportUserByCommunityRes>();
 		result.setData(resultList);
 		result.setCount(resultList.size());
 		return result;
 	}
-	public SearchQuery<PojoReportPaymentByCommunity> paymentReport(PojoFindMemberCommunityWithTimeLimitReq dataReq) throws Exception {
+	public SearchQuery<PojoReportPaymentByCommunityRes> paymentReport(PojoLimitTimeReq dataReq) throws Exception {
 		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
-		List<PojoReportPaymentByCommunity> resultList = new ArrayList<>();
+		List<PojoReportPaymentByCommunityRes> resultList = new ArrayList<>();
 
 		res.forEach(d -> {
-			PojoReportPaymentByCommunity data = new PojoReportPaymentByCommunity();
+			PojoReportPaymentByCommunityRes data = new PojoReportPaymentByCommunityRes();
 			PaymentTransaction fkPayment = paymentDao.getById(d.getPayment().getId());
 			Community fkCommunity = communityDao.getById(d.getCommunity().getId());
 
@@ -74,7 +76,7 @@ public class ReportService {
 			resultList.add(data);
 		});
 
-		SearchQuery<PojoReportPaymentByCommunity> result = new SearchQuery<PojoReportPaymentByCommunity>();
+		SearchQuery<PojoReportPaymentByCommunityRes> result = new SearchQuery<PojoReportPaymentByCommunityRes>();
 		result.setData(resultList);
 		result.setCount(resultList.size());
 		return result;

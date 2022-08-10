@@ -1,6 +1,6 @@
 package com.lawencon.community.pojo.report;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,23 +9,25 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class PojoLimitTimeReq {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "start time cannot be empty")
-	private LocalDateTime startAt;
+	private LocalDate startAt;
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = "end time cannot be empty")
-	private LocalDateTime endAt;
-	
-	public LocalDateTime getStartAt() {
+	private LocalDate endAt;
+
+	public LocalDate getStartAt() {
 		return startAt;
 	}
-	public void setStartAt(LocalDateTime startAt) {
+
+	public void setStartAt(LocalDate startAt) {
 		this.startAt = startAt;
 	}
-	public LocalDateTime getEndAt() {
+
+	public LocalDate getEndAt() {
 		return endAt;
 	}
-	public void setEndAt(LocalDateTime endAt) {
+
+	public void setEndAt(LocalDate endAt) {
 		this.endAt = endAt;
 	}
-	
-	
+
 }

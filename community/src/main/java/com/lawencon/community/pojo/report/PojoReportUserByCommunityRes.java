@@ -5,6 +5,7 @@ public class PojoReportUserByCommunityRes {
 	private String nameUser;
 	
 	private String nameCommunity;
+	private String type;
 	private LocalDateTime startDate;
 	private LocalDateTime endDate;
 	
@@ -32,5 +33,10 @@ public class PojoReportUserByCommunityRes {
 	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
-	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 }

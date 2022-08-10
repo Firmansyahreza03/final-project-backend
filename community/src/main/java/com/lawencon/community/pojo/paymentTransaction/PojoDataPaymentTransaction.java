@@ -11,8 +11,9 @@ public class PojoDataPaymentTransaction {
 
 	private String code;
 	private String desc;
-	private BigDecimal price;
 	private String type;
+	private BigDecimal price;
+	private BigDecimal adminFee;
     
 	private String fileId;
 	private String fileName;
@@ -84,6 +85,12 @@ public class PojoDataPaymentTransaction {
 	}
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public BigDecimal getAdminFee() {
+		return adminFee;
+	}
+	public void setAdminFee(BigDecimal adminFee) {
+		this.adminFee = adminFee;
 	}
 	
 }

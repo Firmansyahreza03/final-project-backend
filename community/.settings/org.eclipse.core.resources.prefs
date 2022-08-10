@@ -1,8 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
-encoding//src/main/resources/comm_report/Blank_A4.jrxml=UTF-8
-encoding//src/main/resources/comm_report/payment.jrxml=UTF-8
 encoding//src/main/resources/comm_report/paymentReport.jrxml=UTF-8
 encoding//src/main/resources/comm_report/userReport.jrxml=UTF-8
 encoding//src/test/java=UTF-8

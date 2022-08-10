@@ -1,7 +1,7 @@
 package com.lawencon.community.dao;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 		return results;
 	}
 
-	public List<MemberCommunity> findByPeriode(LocalDateTime startAt, LocalDateTime endAt) {
+	public List<MemberCommunity> findByPeriode(LocalDate startAt, LocalDate endAt) {
 		StringBuilder sql = new StringBuilder()
 				.append(" SELECT mc.* FROM comm_member_community AS mc ")
 				.append(" INNER JOIN comm_user AS u ON u.id = mc.user_id ")
@@ -78,7 +78,7 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 		return res;
 	}
 
-	public List<MemberCommunity> findByPeriodeAndAccPayment(LocalDateTime startAt, LocalDateTime endAt) {
+	public List<MemberCommunity> findByPeriodeAndAccPayment(LocalDate startAt, LocalDate endAt) {
 		StringBuilder sql = new StringBuilder()
 				.append(" SELECT mc.* FROM comm_member_community AS mc ")
 				.append(" INNER JOIN comm_user AS u ON u.id = mc.user_id ")

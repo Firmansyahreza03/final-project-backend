@@ -1,0 +1,16 @@
+package com.lawencon.community.constant;
+
+public enum ConstantReportFor {
+
+	BASIC(50000);
+	
+	private Integer price;
+	
+	private ConstantReportFor(Integer price) {
+		this.price = price;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+}

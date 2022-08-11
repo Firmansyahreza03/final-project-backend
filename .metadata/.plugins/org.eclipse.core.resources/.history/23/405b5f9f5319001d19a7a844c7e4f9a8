@@ -1,0 +1,122 @@
+package com.lawencon.community.service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lawencon.community.constant.RoleType;
+import com.lawencon.community.dao.CommunityCategoryDao;
+import com.lawencon.community.dao.CommunityDao;
+import com.lawencon.community.dao.MemberCommunityDao;
+import com.lawencon.community.dao.PaymentTransactionDao;
+import com.lawencon.community.dao.ProfileDao;
+import com.lawencon.community.model.Community;
+import com.lawencon.community.model.CommunityCategory;
+import com.lawencon.community.model.MemberCommunity;
+import com.lawencon.community.model.PaymentTransaction;
+import com.lawencon.community.model.Profile;
+import com.lawencon.community.pojo.report.PojoLimitTimeReq;
+import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
+import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
+import com.lawencon.security.PrincipalServiceImpl;
+
+@Service
+public class ReportService {
+	@Autowired
+	private MemberCommunityDao memberCommunityDao;
+	@Autowired
+	private ProfileDao profileDao;
+	@Autowired
+	private CommunityDao communityDao;
+	@Autowired
+	private CommunityCategoryDao communityCategoryDao;
+	@Autowired
+	private PaymentTransactionDao paymentDao;;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
+
+	private List<PojoReportUserByCommunityRes> makingUserReport
+			(List<MemberCommunity> listData) throws Exception {
+		List<PojoReportUserByCommunityRes> resultList = new ArrayList<>();
+
+		listData.forEach(data -> {
+			PojoReportUserByCommunityRes result = new PojoReportUserByCommunityRes();
+			Profile fkProfile = profileDao.getByUserId(data.getUser().getId());
+			Community fkCommunity = communityDao.getById(data.getCommunity().getId());
+			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+
+			result.setNameUser(fkProfile.getFullName());
+			result.setTitle(fkCommunity.getCommunityTitle());
+			result.setLocation(fkCommunity.getCommunityLocation());
+			result.setType(fkCategory.getCategoryName());
+
+			result.setStartDate(fkCommunity.getCommunityStartAt());
+			result.setEndDate(fkCommunity.getCommunityEndAt());
+			resultList.add(result);
+		});
+
+		return resultList;
+	}
+
+	private List<PojoReportPaymentByCommunityRes> makingIncomeReport
+			(List<MemberCommunity> listData, RoleType role) throws Exception {
+		List<PojoReportPaymentByCommunityRes> resultList = new ArrayList<>();
+
+		listData.forEach(data -> {
+			PojoReportPaymentByCommunityRes result = new PojoReportPaymentByCommunityRes();
+			PaymentTransaction fkPayment = paymentDao.getById(data.getPayment().getId());
+			Community fkCommunity = communityDao.getById(data.getCommunity().getId());
+			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+			BigDecimal income;
+
+			result.setCode(fkPayment.getCode());
+			
+			if (role == RoleType.NONADMIN)
+				income = fkPayment.getPrice().subtract(fkPayment.getAdminFee());
+			else
+				income = fkPayment.getAdminFee();
+
+			result.setIncome(income);
+
+			result.setTitle(fkCommunity.getCommunityTitle());
+			result.setLocation(fkCommunity.getCommunityLocation());
+			result.setStartDate(fkCommunity.getCommunityStartAt());
+			result.setEndDate(fkCommunity.getCommunityEndAt());
+			result.setType(fkCategory.getCategoryName());
+			resultList.add(result);
+		});
+
+		return resultList;
+	}
+
+	public List<PojoReportUserByCommunityRes> userAdminReport 
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportUserByCommunityRes> result = makingUserReport(listData);
+		return result;
+	}
+
+	public List<PojoReportPaymentByCommunityRes> incomeCommunityAdminReport
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportPaymentByCommunityRes> result = makingIncomeReport(listData, RoleType.ADMIN);
+		return result;
+	}
+
+	public List<PojoReportUserByCommunityRes> userReport 
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportUserByCommunityRes> result = makingUserReport(listData);
+		return result;
+	}
+
+	public List<PojoReportPaymentByCommunityRes> incomeCommunityReport
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportPaymentByCommunityRes> result = makingIncomeReport(listData, RoleType.ADMIN);
+		return result;
+	}
+}

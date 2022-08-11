@@ -26,3 +26,11 @@
 1660102796127	Rename type 'PojoReportUserByCommunity'
 1660124197981	Delete element
 1660124204634	Delete elements
+1660190425018	Delete element
+1660190764686	Rename field 'nameCommunity'
+1660191163168	Rename field 'price'
+1660191183792	Rename field 'nameCommunity'
+1660192659276	Copy compilation unit
+1660192708730	Delete element
+1660192734062	Delete element
+1660193339993	Rename resource 'paymentReport.jrxml'

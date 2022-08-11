@@ -32,7 +32,7 @@ public class WebIgnoringConfig {
         matchers.add(new AntPathRequestMatcher("/pollings/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/thread-categories/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/thread-comments/**", HttpMethod.GET.name()));
-        matchers.add(new AntPathRequestMatcher("/threads/**", HttpMethod.GET.name()));
+        matchers.add(new AntPathRequestMatcher("/threads/no-login", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/users/user-id/**", HttpMethod.GET.name()));
         
 		return matchers;

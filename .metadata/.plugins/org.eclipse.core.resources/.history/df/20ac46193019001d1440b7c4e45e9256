@@ -1,0 +1,112 @@
+package com.lawencon.community.service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.lawencon.community.constant.RoleType;
+import com.lawencon.community.dao.CommunityCategoryDao;
+import com.lawencon.community.dao.CommunityDao;
+import com.lawencon.community.dao.MemberCommunityDao;
+import com.lawencon.community.dao.PaymentTransactionDao;
+import com.lawencon.community.dao.ProfileDao;
+import com.lawencon.community.model.Community;
+import com.lawencon.community.model.CommunityCategory;
+import com.lawencon.community.model.MemberCommunity;
+import com.lawencon.community.model.PaymentTransaction;
+import com.lawencon.community.model.Profile;
+import com.lawencon.community.pojo.report.PojoLimitTimeReq;
+import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
+import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
+import com.lawencon.model.SearchQuery;
+
+@Service
+public class ReportService {
+	@Autowired
+	private MemberCommunityDao memberCommunityDao;
+	@Autowired
+	private ProfileDao profileDao;
+	@Autowired
+	private CommunityDao communityDao;
+	@Autowired
+	private CommunityCategoryDao communityCategoryDao;
+	@Autowired
+	private PaymentTransactionDao paymentDao;
+
+	private PojoReportUserByCommunityRes modelToReportUserRes(MemberCommunity data) {
+		PojoReportUserByCommunityRes result = new PojoReportUserByCommunityRes();
+		Profile fkProfile = profileDao.getByUserId(data.getUser().getId());
+		Community fkCommunity = communityDao.getById(data.getCommunity().getId());
+		CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+		
+		result.setNameUser(fkProfile.getFullName());
+		result.setTitle(fkCommunity.getCommunityTitle());
+		result.setLocation(fkCommunity.getCommunityLocation());
+		result.setType(fkCategory.getCategoryName());
+
+		result.setStartDate(fkCommunity.getCommunityStartAt());
+		result.setEndDate(fkCommunity.getCommunityEndAt());
+		
+		return result;
+	}
+
+	private PojoReportPaymentByCommunityRes modelToReportPaymentRes(MemberCommunity data, RoleType role) {
+		PojoReportPaymentByCommunityRes result = new PojoReportPaymentByCommunityRes();
+		PaymentTransaction fkPayment = paymentDao.getById(data.getPayment().getId());
+		Community fkCommunity = communityDao.getById(data.getCommunity().getId());
+		CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+		BigDecimal income;
+		
+		result.setCode(fkPayment.getCode());
+		result.setDesc(fkPayment.getDesc());
+		
+		if(role == RoleType.NONADMIN) {
+			income = fkPayment.getPrice().subtract(fkPayment.getAdminFee());
+		}
+		else {
+			income = fkPayment.getAdminFee();
+		}
+		result.setIncome(income);
+	
+		result.setTitle(fkCommunity.getCommunityTitle());
+		result.setType(fkCategory.getCategoryName());
+		result.setStartDate(fkCommunity.getCommunityStartAt());
+		result.setEndDate(fkCommunity.getCommunityEndAt());
+	
+		return result;
+	}
+	
+	public SearchQuery<PojoReportUserByCommunityRes> userReport(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportUserByCommunityRes> resultList = new ArrayList<>();
+
+		res.forEach(d -> {
+			PojoReportUserByCommunityRes data = modelToReportUserRes(d);
+			resultList.add(data);
+		});
+
+		SearchQuery<PojoReportUserByCommunityRes> result = new SearchQuery<PojoReportUserByCommunityRes>();
+		result.setData(resultList);
+		result.setCount(resultList.size());
+		return result;
+	}
+
+	public SearchQuery<PojoReportPaymentByCommunityRes> paymentReportAdmin(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportPaymentByCommunityRes> resultList = new ArrayList<>();
+
+		res.forEach(d -> {
+			PojoReportPaymentByCommunityRes data = modelToReportPaymentRes(d, RoleType.ADMIN);
+
+			resultList.add(data);
+		});
+
+		SearchQuery<PojoReportPaymentByCommunityRes> result = new SearchQuery<PojoReportPaymentByCommunityRes>();
+		result.setData(resultList);
+		result.setCount(resultList.size());
+		return result;
+	}
+}

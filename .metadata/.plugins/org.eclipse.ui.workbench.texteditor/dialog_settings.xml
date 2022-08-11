@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="map.put(&quot;company&quot;, &quot;Filos Community&quot;);"/>
+		<item key="selection" value="&lt;/textFieldExpression&gt;&#x0A;&#x09;&#x09;&#x09;&lt;/textField&gt;&#x0A;&#x09;&#x09;&#x09;&lt;textField&gt;"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="&lt;/textFieldExpression&gt;&lt;/textField&gt;&lt;textField&gt;"/>
+			<item value="&lt;/textFieldExpression&gt;"/>
+			<item value="locationription"/>
+			<item value="desc"/>
+			<item value="package com.lawencon.community.service;"/>
+			<item value="nameCommunity"/>
+			<item value="printWhenExpression"/>
+			<item value="price"/>
+			<item value="isStretchWithOverFlow=&quot;true&quot;"/>
+			<item value="LocalDate"/>
+			<item value="LocalDateTime"/>
+			<item value="req.setStartAt(endAt);"/>
 			<item value="map.put(&quot;company&quot;, &quot;PT. Company Internasional&quot;);"/>
 			<item value="inputMemberCommunityData"/>
 			<item value="byname"/>
-			<item value="name"/>
-			<item value="markup=&quot;&quot;"/>
-			<item value="markup"/>
-			<item value="userFullName"/>
-			<item value="createdAt"/>
-			<item value="created"/>
-			<item value="table"/>
-			<item value="fields"/>
-			<item value="setFirstResult"/>
-			<item value="bool"/>
-			<item value="boll"/>
-			<item value="field"/>
 		</list>
 		<list key="replacehistory">
+			<item value="&lt;/textFieldExpression&gt; &lt;/textField&gt; &lt;textField textAdjust=&quot;StretchHeight&quot;&gt;"/>
+			<item value="&lt;/textFieldExpression&gt;"/>
+			<item value="location"/>
+			<item value="title"/>
+			<item value="income"/>
+			<item value="LocalDateTime"/>
+			<item value="LocalDate"/>
+			<item value="req.setEndAt(endAt);"/>
 			<item value="map.put(&quot;company&quot;, &quot;Filos Community&quot;);"/>
 			<item value="inputData"/>
 			<item value="markup=&quot;none&quot;"/>
@@ -32,20 +40,13 @@
 			<item value="Industry"/>
 			<item value="File"/>
 			<item value="Content"/>
-			<item value="Title"/>
-			<item value="Community"/>
-			<item value="Bookmark"/>
-			<item value="Balance"/>
-			<item value="cannot"/>
-			<item value="can not be empty"/>
-			<item value="List&lt;PojoDataRole&gt;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="1515"/>
-		<item key="DIALOG_Y_ORIGIN" value="475"/>
-		<item key="DIALOG_WIDTH" value="414"/>
-		<item key="DIALOG_HEIGHT" value="454"/>
+		<item key="DIALOG_X_ORIGIN" value="1500"/>
+		<item key="DIALOG_Y_ORIGIN" value="552"/>
+		<item key="DIALOG_WIDTH" value="429"/>
+		<item key="DIALOG_HEIGHT" value="487"/>
 		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
 	</section>
 </section>

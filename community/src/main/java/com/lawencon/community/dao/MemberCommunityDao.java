@@ -53,7 +53,6 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 		StringBuilder sql = new StringBuilder()
 				.append(" SELECT mc.* FROM comm_member_community AS mc ")
 				.append(" INNER JOIN comm_user AS u ON u.id = mc.user_id ")
-				.append(" INNER JOIN comm_profile AS p ON u.id = p.user_id ")
 				.append(" INNER JOIN comm_community AS c ON c.id = mc.community_id ")
 				.append(" INNER JOIN comm_payment_transaction AS pt ON pt.id = mc.payment_id ")
 				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
@@ -81,13 +80,11 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 	public List<MemberCommunity> findByPeriodeAndAccPayment(LocalDate startAt, LocalDate endAt) {
 		StringBuilder sql = new StringBuilder()
 				.append(" SELECT mc.* FROM comm_member_community AS mc ")
-				.append(" INNER JOIN comm_user AS u ON u.id = mc.user_id ")
-				.append(" INNER JOIN comm_profile AS p ON u.id = p.user_id ")
 				.append(" INNER JOIN comm_community AS c ON c.id = mc.community_id ")
 				.append(" INNER JOIN comm_payment_transaction AS pt ON pt.id = mc.payment_id ")
 				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
 				.append(" AND c.community_end_at <= DATE(:endAt) ")
-				.append(" AND pt.is_acc == TRUE ")
+				.append(" AND pt.is_acc = TRUE ")
 				.append(" ORDER BY c.community_title DESC ");
 
 		List<MemberCommunity> res = new ArrayList<>();
@@ -108,4 +105,64 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 		return res;
 	}
 	
+
+	public List<MemberCommunity> findByPeriodeAndIdUser(String idUser, LocalDate startAt, LocalDate endAt) {
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT mc.* FROM comm_member_community AS mc ")
+				.append(" INNER JOIN comm_user AS u ON u.id = mc.user_id ")
+				.append(" INNER JOIN comm_community AS c ON c.id = mc.community_id ")
+				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
+				.append(" AND c.community_end_at <= DATE(:endAt) ")
+				.append(" AND u.id = :idUser ")
+				.append(" ORDER BY c.community_title DESC ");
+
+		List<MemberCommunity> res = new ArrayList<>();
+
+		List<?> rs = createNativeQuery(sql.toString())
+				.setParameter("startAt", startAt)
+				.setParameter("endAt", endAt)
+				.setParameter("idUser", idUser)
+				.getResultList();
+
+		rs.forEach(obj -> {
+			try {
+				MemberCommunity data = inputData(obj);
+				res.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		return res;
+	}
+
+
+	public List<MemberCommunity> findByPeriodeAndAccPaymentAndIdMaker(String idUser, LocalDate startAt, LocalDate endAt) {
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT mc.* FROM comm_member_community AS mc ")
+				.append(" INNER JOIN comm_community AS c ON c.id = mc.community_id ")
+				.append(" INNER JOIN comm_payment_transaction AS pt ON pt.id = mc.payment_id ")
+				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
+				.append(" AND c.community_end_at <= DATE(:endAt) ")
+				.append(" AND pt.is_acc = TRUE ")
+				.append(" AND c.created_by = :idUser ")
+				.append(" ORDER BY c.community_title DESC ");
+
+		List<MemberCommunity> res = new ArrayList<>();
+
+		List<?> rs = createNativeQuery(sql.toString())
+				.setParameter("startAt", startAt)
+				.setParameter("endAt", endAt)
+				.setParameter("idUser", idUser)
+				.getResultList();
+
+		rs.forEach(obj -> {
+			try {
+				MemberCommunity data = inputData(obj);
+				res.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		return res;
+	}
 }

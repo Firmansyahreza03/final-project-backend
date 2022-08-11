@@ -22,7 +22,7 @@ public class PojoThreadHdrData {
 	private String creatorName;
 	private String photoProfileCreator;
 	private Long counterLike;
-	private Long countComment;
+	private Long counterComment;
 	private Boolean isLike;
 	private Boolean isBookmark;
 	private PojoPollingHdrData pollingHdr;
@@ -68,12 +68,12 @@ public class PojoThreadHdrData {
 		this.counterLike = counterLike;
 	}
 
-	public Long getCountComment() {
-		return countComment;
+	public Long getCounterComment() {
+		return counterComment;
 	}
 
-	public void setCountComment(Long countComment) {
-		this.countComment = countComment;
+	public void setCounterComment(Long counterComment) {
+		this.counterComment = counterComment;
 	}
 
 	public String getPhotoProfileCreator() {

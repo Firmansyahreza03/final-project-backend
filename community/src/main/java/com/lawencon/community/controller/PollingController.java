@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.community.pojo.PojoInsertRes;
+import com.lawencon.community.pojo.pollinganswer.PojoAnswerPollling;
 import com.lawencon.community.pojo.pollinganswer.PojoInsertPollingAnswerReq;
 import com.lawencon.community.pojo.pollinghdr.PojoInsertPollingHdrReq;
 import com.lawencon.community.pojo.pollinghdr.PojoPollingHdrData;
@@ -35,9 +36,9 @@ public class PollingController {
 	}
 
 	@PostMapping("/answer")
-	public ResponseEntity<PojoInsertRes> insertAnswer(@RequestBody @Valid PojoInsertPollingAnswerReq req) throws Exception{
-		PojoInsertRes res = answerService.insert(req);
-		return new ResponseEntity<PojoInsertRes>(res, HttpStatus.CREATED);
+	public ResponseEntity<PojoAnswerPollling> insertAnswer(@RequestBody @Valid PojoInsertPollingAnswerReq req) throws Exception{
+		PojoAnswerPollling res = answerService.insert(req);
+		return new ResponseEntity<>(res, HttpStatus.CREATED);
 	}
 	
 	@GetMapping

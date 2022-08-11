@@ -60,4 +60,27 @@ public class ThreadDtlDao extends AbstractJpaDao<ThreadDtl> {
 		});
 		return dtls;
 	}
+	
+	public Long countThreadDetailId(String hdrId) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT COUNT(td.id) FROM comm_thread_dtl td ")
+				.append(" WHERE td.hdr_id = :hdrId ")
+				.append(" GROUP BY (td.hdr_id) ");
+		
+		Long result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("hdrId", hdrId)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = Long.valueOf(res.toString());
+			} else {
+				result = 0l;
+			}
+		} catch (Exception e) {
+			result = 0l;
+		}
+		return result;
+	}
 }

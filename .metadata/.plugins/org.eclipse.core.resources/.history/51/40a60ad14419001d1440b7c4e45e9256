@@ -1,0 +1,85 @@
+package com.lawencon.community.controller;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.lawencon.community.pojo.report.PojoLimitTimeReq;
+import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
+import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
+import com.lawencon.community.service.ReportService;
+import com.lawencon.model.SearchQuery;
+import com.lawencon.util.JasperUtil;
+
+@RestController
+@RequestMapping("report")
+public class ReportController {
+	@Autowired
+	private ReportService service;
+	@Autowired
+	private JasperUtil jasperUtil;
+	
+	private String companyName = "Filos Community";
+		
+	private LocalDate stringToLocalDate(String dateStr) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(dateStr, formatter);
+    }
+    
+//	Menampilkan report informasi member yang mengikuti event ataupun course pada periode tertentu 
+	@GetMapping("/user")
+	public ResponseEntity<?> reportUserComm
+	(@RequestParam String startAt, @RequestParam String endAt) throws Exception {
+		PojoLimitTimeReq req = new PojoLimitTimeReq();
+		req.setStartAt(stringToLocalDate(startAt));
+		req.setEndAt(stringToLocalDate(endAt));
+		
+		SearchQuery<PojoReportUserByCommunityRes> listData = service.userReport(req);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("title", "Member Community Report Per" + startAt + "-" + endAt);
+		map.put("company", companyName);
+
+		byte[] out = jasperUtil.responseToByteArray(listData.getData(), map, "userReport");
+		
+		String fileName = "MemberCommunityReport.pdf";
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_PDF)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName+ "\"")
+				.body(out);
+	}
+	
+//	Menampilkan report informasi penghasilan dari event ataupun course pada periode tertentu 
+	@GetMapping("/income")
+	public ResponseEntity<?> incomeCommAdminReport
+	(@RequestParam String startAt, @RequestParam String endAt) throws Exception {
+		PojoLimitTimeReq req = new PojoLimitTimeReq();
+		req.setStartAt(stringToLocalDate(startAt));
+		req.setEndAt(stringToLocalDate(endAt));
+		SearchQuery<PojoReportPaymentByCommunityRes> listData = service.incomeCommAdminReport(req);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("title", "Income Community Report Per" + startAt + "-" + endAt);
+		map.put("company", companyName);
+
+		byte[] out = jasperUtil.responseToByteArray(listData.getData(), map, "incomeReport");
+		
+		String fileName = "IncomeCommunityReport.pdf";
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_PDF)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName+ "\"")
+				.body(out);
+	}
+}

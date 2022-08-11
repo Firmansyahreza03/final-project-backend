@@ -1,6 +1,0 @@
-package com.lawencon.community.constant;
-
-public enum ConstantPrice {
-
-	ADMIN, NONADMIN, SYSTEM
-}

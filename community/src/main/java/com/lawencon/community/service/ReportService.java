@@ -1,11 +1,13 @@
 package com.lawencon.community.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lawencon.community.constant.RoleType;
 import com.lawencon.community.dao.CommunityCategoryDao;
 import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.MemberCommunityDao;
@@ -19,7 +21,7 @@ import com.lawencon.community.model.Profile;
 import com.lawencon.community.pojo.report.PojoLimitTimeReq;
 import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
 import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
-import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class ReportService {
@@ -32,61 +34,89 @@ public class ReportService {
 	@Autowired
 	private CommunityCategoryDao communityCategoryDao;
 	@Autowired
-	private PaymentTransactionDao paymentDao;
+	private PaymentTransactionDao paymentDao;;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
 
-	public SearchQuery<PojoReportUserByCommunityRes> userReport(PojoLimitTimeReq dataReq) throws Exception {
-		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+	private List<PojoReportUserByCommunityRes> makingUserReport
+			(List<MemberCommunity> listData) throws Exception {
 		List<PojoReportUserByCommunityRes> resultList = new ArrayList<>();
 
-		res.forEach(d -> {
-			PojoReportUserByCommunityRes data = new PojoReportUserByCommunityRes();
-			Profile fkProfile = profileDao.getByUserId(d.getUser().getId());
-			Community fkCommunity = communityDao.getById(d.getCommunity().getId());
+		listData.forEach(data -> {
+			PojoReportUserByCommunityRes result = new PojoReportUserByCommunityRes();
+			Profile fkProfile = profileDao.getByUserId(data.getUser().getId());
+			Community fkCommunity = communityDao.getById(data.getCommunity().getId());
 			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
-			
-			data.setNameUser(fkProfile.getFullName());
-			data.setNameCommunity(fkCommunity.getCommunityTitle());
-			data.setType(fkCategory.getCategoryName());
 
-			data.setStartDate(fkCommunity.getCommunityStartAt());
-			data.setEndDate(fkCommunity.getCommunityEndAt());
+			result.setNameUser(fkProfile.getFullName());
+			result.setTitle(fkCommunity.getCommunityTitle());
+			result.setLocation(fkCommunity.getCommunityLocation());
+			result.setType(fkCategory.getCategoryName());
 
-			resultList.add(data);
+			result.setStartDate(fkCommunity.getCommunityStartAt());
+			result.setEndDate(fkCommunity.getCommunityEndAt());
+			resultList.add(result);
 		});
 
-		SearchQuery<PojoReportUserByCommunityRes> result = new SearchQuery<PojoReportUserByCommunityRes>();
-		result.setData(resultList);
-		result.setCount(resultList.size());
+		return resultList;
+	}
+
+	private List<PojoReportPaymentByCommunityRes> makingIncomeReport
+			(List<MemberCommunity> listData, RoleType role) throws Exception {
+		List<PojoReportPaymentByCommunityRes> resultList = new ArrayList<>();
+
+		listData.forEach(data -> {
+			PojoReportPaymentByCommunityRes result = new PojoReportPaymentByCommunityRes();
+			PaymentTransaction fkPayment = paymentDao.getById(data.getPayment().getId());
+			Community fkCommunity = communityDao.getById(data.getCommunity().getId());
+			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
+			BigDecimal income;
+
+			result.setCode(fkPayment.getCode());
+			
+			if (role == RoleType.NONADMIN)
+				income = fkPayment.getPrice().subtract(fkPayment.getAdminFee());
+			else
+				income = fkPayment.getAdminFee();
+
+			result.setIncome(income);
+
+			result.setTitle(fkCommunity.getCommunityTitle());
+			result.setLocation(fkCommunity.getCommunityLocation());
+			result.setStartDate(fkCommunity.getCommunityStartAt());
+			result.setEndDate(fkCommunity.getCommunityEndAt());
+			result.setType(fkCategory.getCategoryName());
+			resultList.add(result);
+		});
+
+		return resultList;
+	}
+
+	public List<PojoReportUserByCommunityRes> userAdminReport 
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportUserByCommunityRes> result = makingUserReport(listData);
 		return result;
 	}
 
-	public SearchQuery<PojoReportPaymentByCommunityRes> paymentReport(PojoLimitTimeReq dataReq) throws Exception {
-		List<MemberCommunity> res = memberCommunityDao.findByPeriode(dataReq.getStartAt(), dataReq.getEndAt());
-		List<PojoReportPaymentByCommunityRes> resultList = new ArrayList<>();
+	public List<PojoReportPaymentByCommunityRes> incomeCommunityAdminReport
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndAccPayment(dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportPaymentByCommunityRes> result = makingIncomeReport(listData, RoleType.ADMIN);
+		return result;
+	}
 
-		res.forEach(d -> {
-			PojoReportPaymentByCommunityRes data = new PojoReportPaymentByCommunityRes();
-			PaymentTransaction fkPayment = paymentDao.getById(d.getPayment().getId());
-			Community fkCommunity = communityDao.getById(d.getCommunity().getId());
-			CommunityCategory fkCategory = communityCategoryDao.getById(fkCommunity.getCategory().getId());
-			
-			data.setIsAcc(fkPayment.getIsAcc());
+	public List<PojoReportUserByCommunityRes> userReport 
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndIdUser(principalServiceImpl.getAuthPrincipal(), dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportUserByCommunityRes> result = makingUserReport(listData);
+		return result;
+	}
 
-			data.setCode(fkPayment.getCode());
-			data.setDesc(fkPayment.getDesc());
-			data.setPrice(fkPayment.getPrice());
-
-			data.setNameCommunity(fkCommunity.getCommunityTitle());
-			data.setType(fkCategory.getCategoryName());
-			data.setStartDate(fkCommunity.getCommunityStartAt());
-			data.setEndDate(fkCommunity.getCommunityEndAt());
-
-			resultList.add(data);
-		});
-
-		SearchQuery<PojoReportPaymentByCommunityRes> result = new SearchQuery<PojoReportPaymentByCommunityRes>();
-		result.setData(resultList);
-		result.setCount(resultList.size());
+	public List<PojoReportPaymentByCommunityRes> incomeCommunityReport
+			(PojoLimitTimeReq dataReq) throws Exception {
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndAccPaymentAndIdMaker(principalServiceImpl.getAuthPrincipal(), dataReq.getStartAt(), dataReq.getEndAt());
+		List<PojoReportPaymentByCommunityRes> result = makingIncomeReport(listData, RoleType.NONADMIN);
 		return result;
 	}
 }

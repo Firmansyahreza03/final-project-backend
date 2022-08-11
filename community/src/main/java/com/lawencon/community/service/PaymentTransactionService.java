@@ -56,7 +56,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 	@Autowired
 	private CommunityDao communityDao;
 
-	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, Long price, String fileName, String fileExt) throws Exception {
+	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, BigDecimal price, String fileName, String fileExt) throws Exception {
 		
 		result.setIsActive(isActive);
 		
@@ -88,6 +88,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 		result.setCode(data.getCode());
 		result.setDesc(data.getDesc());
 		result.setPrice(data.getPrice());
+		result.setAdminFee(data.getAdminFee());
 	
 		if(data.getFile()!=null) {
 			File fkFile = fileDao.getById(data.getFile().getId());
@@ -225,10 +226,9 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 			reqData.setIsAcc(true);
 			
 			begin();
-			PaymentTransaction result = paymentDao.save(reqData);
 			
-			if(TransactionType.SUBSCRIPTION.name().equals(result.getType())) {
-				SubscriptionStatus status = statusDao.findByUserId(result.getCreatedBy());
+			if(TransactionType.SUBSCRIPTION.name().equals(reqData.getType())) {
+				SubscriptionStatus status = statusDao.findByUserId(reqData.getCreatedBy());
 				status.setIsSubscriber(true);
 				status.setExpiredAt(LocalDateTime.now().plusMonths(1));
 				statusDao.save(status);
@@ -238,7 +238,9 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 				BigDecimal balanceResult = balance.getBalance().add(new BigDecimal(ConstantPrice.BASIC.getPrice()));
 				balance.setBalance(balanceResult);
 				balanceDao.save(balance);
-			} else if(TransactionType.COMMUNITY.name().equals(result.getType())){
+				
+				reqData.setAdminFee(new BigDecimal(ConstantPrice.BASIC.getPrice()));
+			} else if(TransactionType.COMMUNITY.name().equals(reqData.getType())){
 				PaymentTransaction payment = paymentDao.getById(data.getId());
 				Community comm = communityDao.getByName(payment.getDesc());
 				Balance balance = balanceDao.findbyUserId(comm.getCreatedBy());
@@ -251,8 +253,11 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 				BigDecimal balanceSystemResult = balanceSystem.getBalance().add(comm.getCommunityPrice().multiply(new BigDecimal(0.1d)));
 				balanceSystem.setBalance(balanceSystemResult);
 				balanceDao.save(balanceSystem);
+				
+				reqData.setAdminFee(comm.getCommunityPrice().multiply(new BigDecimal(0.1d)));
 			}
 			
+			PaymentTransaction result = paymentDao.save(reqData);
 			commit();
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());

@@ -1,5 +1,7 @@
 package com.lawencon.community.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -28,7 +30,9 @@ public class PaymentTransaction extends BaseEntity {
 	@Column(name = "transaction_desc")
 	private String desc;
 	@Column(name = "transaction_price")
-	private Long price;
+	private BigDecimal price;
+	@Column(name = "transaction_admin_fee")
+	private BigDecimal adminFee;
 
 	public String getType() {
 		return type;
@@ -70,11 +74,20 @@ public class PaymentTransaction extends BaseEntity {
 		this.desc = desc;
 	}
 
-	public Long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
+	public BigDecimal getAdminFee() {
+		return adminFee;
+	}
+
+	public void setAdminFee(BigDecimal adminFee) {
+		this.adminFee = adminFee;
+	}
+
 }

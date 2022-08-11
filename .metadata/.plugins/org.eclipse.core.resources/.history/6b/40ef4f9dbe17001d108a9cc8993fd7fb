@@ -1,0 +1,34 @@
+package com.lawencon.community.dao;
+
+import org.springframework.stereotype.Repository;
+
+import com.lawencon.base.AbstractJpaDao;
+import com.lawencon.community.model.MemberCommunity;
+
+@Repository
+public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
+
+	public MemberCommunity findUser (String startAt, String endAt) {
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT mc.* FROM comm_member_community AS mc ")
+				.append(" INNER JOIN comm_user AS u ON u.id = mc.user_id ")
+				.append(" INNER JOIN comm_profile AS p ON u.id = p.user_id ")
+				.append(" INNER JOIN comm_community AS c ON c.id = mc.community_id ")
+				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
+				.append(" AND c.community_end_at <= DATE(:endAt) ");
+
+		MemberCommunity result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("startAt", startAt)
+					.setParameter("endAt", endAt)
+					.getSingleResult();
+
+			if (res != null) {
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+}

@@ -1,0 +1,33 @@
+package com.lawencon.community.pojo.report;
+
+public class PojoReportPaymentByCommunity {
+	private String nameUser;
+	private String nameCommunity;
+	private String startDate;
+	private String endDate;
+	
+	public String getNameUser() {
+		return nameUser;
+	}
+	public void setNameUser(String nameUser) {
+		this.nameUser = nameUser;
+	}
+	public String getNameCommunity() {
+		return nameCommunity;
+	}
+	public void setNameCommunity(String nameCommunity) {
+		this.nameCommunity = nameCommunity;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+}

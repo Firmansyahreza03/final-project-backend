@@ -43,7 +43,7 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 		result.setPollingName(data.getPollingName());
 		result.setVersion(data.getVersion());
 		result.setExpiredAt(data.getExpiredAt());
-
+		
 		return result;
 	}
 

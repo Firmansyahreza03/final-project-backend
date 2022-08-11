@@ -4,6 +4,15 @@ public class PojoDataMemberCommunity {
 	private String id;
 	private Boolean isActive;
 	private Integer version;
+
+	private String idUser;
+	private String nameUser;
+
+	private String idCommunity;
+	private String nameCommunity;
+
+	private String idPayment;
+	private Boolean isAccPayment;
 	
 	public String getId() {
 		return id;
@@ -23,17 +32,6 @@ public class PojoDataMemberCommunity {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
-	private String idUser;
-	private String nameUser;
-
-	private String idCommunity;
-	private String nameCommunity;
-
-	private String idPayment;
-	private String fileIdPayment;
-	private String fileNamePayment;
-	private String fileExtPayment;
-	private Boolean isAccPayment;
 
 	public String getIdUser() {
 		return idUser;
@@ -64,24 +62,6 @@ public class PojoDataMemberCommunity {
 	}
 	public void setIdPayment(String idPayment) {
 		this.idPayment = idPayment;
-	}
-	public String getFileIdPayment() {
-		return fileIdPayment;
-	}
-	public void setFileIdPayment(String fileIdPayment) {
-		this.fileIdPayment = fileIdPayment;
-	}
-	public String getFileNamePayment() {
-		return fileNamePayment;
-	}
-	public void setFileNamePayment(String fileNamePayment) {
-		this.fileNamePayment = fileNamePayment;
-	}
-	public String getFileExtPayment() {
-		return fileExtPayment;
-	}
-	public void setFileExtPayment(String fileExtPayment) {
-		this.fileExtPayment = fileExtPayment;
 	}
 	public Boolean getIsAccPayment() {
 		return isAccPayment;

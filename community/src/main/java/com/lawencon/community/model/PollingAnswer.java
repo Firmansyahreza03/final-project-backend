@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import com.lawencon.base.BaseEntity;
 
 @Entity
-@Table(name = "comm_polling_option")
+@Table(name = "comm_polling_answer")
 public class PollingAnswer extends BaseEntity {
 	private static final long serialVersionUID = -134301425904467360L;
 

@@ -54,7 +54,7 @@ public class MemberCommunityController {
 		PojoUpdateRes res = service.update(req);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("{id}")
 	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception{
 		PojoDeleteRes res = service.deleteById(id);

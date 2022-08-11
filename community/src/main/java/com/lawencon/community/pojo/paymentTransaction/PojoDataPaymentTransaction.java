@@ -1,5 +1,7 @@
 package com.lawencon.community.pojo.paymentTransaction;
 
+import java.math.BigDecimal;
+
 public class PojoDataPaymentTransaction {
 	private String id;
 	private Boolean isActive;
@@ -9,8 +11,9 @@ public class PojoDataPaymentTransaction {
 
 	private String code;
 	private String desc;
-	private Long price;
 	private String type;
+	private BigDecimal price;
+	private BigDecimal adminFee;
     
 	private String fileId;
 	private String fileName;
@@ -77,11 +80,17 @@ public class PojoDataPaymentTransaction {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	public Long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+	public BigDecimal getAdminFee() {
+		return adminFee;
+	}
+	public void setAdminFee(BigDecimal adminFee) {
+		this.adminFee = adminFee;
 	}
 	
 }

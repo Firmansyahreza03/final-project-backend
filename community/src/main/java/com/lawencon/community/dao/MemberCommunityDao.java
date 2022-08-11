@@ -84,7 +84,7 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 				.append(" INNER JOIN comm_payment_transaction AS pt ON pt.id = mc.payment_id ")
 				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
 				.append(" AND c.community_end_at <= DATE(:endAt) ")
-				.append(" AND pt.is_acc == TRUE ")
+				.append(" AND pt.is_acc = TRUE ")
 				.append(" ORDER BY c.community_title DESC ");
 
 		List<MemberCommunity> res = new ArrayList<>();
@@ -113,7 +113,7 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 				.append(" INNER JOIN comm_community AS c ON c.id = mc.community_id ")
 				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
 				.append(" AND c.community_end_at <= DATE(:endAt) ")
-				.append(" AND u.id == :idUser ")
+				.append(" AND u.id = :idUser ")
 				.append(" ORDER BY c.community_title DESC ");
 
 		List<MemberCommunity> res = new ArrayList<>();
@@ -143,9 +143,8 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 				.append(" INNER JOIN comm_payment_transaction AS pt ON pt.id = mc.payment_id ")
 				.append(" WHERE c.community_start_at >= DATE(:startAt) ")
 				.append(" AND c.community_end_at <= DATE(:endAt) ")
-				.append(" AND c.created_by == :idUser ")
-				.append(" AND pt.is_acc == TRUE ")
-				.append(" AND c.created_by == :idUser ")
+				.append(" AND pt.is_acc = TRUE ")
+				.append(" AND c.created_by = :idUser ")
 				.append(" ORDER BY c.community_title DESC ");
 
 		List<MemberCommunity> res = new ArrayList<>();

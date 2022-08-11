@@ -81,4 +81,13 @@ public class PaymentTransaction extends BaseEntity {
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
+	public BigDecimal getAdminFee() {
+		return adminFee;
+	}
+
+	public void setAdminFee(BigDecimal adminFee) {
+		this.adminFee = adminFee;
+	}
+
 }

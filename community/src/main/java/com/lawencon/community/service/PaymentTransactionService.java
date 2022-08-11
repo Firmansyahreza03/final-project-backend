@@ -88,6 +88,7 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 		result.setCode(data.getCode());
 		result.setDesc(data.getDesc());
 		result.setPrice(data.getPrice());
+		result.setType(data.getType());
 		result.setAdminFee(data.getAdminFee());
 	
 		if(data.getFile()!=null) {

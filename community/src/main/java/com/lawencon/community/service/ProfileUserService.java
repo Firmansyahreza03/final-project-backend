@@ -2,7 +2,9 @@ package com.lawencon.community.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +20,6 @@ import com.lawencon.community.dao.RoleDao;
 import com.lawencon.community.dao.SubscriptionStatusDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Balance;
-import com.lawencon.community.model.EmailDtl;
 import com.lawencon.community.model.File;
 import com.lawencon.community.model.Industry;
 import com.lawencon.community.model.Profile;
@@ -237,14 +238,19 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	}
 	
 	public void sendCodeVerification (String email) {
-		EmailDtl emailDtl = new EmailDtl();
 		PojoCodeData code = codeService.generateRandomCode();
 		verificationCodeUtil.addVerificationCode(email, code.getCode());
 		
-		emailDtl.setMsgBody("CODE ANDA ADALAH : "+code.getCode());
-		emailDtl.setRecipient(email);
-		emailDtl.setSubject("CODE VERIFICATION");
-		new Thread(() -> emailService.sendSimpleMail(emailDtl)).start();
+		Map<String, Object> template = new HashMap<String, Object>();
+		template.put("code", code.getCode());
+		
+		new Thread(() -> {
+			try {
+				emailService.sendMessageUsingFreemarkerTemplate(email, "Verification Code", template);				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}).start();
 		
 	}
 	

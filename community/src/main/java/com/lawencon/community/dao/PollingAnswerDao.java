@@ -30,4 +30,28 @@ public class PollingAnswerDao extends AbstractJpaDao<PollingAnswer> {
 		}
 		return response;
 	}
+	
+	public Boolean findIsVotedByThreadHdrIdAndUserLogged(String idUser, String idThread) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT pa.is_active FROM comm_polling_answer pa ")
+				.append(" INNER JOIN comm_polling_option po ON pa.option_id = po.id ")
+				.append(" INNER JOIN comm_polling_hdr ph ON ph.id = po.polling_hdr ")
+				.append(" INNER JOIN comm_thread_hdr th ON th.polling_id = ph.id ")
+				.append(" WHERE th.id = :idThread AND pa.created_by = :idUser ");
+		
+		Boolean result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("idUser", idUser)
+					.setParameter("idThread", idThread)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = Boolean.valueOf(res.toString());
+			}
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
 }

@@ -12,8 +12,8 @@ import com.lawencon.community.dao.PollingOptionDao;
 import com.lawencon.community.model.PollingAnswer;
 import com.lawencon.community.model.PollingOption;
 import com.lawencon.community.pojo.PojoDeleteRes;
-import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
+import com.lawencon.community.pojo.pollinganswer.PojoAnswerPollling;
 import com.lawencon.community.pojo.pollinganswer.PojoFindByIdPollingAnswerRes;
 import com.lawencon.community.pojo.pollinganswer.PojoInsertPollingAnswerReq;
 import com.lawencon.community.pojo.pollinganswer.PojoPollingAnswerData;
@@ -26,7 +26,7 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 	private PollingAnswerDao pollingAnswerDao;
 	@Autowired
 	private PollingOptionDao pollingOptionDao;
-
+	
 	private PollingAnswer inputPollingData(PollingAnswer result, String pollingOptionId, Boolean isActive) {
 		PollingOption option = pollingOptionDao.getById(pollingOptionId);
 		result.setOption(option);
@@ -78,10 +78,10 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 		return result;
 	}
 
-	public PojoInsertRes insert(PojoInsertPollingAnswerReq data) throws Exception {
+	public PojoAnswerPollling insert(PojoInsertPollingAnswerReq data) throws Exception {
 		try {
 			begin();
-			PojoInsertRes insertRes = new PojoInsertRes();
+			PojoAnswerPollling insertRes = new PojoAnswerPollling();
 
 			PollingAnswer reqData = inputPollingData(new PollingAnswer(), data.getOptionId(), data.getIsActive());
 
@@ -90,8 +90,7 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
 
-			insertRes.setData(resData);
-			insertRes.setMessage("Successfully Adding Answer");
+			insertRes.setIsVoted(true);
 
 			commit();
 			return insertRes;

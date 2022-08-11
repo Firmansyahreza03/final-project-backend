@@ -146,15 +146,13 @@ public class ThreadLikedService extends BaseCoreService<ThreadLiked> {
 		try {
 			begin();
 			if (threadLikedId != null) {
-				PojoDeleteRes res = deleteById(threadLikedId);
-				result.setMessage(res.getMessage());
+				deleteById(threadLikedId);
 				result.setIsLiked(false);
 			} else {
 				PojoInsertThreadLikedReq data = new PojoInsertThreadLikedReq();
 				data.setHdrId(hdrId);
 				data.setIsActive(true);
-				PojoInsertRes res = insert(data);
-				result.setMessage(res.getMessage());
+				insert(data);
 				result.setIsLiked(true);
 			}
 			commit();

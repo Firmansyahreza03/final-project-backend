@@ -82,4 +82,10 @@ public class ThreadHdrController {
 		SearchQuery<PojoThreadHdrData> res = service.findThreadThatAreBookmarkedByUserLoggedEmail(email, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("no-login")
+	public ResponseEntity<SearchQuery<PojoThreadHdrData>> findThreadWithoutLogin(String query, Integer startPage, Integer maxPage) throws Exception{
+		SearchQuery<PojoThreadHdrData> res = service.getAllWithoutLogin(query, startPage, maxPage);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 }

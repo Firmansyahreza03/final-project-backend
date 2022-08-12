@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="&lt;/textFieldExpression&gt;&#x0A;&#x09;&#x09;&#x09;&lt;/textField&gt;&#x0A;&#x09;&#x09;&#x09;&lt;textField&gt;"/>
+		<item key="selection" value="new ja"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="new ja"/>
+			<item value="income"/>
 			<item value="&lt;/textFieldExpression&gt;&lt;/textField&gt;&lt;textField&gt;"/>
 			<item value="&lt;/textFieldExpression&gt;"/>
 			<item value="locationription"/>
@@ -21,8 +23,6 @@
 			<item value="LocalDateTime"/>
 			<item value="req.setStartAt(endAt);"/>
 			<item value="map.put(&quot;company&quot;, &quot;PT. Company Internasional&quot;);"/>
-			<item value="inputMemberCommunityData"/>
-			<item value="byname"/>
 		</list>
 		<list key="replacehistory">
 			<item value="&lt;/textFieldExpression&gt; &lt;/textField&gt; &lt;textField textAdjust=&quot;StretchHeight&quot;&gt;"/>

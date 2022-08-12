@@ -22,7 +22,6 @@ public class WebIgnoringConfig {
 
 		matchers.add(new AntPathRequestMatcher("/users/**", HttpMethod.POST.name()));
         matchers.add(new AntPathRequestMatcher("/industries", HttpMethod.GET.name()));
-		matchers.add(new AntPathRequestMatcher("/report/**", HttpMethod.GET.name()));
 		matchers.add(new AntPathRequestMatcher("/swagger-ui/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/v3/api-docs/**", HttpMethod.GET.name()));
         
@@ -32,6 +31,7 @@ public class WebIgnoringConfig {
         matchers.add(new AntPathRequestMatcher("/pollings/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/thread-categories/**", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/thread-comments/**", HttpMethod.GET.name()));
+        matchers.add(new AntPathRequestMatcher("/threads/*", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/threads/no-login", HttpMethod.GET.name()));
         matchers.add(new AntPathRequestMatcher("/users/user-id/**", HttpMethod.GET.name()));
         

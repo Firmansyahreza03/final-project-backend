@@ -54,6 +54,9 @@ public class LoginService extends BaseCoreService<User> implements UserDetailsSe
 	public String updateToken(String id) throws Exception {
 		User user = userDao.getById(id);
 
+		Authentication auth = new UsernamePasswordAuthenticationToken(id, null);
+		SecurityContextHolder.getContext().setAuthentication(auth);
+
 		RefreshTokenEntity refreshToken = jwtUtil.generateRefreshToken();
 		if(user.getToken() != null) {						
 			RefreshTokenEntity token = ConnHandler.getManager().find(RefreshTokenEntity.class, user.getToken().getId());

@@ -8,8 +8,30 @@ import com.lawencon.base.ConnHandler;
 @Service
 public class RefreshTokenService extends BaseCoreService<RefreshTokenEntity> {
 
+	public class InvalidTokenException extends RuntimeException {
+
+		private static final long serialVersionUID = 7566807062941977397L;
+
+		public InvalidTokenException() {
+			super();
+		}
+
+		public InvalidTokenException(String message, Throwable cause) {
+			super(message, cause);
+		}
+
+		public InvalidTokenException(String message) {
+			super(message);
+		}
+
+		public InvalidTokenException(Throwable cause) {
+			super(cause);
+		}
+
+	}
+
 	public void validateRefreshToken(String refreshToken) {
-		String sql = "SELECT r FROM RefreshTokenEntity "
+		String sql = "SELECT r FROM RefreshTokenEntity r "
 				+ "	WHERE token = :refreshToken AND expiredDate > current_timestamp() ";
 
 		RefreshTokenEntity result = null;
@@ -41,24 +63,3 @@ public class RefreshTokenService extends BaseCoreService<RefreshTokenEntity> {
 	}
 }
 
-class InvalidTokenException extends RuntimeException {
-
-	private static final long serialVersionUID = 7566807062941977397L;
-
-	public InvalidTokenException() {
-		super();
-	}
-
-	public InvalidTokenException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	public InvalidTokenException(String message) {
-		super(message);
-	}
-
-	public InvalidTokenException(Throwable cause) {
-		super(cause);
-	}
-
-}

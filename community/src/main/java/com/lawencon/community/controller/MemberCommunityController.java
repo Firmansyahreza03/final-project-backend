@@ -58,5 +58,11 @@ public class MemberCommunityController {
 		PojoDeleteRes res = service.deleteById(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("communities/{id}")
+	public ResponseEntity<Boolean> checkIsJoinedMember(@PathVariable("id") String id) throws Exception{
+		Boolean res = service.checkIsJoinedCommunity(id);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 
 }

@@ -178,4 +178,9 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 			throw new Exception(e);
 		}
 	}
+	
+	public Boolean checkIsJoinedCommunity(String communityId) throws Exception{
+		boolean isJoined = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), communityId);
+		return isJoined;
+	}
 }

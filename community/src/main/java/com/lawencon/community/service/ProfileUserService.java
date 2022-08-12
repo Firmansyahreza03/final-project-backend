@@ -69,6 +69,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	@Autowired
 	private PrincipalServiceImpl principalServiceImpl;
 
+
 	private PojoProfileData modelToProfileRes(Profile data) throws Exception {
 		PojoProfileData result = new PojoProfileData();
 		result.setId(data.getId());

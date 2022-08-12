@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.community.pojo.PojoDeleteRes;
-import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoUpdateRes;
 import com.lawencon.community.pojo.memberCommunity.PojoDataMemberCommunity;
 import com.lawencon.community.pojo.memberCommunity.PojoFindByIdMemberCommunityRes;
@@ -44,9 +43,8 @@ public class MemberCommunityController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<PojoInsertRes> insert(@RequestBody @Valid PojoInsertMemberCommunityReq req) throws Exception {
-		PojoInsertRes res = service.insert(req);
-		return new ResponseEntity<>(res, HttpStatus.CREATED);
+	public void insert(@RequestBody @Valid PojoInsertMemberCommunityReq req) throws Exception {
+		service.insert(req);
 	}
 
 	@PutMapping
@@ -58,6 +56,12 @@ public class MemberCommunityController {
 	@DeleteMapping("{id}")
 	public ResponseEntity<PojoDeleteRes> delete(@PathVariable("id") String id) throws Exception{
 		PojoDeleteRes res = service.deleteById(id);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@GetMapping("communities/{id}")
+	public ResponseEntity<Boolean> checkIsJoinedMember(@PathVariable("id") String id) throws Exception{
+		Boolean res = service.checkIsJoinedCommunity(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 

@@ -75,4 +75,10 @@ public class CommunityController {
 		SearchQuery<PojoDataCommunity> res = service.getByIdIndustryAndCategoryCode(email, code, startPage, maxPage);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+
+	@GetMapping("user/logged")
+	public ResponseEntity<SearchQuery<PojoDataCommunity>> findLogUser(Integer startPage, Integer maxPage) throws Exception {
+		SearchQuery<PojoDataCommunity> res = service.getByLogUser(startPage, maxPage);
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 }

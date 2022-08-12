@@ -18,7 +18,6 @@ import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
-import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
 import com.lawencon.community.pojo.PojoUpdateRes;
 import com.lawencon.community.pojo.PojoUpdateResData;
@@ -111,25 +110,24 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 		return result;
 	}
 
-	public PojoInsertRes insert(PojoInsertMemberCommunityReq data) throws Exception {
+	public void insert(PojoInsertMemberCommunityReq data) throws Exception {
 		try {
-			PojoInsertRes insertRes = new PojoInsertRes();
-			begin();
-
-			User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
-			
-			MemberCommunity reqData = inputMemberCommunityData(new MemberCommunity(), true, user,
-					data.getIdCommunity(), data.getIdPayment());
-
-			MemberCommunity result = save(reqData);
-			PojoInsertResData resData = new PojoInsertResData();
-			resData.setId(result.getId());
-
-			insertRes.setData(resData);
-			insertRes.setMessage("Successfully Adding MemberCommunity");
-
-			commit();
-			return insertRes;
+			Community community = communityDao.getById(data.getIdCommunity());
+			Boolean isJoin = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), community.getId());
+			if(isJoin == false) {				
+				begin();
+				
+				User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+				
+				MemberCommunity reqData = inputMemberCommunityData(new MemberCommunity(), true, user,
+						data.getIdCommunity(), data.getIdPayment());
+				
+				MemberCommunity result = save(reqData);
+				PojoInsertResData resData = new PojoInsertResData();
+				resData.setId(result.getId());
+				
+				commit();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
@@ -179,5 +177,10 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 			rollback();
 			throw new Exception(e);
 		}
+	}
+	
+	public Boolean checkIsJoinedCommunity(String communityId) throws Exception{
+		boolean isJoined = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), communityId);
+		return isJoined;
 	}
 }

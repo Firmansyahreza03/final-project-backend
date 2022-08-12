@@ -100,6 +100,11 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 		return result;
 	}
+	
+	public User findUserRefreshToken(String token) throws Exception{
+		User res = userDao.findByRefreshToken(token);
+		return res;
+	}
 
 	public PojoFindByIdProfileRes findById(String id) throws Exception {
 		Profile data = profileDao.getById(id);

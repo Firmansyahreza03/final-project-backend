@@ -35,6 +35,7 @@ public class WebIgnoringConfig {
         matchers.add(new AntPathRequestMatcher("/users/user-id/**", HttpMethod.GET.name()));
         
         matchers.add(new AntPathRequestMatcher("/refresh-token/**", HttpMethod.POST.name()));
+        matchers.add(new AntPathRequestMatcher("/report/**", HttpMethod.GET.name()));
 		return matchers;
 	}
 }

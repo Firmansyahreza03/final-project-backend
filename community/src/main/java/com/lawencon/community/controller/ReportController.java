@@ -36,7 +36,6 @@ public class ReportController {
 		return LocalDate.parse(dateStr, formatter);
 	}
 
-//	Menampilkan report informasi member yang mengikuti event ataupun course pada periode tertentu 
 	@GetMapping("/admin-user")
 	public ResponseEntity<?> reportUserAdmin(@RequestParam String startAt, @RequestParam String endAt) throws Exception {
 		PojoLimitTimeReq req = new PojoLimitTimeReq();
@@ -57,12 +56,12 @@ public class ReportController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(out);
 	}
 	@GetMapping("/user")
-	public ResponseEntity<?> reportUser(@RequestParam String startAt, @RequestParam String endAt) throws Exception {
+	public ResponseEntity<?> reportUser(@RequestParam String refreshToken, @RequestParam String startAt, @RequestParam String endAt) throws Exception {
 		PojoLimitTimeReq req = new PojoLimitTimeReq();
 		req.setStartAt(stringToLocalDate(startAt));
 		req.setEndAt(stringToLocalDate(endAt));
 
-		List<PojoReportUserByCommunityRes> listData = service.userReport(req);
+		List<PojoReportUserByCommunityRes> listData = service.userReport(req, refreshToken);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Member Community Report " + startAt + " s/d " + endAt);
@@ -76,7 +75,6 @@ public class ReportController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(out);
 	}
 	
-//	Menampilkan report informasi penghasilan dari event ataupun course pada periode tertentu 
 	@GetMapping("/admin-income")
 	public ResponseEntity<?> reportIncome(@RequestParam String startAt, @RequestParam String endAt)
 			throws Exception {
@@ -97,12 +95,12 @@ public class ReportController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(out);
 	}
 	@GetMapping("/income")
-	public ResponseEntity<?> reportIncomeAdmin(@RequestParam String startAt, @RequestParam String endAt)
+	public ResponseEntity<?> reportIncomeAdmin(@RequestParam String refreshToken, @RequestParam String startAt, @RequestParam String endAt)
 			throws Exception {
 		PojoLimitTimeReq req = new PojoLimitTimeReq();
 		req.setStartAt(stringToLocalDate(startAt));
 		req.setEndAt(stringToLocalDate(endAt));
-		List<PojoReportPaymentByCommunityRes> listData = service.incomeCommunityReport(req);
+		List<PojoReportPaymentByCommunityRes> listData = service.incomeCommunityReport(req, refreshToken);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Income Community Report " + startAt + " s/d " + endAt);

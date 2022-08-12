@@ -18,7 +18,6 @@ import com.lawencon.security.RefreshTokenService.InvalidTokenException;
 import com.lawencon.util.VerificationCodeUtil;
 import com.lawencon.util.VerificationCodeUtil.InvalidVerificationCodeException;
 
-
 @ControllerAdvice
 public class ErrorHandlerController {
 	

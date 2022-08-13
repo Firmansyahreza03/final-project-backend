@@ -30,7 +30,9 @@ public class ReportController {
 	private JasperUtil jasperUtil;
 
 	private String companyName = "Filos Community";
-
+	private String companyAddress = "Pakuwon Tower, Jl. Casablanca No.Kav 88, RT.6/RW.14, Kb. Baru, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12870";
+	private String companyDesc = "Website: http//filos.com, Telp: (021) 28542549";
+			
 	private LocalDate stringToLocalDate(String dateStr) {
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		return LocalDate.parse(dateStr, formatter);
@@ -43,10 +45,12 @@ public class ReportController {
 		req.setEndAt(stringToLocalDate(endAt));
 
 		List<PojoReportUserByCommunityRes> listData = service.userAdminReport(req);
-
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Member Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "userReport");
 
@@ -66,6 +70,8 @@ public class ReportController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Member Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "userReport");
 
@@ -86,6 +92,8 @@ public class ReportController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Income Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "incomeReport");
 
@@ -105,6 +113,8 @@ public class ReportController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Income Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "incomeReport");
 

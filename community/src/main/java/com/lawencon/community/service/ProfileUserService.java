@@ -311,27 +311,25 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 	public PojoUpdateRes updatePass(PojoUpdateUserPassReq data) throws Exception {
 		PojoUpdateRes updateRes = new PojoUpdateRes();
-		PojoUpdateResData dataRes = new PojoUpdateResData();
-		
+
 		try {
 			begin();
 			User slcUser = userDao.getById(principalServiceImpl.getAuthPrincipal());
 			String oldPass = data.getOldPass();
-			commit();
 			if (passwordEncoder.matches(oldPass, slcUser.getUserPassword())) {
 				String newPass = passwordEncoder.encode(data.getNewPass());
 				slcUser.setUserPassword(newPass);
 
 				User result = userDao.save(slcUser);
-
-				dataRes.setVersion(result.getVersion());
-
+				commit();
+				PojoUpdateResData resData = new PojoUpdateResData();
+				resData.setVersion(result.getVersion());
+				updateRes.setData(resData);
 				updateRes.setMessage("Update Password Success");
 			} else {
-				dataRes.setVersion(slcUser.getVersion());
 				updateRes.setMessage("Wrong Password");
 			}
-			
+
 			return updateRes;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -58,7 +58,7 @@ public class FileService extends BaseCoreService<File>{
 	}
 	
 	public SearchQuery<PojoDataFile> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<File> fileList= fileDao.findAll(query, startPage, maxPage);
+		SearchQuery<File> fileList= fileDao.searchQueryTable(query, startPage, maxPage);
 		List<PojoDataFile> resultList = new ArrayList<>();
 		
 		fileList.getData().forEach(d -> {

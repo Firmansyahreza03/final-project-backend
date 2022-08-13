@@ -54,7 +54,6 @@ public class RefreshTokenService extends BaseCoreService<RefreshTokenEntity> {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-
 		return data;
 	}
 

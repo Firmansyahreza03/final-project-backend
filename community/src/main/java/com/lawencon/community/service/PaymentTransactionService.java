@@ -116,7 +116,8 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 
 	public SearchQuery<PojoDataPaymentTransaction> getAll(String query, Integer startPage, Integer maxPage)
 			throws Exception {
-		SearchQuery<PaymentTransaction> getAllPaymentTransaction = paymentDao.findAll(query, startPage, maxPage);
+		SearchQuery<PaymentTransaction> getAllPaymentTransaction = paymentDao.searchQueryTable(query, startPage, maxPage,
+				"type", "code", "desc");
 		List<PojoDataPaymentTransaction> resultList = new ArrayList<>();
 
 		getAllPaymentTransaction.getData().forEach(d -> {

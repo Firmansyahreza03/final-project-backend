@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="userReport" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="e64e681c-1b37-4479-9623-5c829feac734">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="userReport" pageWidth="595" pageHeight="842" whenNoDataType="NoDataSection" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" isIgnorePagination="true" uuid="e64e681c-1b37-4479-9623-5c829feac734">
 	<parameter name="company" class="java.lang.String"/>
 	<parameter name="title" class="java.lang.String"/>
 	<queryString>
@@ -157,7 +157,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="30" splitType="Stretch">
+		<band height="30" splitType="Prevent">
 			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="102" height="30" uuid="857114f7-5f45-4b4a-abab-8a180f00df15">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -169,7 +169,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nameUser}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
@@ -184,7 +184,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
@@ -230,7 +230,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{type}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">
@@ -245,20 +245,28 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Top"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{location}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="25">
+		<band height="20" splitType="Prevent">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField>
-				<reportElement x="455" y="0" width="100" height="20" uuid="be5be083-465c-4a4e-a090-23f8bf87f018">
+				<reportElement x="0" y="5" width="285" height="15" uuid="b8cda8e5-5d18-4f4d-8cd8-b36b6d0fb6d8">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right" verticalAlignment="Bottom"/>
-				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="285" y="5" width="270" height="15" uuid="d22fdefe-a76b-481b-96be-5e1567140b59">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

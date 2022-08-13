@@ -35,6 +35,7 @@ import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
 import com.lawencon.community.pojo.profile.PojoUpdateProfileReq;
+import com.lawencon.community.pojo.user.PojoUpdateUserPassReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserRes;
 import com.lawencon.model.SearchQuery;
@@ -43,7 +44,6 @@ import com.lawencon.util.VerificationCodeUtil;
 
 @Service
 public class ProfileUserService extends BaseCoreService<Profile> {
-
 	@Autowired
 	private ProfileDao profileDao;
 	@Autowired
@@ -59,16 +59,15 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	@Autowired
 	private FileDao fileDao;
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-	@Autowired
 	private EmailService emailService;
 	@Autowired
 	private CodeService codeService;
 	@Autowired
+	private PasswordEncoder passwordEncoder;
+	@Autowired
 	private VerificationCodeUtil verificationCodeUtil;
 	@Autowired
 	private PrincipalServiceImpl principalServiceImpl;
-
 
 	private PojoProfileData modelToProfileRes(Profile data) throws Exception {
 		PojoProfileData result = new PojoProfileData();
@@ -101,10 +100,9 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 		return result;
 	}
-	
-	public User findUserRefreshToken(String token) throws Exception{
-		User res = userDao.findByRefreshToken(token);
-		return res;
+
+	public User findUserRefreshToken(String token) throws Exception {
+		return userDao.findByRefreshToken(token);
 	}
 
 	public PojoFindByIdProfileRes findById(String id) throws Exception {
@@ -116,8 +114,8 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 		return res;
 	}
-	
-	public PojoFindByIdProfileRes findByUserId() throws Exception{
+
+	public PojoFindByIdProfileRes findByUserId() throws Exception {
 		Profile data = profileDao.getByUserId(principalServiceImpl.getAuthPrincipal());
 
 		PojoProfileData result = modelToProfileRes(data);
@@ -127,7 +125,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		return res;
 	}
 
-	public PojoFindByIdProfileRes findByUserId(String id) throws Exception{
+	public PojoFindByIdProfileRes findByUserId(String id) throws Exception {
 		Profile data = profileDao.getByUserId(id);
 
 		PojoProfileData result = modelToProfileRes(data);
@@ -136,7 +134,7 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 
 		return res;
 	}
-	
+
 	public PojoFindByIdProfileRes findByMail(String mail) throws Exception {
 		Profile data = profileDao.getByUserMail(mail);
 
@@ -148,13 +146,8 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 	}
 
 	public SearchQuery<PojoProfileData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Profile> profileList = null;
-		if (query != null) {
-			profileList = profileDao.searchQuery(query, startPage, maxPage,
-					 "fullName", "companyName", "positionName", "user.userEmail", "industry.industryName" );
-		} else {
-			profileList = profileDao.findAll(query, startPage, maxPage);
-		}
+		SearchQuery<Profile> profileList = profileDao.findAll(query, startPage, maxPage, "fullName", "companyName",
+				"positionName", "user.userEmail", "industry.industryName");
 		List<PojoProfileData> results = new ArrayList<>();
 
 		profileList.getData().forEach(d -> {
@@ -242,70 +235,109 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 			throw new Exception(e);
 		}
 	}
-	
-	public void sendCodeVerification (String email) {
+
+	public void sendCodeVerification(String email) {
 		PojoCodeData code = codeService.generateRandomCode();
 		verificationCodeUtil.addVerificationCode(email, code.getCode());
-		
+
 		Map<String, Object> template = new HashMap<String, Object>();
 		template.put("code", code.getCode());
-		
+
 		new Thread(() -> {
 			try {
-				emailService.sendMessageUsingFreemarkerTemplate(email, "Verification Code", template);				
+				emailService.sendMessageUsingFreemarkerTemplate(email, "Verification Code", template);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}).start();
-		
+
 	}
-	
+
 	public PojoVerificationUserRes verificationCode(PojoVerificationUserReq data) {
 		verificationCodeUtil.validateVerificationCode(data.getEmail(), data.getCodeVerification());
 		PojoVerificationUserRes res = new PojoVerificationUserRes();
 		res.setResult(true);
 		return res;
 	}
-	
+
 	public PojoUpdateRes updateProfile(PojoUpdateProfileReq data) throws Exception {
-		begin();
-		PojoUpdateRes res = new PojoUpdateRes();
-		User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
-		File file = null;
-		
-		try {			
-			file = fileDao.getById(user.getFile().getId());
-			file.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
+		try {
+			begin();
+			PojoUpdateRes res = new PojoUpdateRes();
+			User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+			File file = null;
+
+			try {
+				file = fileDao.getById(user.getFile().getId());
+				file.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
+			} catch (Exception e) {
+				file = new File();
+				file.setCreatedBy(principalServiceImpl.getAuthPrincipal());
+			}
+			if (data.getFileName() != null && data.getFileExt() != null
+					&& (data.getFileExt().equals("jpg") || data.getFileExt().equals("jpeg")
+							|| data.getFileExt().equals("png") || data.getFileExt().equals("jfif"))) {
+				file.setFileName(data.getFileName());
+				file.setFileExtension(data.getFileExt());
+				file.setIsActive(true);
+			}
+			File resFile = fileDao.save(file);
+
+			user.setFile(resFile);
+			user.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
+			User userRes = userDao.save(user);
+
+			Profile profile = profileDao.getByUserId(principalServiceImpl.getAuthPrincipal());
+			profile.setCompanyName(data.getCompanyName());
+			profile.setFullName(data.getFullName());
+			Industry industry = industryDao.getById(data.getIndustryId());
+			profile.setIndustry(industry);
+			profile.setPositionName(data.getPositionName());
+			profile.setVersion(data.getVersion());
+			profile.setUser(userRes);
+			Profile result = save(profile);
+			PojoUpdateResData resData = new PojoUpdateResData();
+			resData.setVersion(result.getVersion());
+			res.setData(resData);
+			res.setMessage("Update profile successfully");
+			commit();
+			return res;
 		} catch (Exception e) {
-			file = new File();
-			file.setCreatedBy(principalServiceImpl.getAuthPrincipal());
+			e.printStackTrace();
+			rollback();
+			throw new Exception(e);
 		}
-		if(data.getFileName() != null && data.getFileExt() != null && (data.getFileExt().equals("jpg") || data.getFileExt().equals("jpeg") || data.getFileExt().equals("png") || data.getFileExt().equals("jfif"))) {
-			file.setFileName(data.getFileName());
-			file.setFileExtension(data.getFileExt());
-			file.setIsActive(true);
-		}
-		File resFile = fileDao.save(file);
-		
-		user.setFile(resFile);
-		user.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
-		User userRes = userDao.save(user);
-		
-		Profile profile = profileDao.getByUserId(principalServiceImpl.getAuthPrincipal());
-		profile.setCompanyName(data.getCompanyName());
-		profile.setFullName(data.getFullName());
-		Industry industry = industryDao.getById(data.getIndustryId());
-		profile.setIndustry(industry);
-		profile.setPositionName(data.getPositionName());
-		profile.setVersion(data.getVersion());
-		profile.setUser(userRes);
-		Profile result = save(profile);
-		PojoUpdateResData resData = new PojoUpdateResData();
-		resData.setVersion(result.getVersion());
-		res.setData(resData);
-		res.setMessage("Update profile successfully");
-		commit();
-		return res;
 	}
-	
+
+	public PojoUpdateRes updatePass(PojoUpdateUserPassReq data) throws Exception {
+		PojoUpdateRes updateRes = new PojoUpdateRes();
+		PojoUpdateResData dataRes = new PojoUpdateResData();
+		
+		try {
+			begin();
+			User slcUser = userDao.getById(principalServiceImpl.getAuthPrincipal());
+			String oldPass = data.getOldPass();
+			commit();
+			if (passwordEncoder.matches(oldPass, slcUser.getUserPassword())) {
+				String newPass = passwordEncoder.encode(data.getNewPass());
+				slcUser.setUserPassword(newPass);
+
+				User result = userDao.save(slcUser);
+
+				dataRes.setVersion(result.getVersion());
+
+				updateRes.setMessage("Update Password Success");
+			} else {
+				dataRes.setVersion(slcUser.getVersion());
+				updateRes.setMessage("Wrong Password");
+			}
+			
+			return updateRes;
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback();
+			throw new Exception(e);
+		}
+
+	}
 }

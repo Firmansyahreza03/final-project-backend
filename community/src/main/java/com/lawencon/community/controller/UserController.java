@@ -1,5 +1,7 @@
 package com.lawencon.community.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import com.lawencon.community.pojo.profile.PojoFindByIdProfileRes;
 import com.lawencon.community.pojo.profile.PojoInsertProfileReq;
 import com.lawencon.community.pojo.profile.PojoProfileData;
 import com.lawencon.community.pojo.profile.PojoUpdateProfileReq;
+import com.lawencon.community.pojo.user.PojoUpdateUserPassReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserReq;
 import com.lawencon.community.pojo.user.PojoVerificationUserRes;
 import com.lawencon.community.service.ProfileUserService;
@@ -40,7 +43,6 @@ public class UserController {
 		PojoFindByIdProfileRes res = service.findByUserId(id);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
 	
 	@GetMapping("/profiles")
 	public ResponseEntity<PojoFindByIdProfileRes> findByUserLogged() throws Exception {
@@ -76,9 +78,7 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<PojoInsertRes> insert(@RequestBody PojoInsertProfileReq data) throws Exception {
-
 		PojoInsertRes insertRes = service.regist(data);
-
 		return new ResponseEntity<PojoInsertRes>(insertRes, HttpStatus.CREATED);
 	}
 	
@@ -87,4 +87,11 @@ public class UserController {
 		PojoUpdateRes res = service.updateProfile(data);
 		return new ResponseEntity<PojoUpdateRes>(res, HttpStatus.OK);
 	}
+
+	@PutMapping("/changepass")
+	public ResponseEntity<PojoUpdateRes> updatePass(@RequestBody @Valid PojoUpdateUserPassReq data) throws Exception{
+		PojoUpdateRes updateRes = service.updatePass(data);
+		return new ResponseEntity<PojoUpdateRes>(updateRes, HttpStatus.OK);
+	}
+	
 }

@@ -90,7 +90,7 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 
 	public SearchQuery<PojoDataMemberCommunity> getAll(String query, Integer startPage, Integer maxPage)
 			throws Exception {
-		SearchQuery<MemberCommunity> getAllMemberCommunity = memberCommunityDao.findAll(query, startPage, maxPage);
+		SearchQuery<MemberCommunity> getAllMemberCommunity = memberCommunityDao.searchQueryTable(query, startPage, maxPage);
 		List<PojoDataMemberCommunity> resultList = new ArrayList<>();
 
 		getAllMemberCommunity.getData().forEach(d -> {

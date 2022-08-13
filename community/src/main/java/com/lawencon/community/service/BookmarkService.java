@@ -74,7 +74,7 @@ public class BookmarkService extends BaseCoreService<Bookmark> {
 	}
 
 	public SearchQuery<PojoDataBookmark> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Bookmark> bookmarkList = bookmarkDao.findAll(query, startPage, maxPage);
+		SearchQuery<Bookmark> bookmarkList = bookmarkDao.searchQueryTable(query, startPage, maxPage);
 		List<PojoDataBookmark> resultList = new ArrayList<>();
 
 		bookmarkList.getData().forEach(d -> {

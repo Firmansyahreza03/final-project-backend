@@ -57,7 +57,7 @@ public class BalanceService extends BaseCoreService<Balance> {
 	}
 
 	public SearchQuery<PojoDataBalance> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Balance> getAllBalance = balanceDao.findAll(query, startPage, maxPage);
+		SearchQuery<Balance> getAllBalance = balanceDao.searchQueryTable(query, startPage, maxPage);
 		List<PojoDataBalance> resultList = new ArrayList<>();
 
 		getAllBalance.getData().forEach(d -> {

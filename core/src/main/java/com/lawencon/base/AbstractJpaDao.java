@@ -62,56 +62,6 @@ public class AbstractJpaDao<T extends BaseEntity> {
 				.getResultList();
 	}
 
-	private SearchQuery<T> getAll( 
-			String query, 
-			int startPage, int maxPage,
-			String... fields) {
-		
-		CriteriaBuilder criteriaBuilder = em().getCriteriaBuilder();
-		CriteriaQuery<T> criteriaQueryData = criteriaBuilder.createQuery(clazz);
-		CriteriaQuery<Long> criteriaQueryCount = criteriaBuilder.createQuery(Long.class);
-
-		Root<T> itemRoot = criteriaQueryData.from(clazz);
-
-		String[] extractQuery = extractQuery(query);
-		Predicate[] predicates = new Predicate[fields.length * extractQuery.length];
-		
-		int countPredicate = 0;
-
-		for (int i = 0; i < fields.length; i++) {
-			for (String subQuery : extractQuery) {
-				Predicate condition = criteriaBuilder.like(
-						criteriaBuilder.lower(itemRoot.get(fields[i])), "%" + subQuery.toLowerCase() + "%"
-				);
-				predicates[countPredicate] = condition;
-				countPredicate++;
-			}
-
-		}
-		
-		Predicate predicate = criteriaBuilder.or(predicates); 
-
-		
-		criteriaQueryData.where(predicate).orderBy(criteriaBuilder.asc(itemRoot.get("createdAt")));
-		
-		criteriaQueryCount.select(criteriaBuilder.count(criteriaQueryCount.from(clazz)));
-		criteriaQueryCount.where(predicate);
-		
-		List<T> resultData = em().createQuery(criteriaQueryData)
-				.setFirstResult(startPage)
-				.setMaxResults(maxPage)
-				.getResultList();
-		
-		Long resultCount = em().createQuery(criteriaQueryCount).getSingleResult();
-		
-		SearchQuery<T> data = new SearchQuery<>();
-		data.setData(resultData);
-		data.setCount(resultCount.intValue());
-
-		return data;
-
-	}
-	
 	public SearchQuery<T> searchQueryTable(String textQuery, 
 			Integer startPosition, Integer limit, 
 			String... fields) throws Exception{
@@ -220,45 +170,6 @@ public class AbstractJpaDao<T extends BaseEntity> {
 		}
 	}
 
-		
-		//join
-//		Root<T> itemRootCount = criteriaQueryCount.from(clazz);
-//		for (int i = 0; i < fieldJoins.length; i++) {	
-//			itemRootCount.join(fieldJoins[i]);
-//			Join<Object, Object> join = itemRootData.join(fieldJoins[i]);
-//			for (String subQuery : extractQuery) {			
-//				Predicate condition = criteriaBuilder.like(
-//						criteriaBuilder.lower(join.get(fieldInfieldJoins[i])), "%" + subQuery.toLowerCase() + "%"
-//				);
-//				predicates[countPredicate] = condition;
-//				countPredicate++;
-//			}
-//		}
-//		Predicate predicate = criteriaBuilder.or(predicates); 
-//		
-//		criteriaQueryCount
-//			.select(criteriaBuilder.count(itemRootCount))
-//			.where(predicate);
-//
-//		criteriaQueryData
-//			.where(predicate)
-//			.orderBy(criteriaBuilder.asc(itemRootData.get("createdAt")));
-//		
-//		List<T> resultData = em().createQuery(criteriaQueryData)
-//				.setFirstResult(startPosition)
-//				.setMaxResults(limit)
-//				.getResultList();
-//		
-//		Long resultCount = em().createQuery(criteriaQueryCount).getSingleResult();
-//		
-//		SearchQuery<T> data = new SearchQuery<>();
-//		data.setData(resultData);
-//		data.setCount(resultCount.intValue());
-//
-//		return data;
-//	}
-//
-//	
 	private String[] extractQuery(String textQuery) {
 		String[] result = textQuery.split(" ");
 		return result;
@@ -280,7 +191,7 @@ public class AbstractJpaDao<T extends BaseEntity> {
 				sq.setData(data);
 				sq.setCount(count);
 			} else {
-				return getAll(query, startPage, maxPage, fields);
+				return searchQuery(query, startPage, maxPage, fields);
 			}
 		}
 

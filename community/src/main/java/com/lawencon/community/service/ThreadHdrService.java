@@ -210,7 +210,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	}
 
 	public SearchQuery<PojoThreadHdrData> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<ThreadHdr> threadList = hdrDao.findAll(query, startPage, maxPage, "threadCode", "threadName",
+		SearchQuery<ThreadHdr> threadList = hdrDao.searchQueryTable(query, startPage, maxPage, "threadCode", "threadName",
 				"category.categoryName");
 		List<PojoThreadHdrData> results = new ArrayList<>();
 

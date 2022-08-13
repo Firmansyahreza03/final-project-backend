@@ -1,9 +1,6 @@
 package com.lawencon.community.pojo.user;
 
-import java.time.LocalDateTime;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 public class PojoUpdateUserPassReq {
 	@NotBlank(message = "Old password can't be null")

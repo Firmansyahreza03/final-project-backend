@@ -56,7 +56,7 @@ public class IndustryService extends BaseCoreService<Industry> {
 
 	public SearchQuery<PojoDataIndustry> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
 		
-		SearchQuery<Industry> industryList = industryDao.findAll(query, startPage, maxPage, "industryName", "industryCode");
+		SearchQuery<Industry> industryList = industryDao.searchQueryTable(query, startPage, maxPage, "industryName", "industryCode");
 		List<PojoDataIndustry> resultList = new ArrayList<>();
 
 		industryList.getData().forEach(d -> {

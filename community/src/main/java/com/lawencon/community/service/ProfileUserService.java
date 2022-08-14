@@ -236,21 +236,25 @@ public class ProfileUserService extends BaseCoreService<Profile> {
 		}
 	}
 
-	public void sendCodeVerification(String email) {
-		PojoCodeData code = codeService.generateRandomCode();
-		verificationCodeUtil.addVerificationCode(email, code.getCode());
-
-		Map<String, Object> template = new HashMap<String, Object>();
-		template.put("code", code.getCode());
-
-		new Thread(() -> {
-			try {
-				emailService.sendMessageUsingFreemarkerTemplate(email, "Verification Code", template);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}).start();
-
+	public void sendCodeVerification(String email) throws Exception {
+		User user = userDao.findByEmail(email);
+		if(user == null) {			
+			PojoCodeData code = codeService.generateRandomCode();
+			verificationCodeUtil.addVerificationCode(email, code.getCode());
+			
+			Map<String, Object> template = new HashMap<String, Object>();
+			template.put("code", code.getCode());
+			
+			new Thread(() -> {
+				try {
+					emailService.sendMessageUsingFreemarkerTemplate(email, "Verification Code", template);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}).start();
+		} else {
+			throw new Exception("Email already registered");
+		}
 	}
 
 	public PojoVerificationUserRes verificationCode(PojoVerificationUserReq data) {

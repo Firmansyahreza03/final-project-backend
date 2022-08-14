@@ -8,15 +8,12 @@ import com.lawencon.community.dao.RefreshTokenDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.LogoutReq;
-import com.lawencon.security.PrincipalServiceImpl;
 import com.lawencon.security.RefreshTokenEntity;
 
 @Service
 public class LogoutService extends BaseCoreService<RefreshTokenEntity>{
 	@Autowired
 	private RefreshTokenDao refreshTokenDao;
-	@Autowired
-	private PrincipalServiceImpl principalServiceImpl;
 	@Autowired
 	private UserDao userDao;
 	

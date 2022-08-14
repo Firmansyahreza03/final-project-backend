@@ -62,7 +62,7 @@ public class UserDao extends AbstractJpaDao<User> {
 				user.setSubscriptionStatus(status);
 			}
 		} catch (Exception e) {
-			throw new Exception(e);
+			user = null;
 		}
 		return user;
 	}

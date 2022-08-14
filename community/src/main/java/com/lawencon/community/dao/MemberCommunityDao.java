@@ -168,9 +168,9 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 	
 	public Boolean findIsActiveByUserIdAndCommunityId(String userId, String communityId) throws Exception{
 		StringBuilder sql = new StringBuilder()
-				.append(" SELECT mc.is_active FROM comm_member_community mc ")
-				.append(" INNER JOIN comm_community c ON c.id = mc.community_id ")
-				.append(" WHERE (mc.user_id = :userId AND mc.community_id = :communityId) OR (c.created_by = :userId) ");
+				.append(" SELECT c.is_active FROM comm_member_community mc ")
+				.append(" RIGHT JOIN comm_community c ON c.id = mc.community_id ")
+				.append(" WHERE (mc.user_id = :userId AND mc.community_id = :communityId) OR (c.created_by = :userId AND c.id = :communityId) ");
 		
 		Boolean result = null;
 		try {

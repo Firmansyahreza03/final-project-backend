@@ -3,6 +3,8 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +75,20 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 	private ThreadDtlDao dtlDao;
 	@Autowired
 	private PollingAnswerDao answerDao;
+	
+	public class InvalidAccessPremiumException extends NoResultException {
+		
+		private static final long serialVersionUID = -375260509250558368L;
 
+		public InvalidAccessPremiumException() {
+			super();
+		}
+		
+		public InvalidAccessPremiumException(String message) {
+			super(message);
+		}
+	}
+	
 	private ThreadHdr inputThreadData(ThreadHdr result, String name, String content, String categoryId,
 			Boolean isActive, String pollingId, String fileName, String fileExt, String idCreator) {
 		result.setThreadName(name);
@@ -141,6 +156,8 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				dataOpt.setOptionName(pollOpt.get(i).getOptionName());
 				dataOpt.setPollingId(data.getPolling().getId());
 				dataOpt.setVersion(pollOpt.get(i).getVersion());
+				Integer count = answerDao.countPollingAnswer(pollOpt.get(i).getId());
+				dataOpt.setCountPoll(count);
 				dataPollOpt.add(dataOpt);
 			}
 			dataPoll.setPollingName(data.getPolling().getPollingName());
@@ -172,23 +189,24 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 		return result;
 	}
 
-	public PojoFindByIdThreadHdrRes findById(String id) throws Exception {
+	public PojoFindByIdThreadHdrRes findById(String id, String email) throws Exception {
 		Boolean isAllowed = false;
 		ThreadHdr data = hdrDao.getById(id);
 
 		if (ThreadCategoryType.PREMIUM.getCode().equals(data.getCategory().getCategoryCode())) {
 			try {
-				User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+				User user = userDao.findByEmail(email);
 				String roleCode = user.getRole().getRoleCode();
 				if (user.getSubscriptionStatus().getIsSubscriber() == true) {
 					isAllowed = true;
-				} else if (data.getCreatedBy().equals(principalServiceImpl.getAuthPrincipal())) {
+				} else if (data.getCreatedBy().equals(user.getId())) {
 					isAllowed = true;
 				} else if (RoleType.ADMIN.name().equals(roleCode) || RoleType.SYSTEM.name().equals(roleCode)) {
 					isAllowed = true;
 				}
 			} catch (Exception e) {
 				isAllowed = false;
+				new InvalidAccessPremiumException("Only for Subscriber");
 			}
 		} else {
 			isAllowed = true;
@@ -265,7 +283,7 @@ public class ThreadHdrService extends BaseCoreService<ThreadHdr> {
 				dataPoll.setIsActive(true);
 				dataPoll.setPollingName(data.getPollingName());
 				dataPoll.setOptions(data.getOptions());
-				dataPoll.setExpiredAt(data.getExpiredAt());
+				dataPoll.setExpiredAt(data.getExpiredAt().toString());
 				PojoInsertRes insertPolling = pollingService.insert(dataPoll);
 				String idPolling = insertPolling.getData().getId();
 				data.setPollingHdrId(idPolling);

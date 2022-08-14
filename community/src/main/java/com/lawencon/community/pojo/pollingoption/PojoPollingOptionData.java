@@ -7,6 +7,15 @@ public class PojoPollingOptionData {
 	private String optionName;
 	private Boolean isActive;
 	private Integer version;
+	private Integer countPoll;
+
+	public Integer getCountPoll() {
+		return countPoll;
+	}
+
+	public void setCountPoll(Integer countPoll) {
+		this.countPoll = countPoll;
+	}
 
 	public String getId() {
 		return id;

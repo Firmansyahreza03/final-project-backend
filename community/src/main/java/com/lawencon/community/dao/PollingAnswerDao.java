@@ -26,7 +26,7 @@ public class PollingAnswerDao extends AbstractJpaDao<PollingAnswer> {
 				response = Integer.valueOf(result.toString());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			response = 0;
 		}
 		return response;
 	}

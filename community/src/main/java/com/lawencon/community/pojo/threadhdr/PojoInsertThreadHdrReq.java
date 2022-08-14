@@ -1,6 +1,5 @@
 package com.lawencon.community.pojo.threadhdr;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -27,13 +26,13 @@ public class PojoInsertThreadHdrReq {
 	private String pollingName;
 	private List<String> options;
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
-	private LocalDateTime expiredAt;
+	private String expiredAt;
 	
-	public LocalDateTime getExpiredAt() {
+	public String getExpiredAt() {
 		return expiredAt;
 	}
 
-	public void setExpiredAt(LocalDateTime expiredAt) {
+	public void setExpiredAt(String expiredAt) {
 		this.expiredAt = expiredAt;
 	}
 

@@ -1,6 +1,7 @@
 package com.lawencon.community.service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +28,15 @@ public class PollingHdrService extends BaseCoreService<PollingHdr> {
 	@Autowired
 	private PollingOptionService optionService;
 
-	private PollingHdr inputPollingData(PollingHdr result, String pollingName, Boolean isActive, LocalDateTime expiredAt) {
+	public LocalDateTime stringToLocalDateTime(String dateTimeStr) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        return LocalDateTime.parse(dateTimeStr, formatter);
+    }
+
+	private PollingHdr inputPollingData(PollingHdr result, String pollingName, Boolean isActive, String expiredAt) {
 		result.setIsActive(true);
 		result.setPollingName(pollingName);
-		result.setExpiredAt(expiredAt);
+		result.setExpiredAt(stringToLocalDateTime(expiredAt));
 
 		return result;
 	}

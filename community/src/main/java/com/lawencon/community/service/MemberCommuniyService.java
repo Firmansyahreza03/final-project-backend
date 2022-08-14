@@ -18,6 +18,7 @@ import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.Profile;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.PojoDeleteRes;
+import com.lawencon.community.pojo.PojoInsertRes;
 import com.lawencon.community.pojo.PojoInsertResData;
 import com.lawencon.community.pojo.PojoUpdateRes;
 import com.lawencon.community.pojo.PojoUpdateResData;
@@ -110,7 +111,8 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 		return result;
 	}
 
-	public void insert(PojoInsertMemberCommunityReq data) throws Exception {
+	public PojoInsertRes insert(PojoInsertMemberCommunityReq data) throws Exception {
+		PojoInsertRes res = new PojoInsertRes();
 		try {
 			Community community = communityDao.getById(data.getIdCommunity());
 			Boolean isJoin = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), community.getId());
@@ -127,7 +129,12 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 				resData.setId(result.getId());
 				
 				commit();
+				res.setData(resData);
+				res.setMessage(null);
+			} else {
+				res.setMessage("You already joinned");
 			}
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();

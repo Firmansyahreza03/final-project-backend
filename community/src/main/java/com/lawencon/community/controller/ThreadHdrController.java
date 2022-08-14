@@ -32,8 +32,8 @@ public class ThreadHdrController {
 	private ThreadHdrService service;
 
 	@GetMapping("{id}")
-	public ResponseEntity<PojoFindByIdThreadHdrRes> findById(@PathVariable("id") String id) throws Exception {
-		PojoFindByIdThreadHdrRes res = service.findById(id);
+	public ResponseEntity<PojoFindByIdThreadHdrRes> findById(@PathVariable("id") String id, String email) throws Exception {
+		PojoFindByIdThreadHdrRes res = service.findById(id, email);
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 

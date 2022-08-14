@@ -76,7 +76,7 @@ public class CommunityController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@GetMapping("byLogUser")
+	@GetMapping("user/logged")
 	public ResponseEntity<SearchQuery<PojoDataCommunity>> findLogUser
 		(Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<PojoDataCommunity> res = service.getByLogUser(startPage, maxPage);

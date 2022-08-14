@@ -3,11 +3,14 @@ package com.lawencon.community.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.base.BaseCoreService;
 import com.lawencon.community.dao.PollingAnswerDao;
+import com.lawencon.community.dao.PollingHdrDao;
 import com.lawencon.community.dao.PollingOptionDao;
 import com.lawencon.community.model.PollingAnswer;
 import com.lawencon.community.model.PollingOption;
@@ -26,6 +29,29 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 	private PollingAnswerDao pollingAnswerDao;
 	@Autowired
 	private PollingOptionDao pollingOptionDao;
+	@Autowired
+	private PollingHdrDao hdrDao;
+	
+	public class InvalidVoteException extends PersistenceException {
+		
+		private static final long serialVersionUID = -6110580823865514804L;
+
+		public InvalidVoteException() {
+			super();
+		}
+		
+		public InvalidVoteException(String message, Throwable cause) {
+			super(message, cause);
+		}
+		
+		public InvalidVoteException(String message) {
+			super(message);
+		}
+		
+		public InvalidVoteException(Throwable cause) {
+			super(cause);
+		}
+	}
 	
 	private PollingAnswer inputPollingData(PollingAnswer result, String pollingOptionId, Boolean isActive) {
 		PollingOption option = pollingOptionDao.getById(pollingOptionId);
@@ -80,6 +106,8 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 
 	public PojoAnswerPollling insert(PojoInsertPollingAnswerReq data) throws Exception {
 		try {
+			hdrDao.checkExpiredAtFromOptionId(data.getOptionId());
+			
 			begin();
 			PojoAnswerPollling insertRes = new PojoAnswerPollling();
 
@@ -97,7 +125,7 @@ public class PollingAnswerService extends BaseCoreService<PollingAnswer> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
-			throw new Exception(e);
+			throw new InvalidVoteException("Voting is over");
 		}
 	}
 

@@ -116,7 +116,7 @@ public class CommunityService extends BaseCoreService<Community> {
 		PojoFindByIdCommunityRes resultData = new PojoFindByIdCommunityRes();
 		resultData.setData(result);
 
-		return resultData;
+		return resultData; 
 	}
 
 	public SearchQuery<PojoDataCommunity> getAll(String query, Integer startPage, Integer maxPage) throws Exception {

@@ -8,6 +8,7 @@ import com.lawencon.community.dao.RefreshTokenDao;
 import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.LogoutReq;
+import com.lawencon.community.pojo.LogoutRes;
 import com.lawencon.security.RefreshTokenEntity;
 
 @Service
@@ -17,9 +18,10 @@ public class LogoutService extends BaseCoreService<RefreshTokenEntity>{
 	@Autowired
 	private UserDao userDao;
 	
-	public void deleteRefreshToken(String id) throws Exception{
+	public void deleteRefreshToken(String accessToken) throws Exception{
 		try {
 			begin();
+			String id = refreshTokenDao.findRefreshTokenIdFromAccessToken(accessToken);
 			refreshTokenDao.deleteById(id);
 			commit();
 		} catch (Exception e) {
@@ -29,11 +31,16 @@ public class LogoutService extends BaseCoreService<RefreshTokenEntity>{
 		}
 	}
 	
-	public void updateUserLogged(LogoutReq logoutReq) throws Exception{
+	public LogoutRes updateUserLogged(LogoutReq logoutReq) throws Exception{
 		try {
+			LogoutRes res = new LogoutRes();
 			User user = userDao.findByEmail(logoutReq.getEmail());
-			user.setToken(null);
-			userDao.save(user);
+			User userData = userDao.getById(user.getId());
+			userData.setToken(null);
+			userDao.save(userData);
+			
+			res.setMessage("Logout succesfully");
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();

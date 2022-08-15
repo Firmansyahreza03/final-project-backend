@@ -19,7 +19,7 @@ public class ObjectConfig {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedOrigins("http://localhost:4200").allowedMethods(
-						HttpMethod.DELETE.name(), HttpMethod.PUT.name(), HttpMethod.POST.name(), HttpMethod.GET.name());
+						HttpMethod.DELETE.name(), HttpMethod.PUT.name(), HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PATCH.name());
 
 			}
 		};

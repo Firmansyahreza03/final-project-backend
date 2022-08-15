@@ -30,13 +30,14 @@ public class ReportController {
 	private JasperUtil jasperUtil;
 
 	private String companyName = "Filos Community";
-
+	private String companyAddress = "Pakuwon Tower, Jl. Casablanca No.Kav 88, RT.6/RW.14, Kb. Baru, Kec. Tebet, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12870";
+	private String companyDesc = "Website: http//filos.com, Telp: (021) 28542549";
+			
 	private LocalDate stringToLocalDate(String dateStr) {
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		return LocalDate.parse(dateStr, formatter);
 	}
 
-//	Menampilkan report informasi member yang mengikuti event ataupun course pada periode tertentu 
 	@GetMapping("/admin-user")
 	public ResponseEntity<?> reportUserAdmin(@RequestParam String startAt, @RequestParam String endAt) throws Exception {
 		PojoLimitTimeReq req = new PojoLimitTimeReq();
@@ -44,10 +45,12 @@ public class ReportController {
 		req.setEndAt(stringToLocalDate(endAt));
 
 		List<PojoReportUserByCommunityRes> listData = service.userAdminReport(req);
-
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Member Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "userReport");
 
@@ -57,16 +60,18 @@ public class ReportController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(out);
 	}
 	@GetMapping("/user")
-	public ResponseEntity<?> reportUser(@RequestParam String startAt, @RequestParam String endAt) throws Exception {
+	public ResponseEntity<?> reportUser(@RequestParam String refreshToken, @RequestParam String startAt, @RequestParam String endAt) throws Exception {
 		PojoLimitTimeReq req = new PojoLimitTimeReq();
 		req.setStartAt(stringToLocalDate(startAt));
 		req.setEndAt(stringToLocalDate(endAt));
 
-		List<PojoReportUserByCommunityRes> listData = service.userReport(req);
+		List<PojoReportUserByCommunityRes> listData = service.userReport(req, refreshToken);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Member Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "userReport");
 
@@ -76,7 +81,6 @@ public class ReportController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(out);
 	}
 	
-//	Menampilkan report informasi penghasilan dari event ataupun course pada periode tertentu 
 	@GetMapping("/admin-income")
 	public ResponseEntity<?> reportIncome(@RequestParam String startAt, @RequestParam String endAt)
 			throws Exception {
@@ -88,6 +92,8 @@ public class ReportController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Income Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "incomeReport");
 
@@ -97,16 +103,18 @@ public class ReportController {
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"").body(out);
 	}
 	@GetMapping("/income")
-	public ResponseEntity<?> reportIncomeAdmin(@RequestParam String startAt, @RequestParam String endAt)
+	public ResponseEntity<?> reportIncomeAdmin(@RequestParam String refreshToken, @RequestParam String startAt, @RequestParam String endAt)
 			throws Exception {
 		PojoLimitTimeReq req = new PojoLimitTimeReq();
 		req.setStartAt(stringToLocalDate(startAt));
 		req.setEndAt(stringToLocalDate(endAt));
-		List<PojoReportPaymentByCommunityRes> listData = service.incomeCommunityReport(req);
+		List<PojoReportPaymentByCommunityRes> listData = service.incomeCommunityReport(req, refreshToken);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("title", "Income Community Report " + startAt + " s/d " + endAt);
 		map.put("company", companyName);
+		map.put("address", companyAddress);
+		map.put("desc", companyDesc);
 
 		byte[] out = jasperUtil.responseToByteArray(listData, map, "incomeReport");
 

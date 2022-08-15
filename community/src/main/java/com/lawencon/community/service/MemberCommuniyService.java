@@ -91,7 +91,7 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 
 	public SearchQuery<PojoDataMemberCommunity> getAll(String query, Integer startPage, Integer maxPage)
 			throws Exception {
-		SearchQuery<MemberCommunity> getAllMemberCommunity = memberCommunityDao.findAll(query, startPage, maxPage);
+		SearchQuery<MemberCommunity> getAllMemberCommunity = memberCommunityDao.searchQueryTable(query, startPage, maxPage);
 		List<PojoDataMemberCommunity> resultList = new ArrayList<>();
 
 		getAllMemberCommunity.getData().forEach(d -> {
@@ -112,24 +112,29 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 	}
 
 	public PojoInsertRes insert(PojoInsertMemberCommunityReq data) throws Exception {
+		PojoInsertRes res = new PojoInsertRes();
 		try {
-			PojoInsertRes insertRes = new PojoInsertRes();
-			begin();
-
-			User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
-			
-			MemberCommunity reqData = inputMemberCommunityData(new MemberCommunity(), true, user,
-					data.getIdCommunity(), data.getIdPayment());
-
-			MemberCommunity result = save(reqData);
-			PojoInsertResData resData = new PojoInsertResData();
-			resData.setId(result.getId());
-
-			insertRes.setData(resData);
-			insertRes.setMessage("Successfully Adding MemberCommunity");
-
-			commit();
-			return insertRes;
+			Community community = communityDao.getById(data.getIdCommunity());
+			Boolean isJoin = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), community.getId());
+			if(isJoin == false) {				
+				begin();
+				
+				User user = userDao.getById(principalServiceImpl.getAuthPrincipal());
+				
+				MemberCommunity reqData = inputMemberCommunityData(new MemberCommunity(), true, user,
+						data.getIdCommunity(), data.getIdPayment());
+				
+				MemberCommunity result = save(reqData);
+				PojoInsertResData resData = new PojoInsertResData();
+				resData.setId(result.getId());
+				
+				commit();
+				res.setData(resData);
+				res.setMessage(null);
+			} else {
+				res.setMessage("You already joinned");
+			}
+			return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 			rollback();
@@ -179,5 +184,10 @@ public class MemberCommuniyService extends BaseCoreService<MemberCommunity> {
 			rollback();
 			throw new Exception(e);
 		}
+	}
+	
+	public Boolean checkIsJoinedCommunity(String communityId) throws Exception{
+		boolean isJoined = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), communityId);
+		return isJoined;
 	}
 }

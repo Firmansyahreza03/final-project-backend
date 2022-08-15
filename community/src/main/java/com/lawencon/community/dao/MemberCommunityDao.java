@@ -165,4 +165,29 @@ public class MemberCommunityDao extends AbstractJpaDao<MemberCommunity> {
 		});
 		return res;
 	}
+	
+	public Boolean findIsActiveByUserIdAndCommunityId(String userId, String communityId) throws Exception{
+		StringBuilder sql = new StringBuilder()
+				.append(" SELECT c.is_active FROM comm_member_community mc ")
+				.append(" RIGHT JOIN comm_community c ON c.id = mc.community_id ")
+				.append(" WHERE (mc.user_id = :userId AND mc.community_id = :communityId) OR (c.created_by = :userId AND c.id = :communityId) ");
+		
+		Boolean result = null;
+		try {
+			Object res = createNativeQuery(sql.toString())
+					.setParameter("userId", userId)
+					.setParameter("communityId", communityId)
+					.getSingleResult();
+			
+			if(res != null) {
+				result = Boolean.valueOf(res.toString());
+			} else {
+				result = false;
+			}
+		} catch (Exception e) {
+			result = false;
+		}
+		
+		return result;
+	}
 }

@@ -36,7 +36,9 @@ public class SubscriptionStatusDao extends AbstractJpaDao<SubscriptionStatus> {
 				if(objArr[3] != null) {	
 					res.setExpiredAt(((Timestamp) objArr[3]).toLocalDateTime());
 				}
-				res.setCreatedBy(objArr[4].toString());
+				if(objArr[4] != null) {					
+					res.setCreatedBy(objArr[4].toString());
+				}
 				res.setCreatedAt(((Timestamp) objArr[5]).toLocalDateTime());
 				if(objArr[6] != null) {					
 					res.setUpdatedBy(objArr[6].toString());

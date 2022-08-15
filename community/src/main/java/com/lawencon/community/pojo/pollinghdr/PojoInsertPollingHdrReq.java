@@ -1,6 +1,5 @@
 package com.lawencon.community.pojo.pollinghdr;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -16,15 +15,15 @@ public class PojoInsertPollingHdrReq {
 	private Boolean isActive;
 	@NotNull(message = "option can not be empty")
 	private List<String> options;
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.000'Z'")
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX'Z'")
 	@NotNull(message = "start time cannot be empty")
-	private LocalDateTime expiredAt;
+	private String expiredAt;
 
-	public LocalDateTime getExpiredAt() {
+	public String getExpiredAt() {
 		return expiredAt;
 	}
 
-	public void setExpiredAt(LocalDateTime expiredAt) {
+	public void setExpiredAt(String expiredAt) {
 		this.expiredAt = expiredAt;
 	}
 

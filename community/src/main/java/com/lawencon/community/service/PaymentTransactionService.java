@@ -15,6 +15,7 @@ import com.lawencon.community.constant.TransactionType;
 import com.lawencon.community.dao.BalanceDao;
 import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.FileDao;
+import com.lawencon.community.dao.MemberCommunityDao;
 import com.lawencon.community.dao.PaymentTransactionDao;
 import com.lawencon.community.dao.SubscriptionStatusDao;
 import com.lawencon.community.dao.UserDao;
@@ -55,6 +56,8 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 	private UserDao userDao;
 	@Autowired
 	private CommunityDao communityDao;
+	@Autowired
+	private MemberCommunityDao memberCommunityDao;
 
 	private PaymentTransaction inputPaymentTransactionData( PaymentTransaction result, Boolean isActive, Boolean isAcc,  String desc, BigDecimal price, String fileName, String fileExt) throws Exception {
 		
@@ -113,7 +116,8 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 
 	public SearchQuery<PojoDataPaymentTransaction> getAll(String query, Integer startPage, Integer maxPage)
 			throws Exception {
-		SearchQuery<PaymentTransaction> getAllPaymentTransaction = paymentDao.findAll(query, startPage, maxPage);
+		SearchQuery<PaymentTransaction> getAllPaymentTransaction = paymentDao.searchQueryTable(query, startPage, maxPage,
+				"type", "code", "desc");
 		List<PojoDataPaymentTransaction> resultList = new ArrayList<>();
 
 		getAllPaymentTransaction.getData().forEach(d -> {
@@ -150,7 +154,16 @@ public class PaymentTransactionService extends BaseCoreService<PaymentTransactio
 				status.setPayment(result);
 				status.setUpdatedBy(principalServiceImpl.getAuthPrincipal());
 				statusDao.save(status);
-			} 
+			} else if(TransactionType.COMMUNITY.name().equals(data.getType())) {
+				Community community = communityDao.getByName(data.getDesc());
+				Boolean isJoin = memberCommunityDao.findIsActiveByUserIdAndCommunityId(principalServiceImpl.getAuthPrincipal(), community.getId());
+				if(isJoin == true) {
+					insertRes.setData(null);
+					insertRes.setMessage("You have joined this event/training");
+					rollback();
+					return insertRes;
+				}
+			}
 			
 			commit();
 			PojoInsertResData resData = new PojoInsertResData();

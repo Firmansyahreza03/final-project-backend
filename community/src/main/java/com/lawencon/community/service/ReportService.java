@@ -13,15 +13,16 @@ import com.lawencon.community.dao.CommunityDao;
 import com.lawencon.community.dao.MemberCommunityDao;
 import com.lawencon.community.dao.PaymentTransactionDao;
 import com.lawencon.community.dao.ProfileDao;
+import com.lawencon.community.dao.UserDao;
 import com.lawencon.community.model.Community;
 import com.lawencon.community.model.CommunityCategory;
 import com.lawencon.community.model.MemberCommunity;
 import com.lawencon.community.model.PaymentTransaction;
 import com.lawencon.community.model.Profile;
+import com.lawencon.community.model.User;
 import com.lawencon.community.pojo.report.PojoLimitTimeReq;
 import com.lawencon.community.pojo.report.PojoReportPaymentByCommunityRes;
 import com.lawencon.community.pojo.report.PojoReportUserByCommunityRes;
-import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class ReportService {
@@ -36,7 +37,7 @@ public class ReportService {
 	@Autowired
 	private PaymentTransactionDao paymentDao;;
 	@Autowired
-	private PrincipalServiceImpl principalServiceImpl;
+	private UserDao userDao;
 
 	private List<PojoReportUserByCommunityRes> makingUserReport
 			(List<MemberCommunity> listData) throws Exception {
@@ -107,15 +108,17 @@ public class ReportService {
 	}
 
 	public List<PojoReportUserByCommunityRes> userReport 
-			(PojoLimitTimeReq dataReq) throws Exception {
-		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndIdUser(principalServiceImpl.getAuthPrincipal(), dataReq.getStartAt(), dataReq.getEndAt());
+			(PojoLimitTimeReq dataReq, String refreshToken) throws Exception {
+		User user = userDao.findByRefreshToken(refreshToken);
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndIdUser(user.getId(), dataReq.getStartAt(), dataReq.getEndAt());
 		List<PojoReportUserByCommunityRes> result = makingUserReport(listData);
 		return result;
 	}
 
 	public List<PojoReportPaymentByCommunityRes> incomeCommunityReport
-			(PojoLimitTimeReq dataReq) throws Exception {
-		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndAccPaymentAndIdMaker(principalServiceImpl.getAuthPrincipal(), dataReq.getStartAt(), dataReq.getEndAt());
+			(PojoLimitTimeReq dataReq, String refreshToken) throws Exception {
+		User user = userDao.findByRefreshToken(refreshToken);
+		List<MemberCommunity> listData = memberCommunityDao.findByPeriodeAndAccPaymentAndIdMaker(user.getId(), dataReq.getStartAt(), dataReq.getEndAt());
 		List<PojoReportPaymentByCommunityRes> result = makingIncomeReport(listData, RoleType.NONADMIN);
 		return result;
 	}

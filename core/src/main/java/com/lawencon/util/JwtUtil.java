@@ -1,6 +1,5 @@
 package com.lawencon.util;
 
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -29,11 +28,9 @@ public class JwtUtil {
 	}
 
 	public String generateToken(Map<String, Object> claims, Duration duration) {
-		LocalDateTime expiredDate = LocalDateTime.now().plusSeconds(duration.getSeconds());
 		
 		JwtBuilder jwtBuilder = Jwts.builder()
 				.signWith(secretKey)
-				.setExpiration(Timestamp.valueOf(expiredDate))
 				.setClaims(claims);
 
 		return jwtBuilder.compact();

@@ -19,7 +19,7 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 
 	public List<ThreadHdr> findByCreatorId(String id, Integer startPage, Integer maxPage) throws Exception {
 		StringBuilder sql = new StringBuilder()
-				.append(" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id, th.created_at, th.polling_id, ph.polling_name ")
+				.append(" SELECT th.thread_name, th.is_premium, th.category_id, tc.category_name, th.created_by, th.id, th.thread_content, th.file_id, th.created_at, th.polling_id, ph.polling_name, ph.expired_at ")
 				.append(" FROM comm_thread_hdr th ")
 				.append(" INNER JOIN comm_thread_category tc ON tc.id = th.category_id ")
 				.append(" LEFT JOIN comm_polling_hdr ph ON ph.id = th.polling_id ")
@@ -61,6 +61,7 @@ public class ThreadHdrDao extends AbstractJpaDao<ThreadHdr> {
 					PollingHdr pollingHdr = new PollingHdr();
 					pollingHdr.setId(objArr[9].toString());
 					pollingHdr.setPollingName(objArr[10].toString());
+					pollingHdr.setExpiredAt(Timestamp.valueOf(objArr[11].toString()).toLocalDateTime());
 					hdr.setPolling(pollingHdr);
 				}
 

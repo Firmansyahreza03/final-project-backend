@@ -30,6 +30,7 @@ import com.lawencon.community.pojo.community.PojoFindByIdCommunityRes;
 import com.lawencon.community.pojo.community.PojoInsertCommunityReq;
 import com.lawencon.community.pojo.community.PojoUpdateCommunityReq;
 import com.lawencon.model.SearchQuery;
+import com.lawencon.security.PrincipalServiceImpl;
 
 @Service
 public class CommunityService extends BaseCoreService<Community> {
@@ -45,6 +46,8 @@ public class CommunityService extends BaseCoreService<Community> {
 	private ProfileDao profileDao;
 	@Autowired
 	private CodeService codeService;
+	@Autowired
+	private PrincipalServiceImpl principalServiceImpl;
 
 	public LocalDateTime stringToLocalDateTime(String dateTimeStr) {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
@@ -113,12 +116,12 @@ public class CommunityService extends BaseCoreService<Community> {
 		PojoFindByIdCommunityRes resultData = new PojoFindByIdCommunityRes();
 		resultData.setData(result);
 
-		return resultData;
+		return resultData; 
 	}
 
 	public SearchQuery<PojoDataCommunity> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
 		SearchQuery<Community> communityList = communityDao.searchQueryTable(query, startPage, maxPage, "communityCode",
-				"communityTitle", "communityProvider", "industry.industryName");
+				"communityTitle", "communityProvider", "category.categoryName", "industry.industryName");
 		List<PojoDataCommunity> resultList = new ArrayList<>();
 
 		communityList.getData().forEach(d -> {
@@ -269,6 +272,32 @@ public class CommunityService extends BaseCoreService<Community> {
 			throws Exception {
 
 		List<Community> communities = communityDao.getByCategoryCode(code, startPage, maxPage);
+
+		SearchQuery<Community> communityList = findAll(() -> communities);
+
+		List<PojoDataCommunity> resultList = new ArrayList<>();
+
+		communityList.getData().forEach(d -> {
+			PojoDataCommunity data;
+			try {
+				data = modelToRes(d);
+				resultList.add(data);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		});
+
+		SearchQuery<PojoDataCommunity> result = new SearchQuery<PojoDataCommunity>();
+		result.setData(resultList);
+		result.setCount(communityList.getData().size());
+		return result;
+	}
+
+
+	public SearchQuery<PojoDataCommunity> getByLogUser( Integer startPage, Integer maxPage) throws Exception {
+		List<Community> communities = communityDao.findByAccPaymentAndMemberId
+				(principalServiceImpl.getAuthPrincipal(), startPage, maxPage);
 
 		SearchQuery<Community> communityList = findAll(() -> communities);
 

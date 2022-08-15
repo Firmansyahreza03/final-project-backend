@@ -21,10 +21,6 @@ public class Article extends BaseEntity {
 	private String articleContent;
 
 	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-
-	@OneToOne
 	@JoinColumn(name = "industry_id")
 	private Industry industry;
 
@@ -51,13 +47,4 @@ public class Article extends BaseEntity {
 	public void setArticleContent(String articleContent) {
 		this.articleContent = articleContent;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 }

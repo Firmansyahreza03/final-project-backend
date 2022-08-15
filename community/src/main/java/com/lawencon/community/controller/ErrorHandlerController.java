@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.lawencon.community.exception.InvalidLoginException;
 import com.lawencon.community.pojo.PojoErrorRes;
+import com.lawencon.security.RefreshTokenService.InvalidTokenException;
 import com.lawencon.util.VerificationCodeUtil;
 import com.lawencon.util.VerificationCodeUtil.InvalidVerificationCodeException;
-
 
 @ControllerAdvice
 public class ErrorHandlerController {
@@ -55,6 +55,15 @@ public class ErrorHandlerController {
 	
 	@ExceptionHandler(AccessDeniedException.class)
 	public ResponseEntity<?> handlerAccessDeniedException(AccessDeniedException e){
+		PojoErrorRes<String> respond = new PojoErrorRes<>();
+		
+		respond.setMessage(NestedExceptionUtils.getMostSpecificCause(e).getMessage());
+		
+		return new ResponseEntity<>(respond, HttpStatus.UNAUTHORIZED);
+	}
+	
+	@ExceptionHandler(InvalidTokenException.class)
+	public ResponseEntity<?> handlerInvalidTokenException(InvalidTokenException e){
 		PojoErrorRes<String> respond = new PojoErrorRes<>();
 		
 		respond.setMessage(NestedExceptionUtils.getMostSpecificCause(e).getMessage());

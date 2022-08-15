@@ -70,8 +70,8 @@ public class ArticleService extends BaseCoreService<Article> {
 	}
 
 	public SearchQuery<PojoDataArticle> getAll(String query, Integer startPage, Integer maxPage) throws Exception {
-		SearchQuery<Article> getAllArticle = articleDao.findAll(query, startPage, maxPage, "articleTitle",
-				"articleContent", "industry.industryName");
+		SearchQuery<Article> getAllArticle = articleDao.searchQueryTable(query, startPage, maxPage, 
+				"articleTitle", "articleContent", "industry.industryName");
 
 		List<PojoDataArticle> resultList = new ArrayList<>();
 
@@ -97,10 +97,11 @@ public class ArticleService extends BaseCoreService<Article> {
 			PojoInsertRes insertRes = new PojoInsertRes();
 
 			Article reqData = inputArticleData(new Article(), true, data.getTitle(), data.getContent(), data.getIdIndustry());
-
+			
 			begin();
 			Article result = save(reqData);
 			commit();
+			
 			PojoInsertResData resData = new PojoInsertResData();
 			resData.setId(result.getId());
 
@@ -109,7 +110,6 @@ public class ArticleService extends BaseCoreService<Article> {
 
 			return insertRes;
 		} catch (Exception e) {
-			e.printStackTrace();
 			rollback();
 			throw new Exception(e);
 		}
@@ -125,6 +125,7 @@ public class ArticleService extends BaseCoreService<Article> {
 			begin();
 			Article result = save(reqData);
 			commit();
+			
 			PojoUpdateResData resData = new PojoUpdateResData();
 			resData.setVersion(result.getVersion());
 

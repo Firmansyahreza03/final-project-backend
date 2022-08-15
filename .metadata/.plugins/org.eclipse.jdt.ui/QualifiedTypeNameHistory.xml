@@ -12,7 +12,6 @@
     <fullyQualifiedTypeName name="com.lawencon.community.service.CodeService"/>
     <fullyQualifiedTypeName name="com.lawencon.community.pojo.paymentTransaction.PojoValidPaymentTransactionReq"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-    <fullyQualifiedTypeName name="com.lawencon.security.PrincipalServiceImpl"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="java.util.HashMap"/>
@@ -39,4 +38,5 @@
     <fullyQualifiedTypeName name="java.math.BigDecimal"/>
     <fullyQualifiedTypeName name="com.lawencon.community.constant.RoleType"/>
     <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.lawencon.security.PrincipalServiceImpl"/>
 </qualifiedTypeNameHistroy>
